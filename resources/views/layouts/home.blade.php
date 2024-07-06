@@ -8,14 +8,9 @@
 </head>
 
 <body>
-    
     @include('components.navbar')
 
-    <section class="bg-soft-blue py-4">
-        <div class="container">
-            @yield('content')
-        </div>
-    </section>
+    @yield('content')
 
     @include('components.footer')
 

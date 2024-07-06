@@ -9,7 +9,7 @@
 
     <link rel="stylesheet" href="{{ url('assets/vendors/bootstrap/css/bootstrap.css') }}">
     <link rel="stylesheet" href="{{ url('assets/vendors/boxicons/css/boxicons.min.css') }}">
-    <link rel="stylesheet" href="{{ url('assets/css/style.css') }}">
+    <link rel="stylesheet" href="{{ url('assets/css/styles.css') }}">
 </head>
 
 <body class="bg-soft-blue">

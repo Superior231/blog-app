@@ -1,4 +1,6 @@
-@extends('layouts.auth')
+@extends('layouts.auth', [
+    'title' => 'Register'
+])
 
 @section('content')
     <h5 class="text-dark fw-bold mb-4">Sign Up</h5>

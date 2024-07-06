@@ -19,6 +19,16 @@ a {
   text-decoration: none;
 }
 
+.text-primary {
+  color: var(--bs-primary) !important;
+}
+.bg-primary {
+  background-color: var(--bs-primary) !important;
+}
+.border-primary {
+  border-color: var(--bs-primary) !important;
+}
+
 .bg-soft-blue {
   background-color: var(--soft-blue);
 }
@@ -106,3 +116,21 @@ section {
 .link:hover {
     color: #4564e5;
 }
+
+
+/* Summernote */
+.note-toolbar {
+  background-color: var(--soft-blue) !important;
+}
+.note-btn-group > button:hover {
+  background-color: var(--bs-primary) !important;
+  color: var(--soft-blue) !important;
+}
+.note-btn-group > *.active {
+  background-color: var(--bs-primary) !important;
+  color: var(--soft-blue) !important;
+}
+.note-editable {
+  background-color: #ffffff !important;
+}
+/* Summernote End */
