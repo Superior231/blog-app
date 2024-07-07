@@ -17,6 +17,10 @@
         </div>
     </section>
 
+    <div class="back-to-top">
+        <a class="icon-back-to-top" href="#"><i class='bx bxs-chevron-up fs-2'></i></a>
+    </div>
+
     @include('components.footer')
 
     @include('components.script')

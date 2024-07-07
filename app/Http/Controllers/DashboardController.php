@@ -12,9 +12,11 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        $articles = Article::where('user_id', Auth::user()->id)
-                    ->orderBy('id', 'desc')
-                    ->get();
+        if (Auth::user()->roles == 'admin') {
+            $articles = Article::orderBy('id', 'desc')->get();
+        } else {
+            $articles = Article::where('user_id', Auth::user()->id)->orderBy('id', 'desc')->get();
+        }
 
         return view('pages.dashboard.index', [
             'title' => 'Dashboard',
@@ -72,6 +74,9 @@ class DashboardController extends Controller
     public function update(Request $request, string $id)
     {
         $article = Article::find($id);
+        $article->author = $request->input('author', $article->author);
+        $article->source = $request->input('source', $article->source);
+        $article->date = $request->input('date', $article->date);
         $article->title = $request->input('title', $article->title);
         $article->body = $request->input('body', $article->body);
         $article['slug'] = Str::slug($request->title);

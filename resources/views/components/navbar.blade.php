@@ -1,6 +1,6 @@
-<nav class="navbar navbar-expand-lg py-4 bg-soft-blue">
+<nav class="navbar sticky-top navbar-expand-lg py-3 bg-soft-blue">
     <div class="container">
-        <a href="" class="logo">
+        <a href="{{ route('home') }}" class="logo">
             <img src="{{ url('assets/images/logo.png') }}" alt="Blog App">
             <span>Blog App</span>
         </a>
@@ -19,7 +19,7 @@
                         <a href="{{ route('dashboard.index') }}" class="nav-link text-center {{ $active == 'dashboard' ? 'text-primary fw-semibold' : '' }}">Dashboard</a>
                     </li>
                 </ul>
-                <ul class="navbar-nav mx-0 me-4 ms-auto my-1" id="dropdown">
+                <ul class="navbar-nav mx-0" id="dropdown">
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle d-flex align-items-center text-dark" href="#" id="navbarDropdownMenuLink"
                             role="button" data-bs-toggle="dropdown" aria-expanded="false">

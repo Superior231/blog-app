@@ -14,7 +14,7 @@
                 <table class="table">
                     <thead>
                         <tr>
-                            <th>No.</th>
+                            <th class="text-center">No</th>
                             <th>Judul Artikel</th>
                             <th>Tanggal Post</th>
                             <th class="text-center">Actions</th>
@@ -23,9 +23,9 @@
                     <tbody>
                         @forelse ($articles as $index => $item)
                         <tr class="align-middle">
-                            <td>{{ ++$index }}</td>
+                            <td class="text-center">{{ ++$index }}</td>
                             <td>{{ $item->title }}</td>
-                            <td>{{ Carbon\Carbon::parse($item->created_at)->translatedFormat('d F Y') }}</td>
+                            <td>{{ Carbon\Carbon::parse($item->date)->translatedFormat('d F Y') }}</td>
                             <td>
                                 <div class="d-flex justify-content-center gap-1">
                                     <a href="{{ route('dashboard.edit', $item->slug) }}" class="btn py-1 btn-primary fw-normal">Edit</a>

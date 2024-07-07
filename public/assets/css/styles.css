@@ -3,6 +3,8 @@
 :root {
   --bs-primary: #4564e5;
   --soft-blue: #f1f5fb;
+  --text-light: #ffffff;
+  --bg-light: var(--text-light);
 }
 
 * {
@@ -131,13 +133,19 @@ section {
   color: var(--soft-blue) !important;
 }
 .note-editable {
-  background-color: #ffffff !important;
+  background-color: var(--bg-light) !important;
 }
 /* Summernote End */
 
 
 
 /* Navbar */
+.profile-author {
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  overflow: hidden;
+}
 .profile-image {
   width: 40px;
   height: 40px;
@@ -145,6 +153,7 @@ section {
   overflow: hidden;
 }
 
+.profile-author img,
 .profile-image img {
   width: 100%;
   height: 100%;
@@ -153,3 +162,49 @@ section {
   object-position: center;
 }
 /* Navbar End */
+
+
+/* Article Detail */
+section.thumbnail {
+  width: 100%;
+  border-radius: 0px;
+}
+section.thumbnail img {
+  aspect-ratio: 16/6 !important;
+  width: 100%;
+  background-size: cover;
+  object-fit: cover;
+  background-position: center;
+}
+@media (min-width: 768px) {
+  section.thumbnail {
+      aspect-ratio: 16/4 !important;
+  }
+}
+/* Article Detail End */
+
+
+/* Back to Top */
+.icon-back-to-top {
+  position: fixed;
+  height: 50px;
+  width: 50px;
+  background: var(--bs-primary);
+  bottom: 20px;
+  right: 20px;
+  text-decoration: none;
+  text-align: center;
+  line-height: 63px;
+  border-radius: 10px;
+  pointer-events: none;
+  transition: all .4s;
+  opacity: 0;
+}
+.icon-back-to-top.active {
+  pointer-events: auto;
+  opacity: 1;
+}
+.icon-back-to-top i {
+  color: var(--text-light);
+}
+/* Back to Top End */
