@@ -14,6 +14,9 @@ return new class extends Migration
         Schema::create('articles', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            $table->string('author')->nullable();
+            $table->string('source')->nullable();
+            $table->date('date');
             $table->string('title');
             $table->string('slug');
             $table->string('thumbnail');
