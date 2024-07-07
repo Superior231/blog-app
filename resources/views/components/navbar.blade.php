@@ -11,7 +11,7 @@
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             @auth()
-                <ul class="navbar-nav ms-auto mx-auto">
+                <ul class="navbar-nav d-flex justify-content-center w-100">
                     <li class="nav-item">
                         <a href="{{ route('home') }}" class="nav-link text-center {{ $active == 'home' ? 'text-primary fw-semibold' : '' }}">Home</a>
                     </li>
@@ -19,20 +19,43 @@
                         <a href="{{ route('dashboard.index') }}" class="nav-link text-center {{ $active == 'dashboard' ? 'text-primary fw-semibold' : '' }}">Dashboard</a>
                     </li>
                 </ul>
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a id="logout-confirmaton" class="nav-link text-center text-light bg-danger px-3 py-2 rounded-3" href="{{ route('logout') }}"
-                            onclick="event.preventDefault(); logout();">
-                            {{ __('Logout') }}
+                <ul class="navbar-nav mx-0 me-4 ms-auto my-1" id="dropdown">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle d-flex align-items-center text-dark" href="#" id="navbarDropdownMenuLink"
+                            role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <div class="profile-image">
+                                @if (!empty(Auth::user()->avatar))
+                                    <img class="img" src="{{ asset('storage/avatars/' . Auth::user()->avatar) }}">
+                                @elseif (!empty(Auth::user()->avatar_google))
+                                    <img class="img" src="{{ Auth::user()->avatar_google }}">
+                                @else
+                                    <img class="img" src="https://ui-avatars.com/api/?background=random&name={{ urlencode(Auth::user()->name) }}">
+                                @endif
+                            </div>
+                            <span class="nav-text text-dark username-count">&nbsp;{{ Auth::user()->name }}</span>
                         </a>
-
-                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                            @csrf
-                        </form>
+                        <ul class="dropdown-menu dropdown-menu-light dropdown-menu-end"
+                            aria-labelledby="navbarDropdownMenuLink">
+                            <li><a class="dropdown-item" href="#">My profile</a></li>
+                            <li><a class="dropdown-item" href="#">Pengaturan</a></li>
+                            <li>
+                                <hr class="dropdown-divider-light py-0 my-1">
+                            </li>
+                            <li>
+                                <a id="logout-confirmaton" class="dropdown-item" href="{{ route('logout') }}"
+                                onclick="event.preventDefault(); logout();">
+                                    {{ __('Logout') }}
+                                </a>
+    
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                    @csrf
+                                </form>
+                            </li>
+                        </ul>
                     </li>
                 </ul>
             @else
-                <ul class="navbar-nav ms-auto mx-auto">
+                <ul class="navbar-nav d-flex justify-content-center w-100">
                     <li class="nav-item">
                         <a href="{{ route('home') }}" class="nav-link text-center {{ $active == 'home' ? 'text-primary fw-semibold' : '' }}">Home</a>
                     </li>

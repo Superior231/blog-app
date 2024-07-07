@@ -3,7 +3,13 @@
 ])
 
 @section('content')
-    <h5 class="text-dark fw-bold mb-4">Sign Up</h5>
+    <h5 class="text-dark fw-bold">Sign Up</h5>
+
+    <a href="{{ route('google.redirect') }}" class="btn btn-light border-dark color-dark rounded-3 w-100 mt-2 mb-4">
+        <img src="{{ url('assets/images/google-icon.png') }}" style="width: 20px;" alt="Google Icon">
+        Sign Up with Google
+    </a>
+
     <form method="POST" action="{{ route('register') }}">
         @csrf
 

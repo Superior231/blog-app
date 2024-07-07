@@ -18,7 +18,7 @@
         <div class="row align-items-center justify-content-center py-5" style="min-height: 100vh">
             <div class="col-md-5">
                 <div class="card">
-                    <div class="card-body">
+                    <div class="card-body p-4 p-lg-5">
                         <a href="." class="logo mb-4">
                             <img src="{{ url('assets/images/logo.png') }}" alt="Logo">
                             <span>Blog App</span>

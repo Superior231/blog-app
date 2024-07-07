@@ -12,7 +12,7 @@ class HomeController extends Controller
         $articles = Article::orderBy('created_at', 'desc')->paginate(5);
 
         return view('pages.home', [
-            'title' => 'Homepage',
+            'title' => 'Blog App',
             'active' => 'home',
             'articles' => $articles
         ]);

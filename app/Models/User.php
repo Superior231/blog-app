@@ -20,6 +20,7 @@ class User extends Authenticatable
         'name',
         'email',
         'avatar',
+        'avatar_google',
         'roles',
         'password',
     ];
