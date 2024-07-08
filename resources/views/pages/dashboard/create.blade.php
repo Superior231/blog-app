@@ -2,6 +2,7 @@
 
 @push('styles')
     <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 @endpush
 
 @section('content')
@@ -34,16 +35,16 @@
                 <hr class="bg-secondary">
                 <div class="mb-3">
                     <label for="author">Author</label>
-                    <input type="text" name="author" class="form-control" id="author" placeholder="Masukkan nama penulisnya" autofocus>
+                    <input type="text" name="author" class="form-control" id="author" placeholder="Masukkan nama penulisnya" autofocus value="{{ old('author') }}">
                 </div>
                 <div class="row row-cols-1 row-cols-lg-2 g-3">
                     <div class="col">
                         <label for="source">Sumber <small class="text-secondary">(opsional)</small></label>
-                        <input type="text" name="source" class="form-control" id="source" placeholder="ex. tribunnews.com">
+                        <input type="text" name="source" class="form-control" id="source" placeholder="ex. tribunnews.com" value="{{ old('source') }}">
                     </div>
                     <div class="col">
                         <label for="date">Date</label>
-                        <input type="date" name="date" class="form-control" id="date" required>
+                        <input type="date" name="date" class="form-control" id="date" required value="{{ old('date') }}">
                     </div>
                 </div>
             </div>
@@ -55,13 +56,26 @@
                 <h5 class="card-title">Data</h5>
                 <hr class="bg-secondary">
                 <div class="mb-3">
+                    <label for="title">Kategori</label>
+                    <select class="form-select" id="category-select" multiple="multiple" required>
+                        @foreach ($categories as $item)
+                            <option value="{{ $item->title }}">{{ $item->title }}</option>
+                        @endforeach
+                    </select>
+                    <input type="hidden" name="category" id="category-input" value="">
+                </div>
+                <div class="mb-3">
                     <label for="title">Judul</label>
-                    <input type="text" name="title" class="form-control" id="title"
-                        placeholder="Masukkan judul artikelnya" required>
+                    <input type="text" name="title" class="form-control @if($errors->has('title')) is-invalid @endif" id="title" value="{{ old('title') }}" placeholder="Masukkan judul artikelnya" required>
+                    @error('title')
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
+                    @enderror
                 </div>
                 <div class="mb-3">
                     <label for="body">Isi Konten</label>
-                    <textarea name="body" id="body" cols="30" rows="10"></textarea>
+                    <textarea name="body" id="body" cols="30" rows="10" required>{{ old('body') }}</textarea>
                 </div>
             </div>
         </div>
@@ -77,6 +91,7 @@
         integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous">
     </script>
     <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
     <script>
         $(document).ready(function() {
@@ -84,6 +99,15 @@
                 height: 400,
                 tabsize: 5
             });
+        });
+
+        $('#category-select').select2({
+            tags: true,
+            placeholder: "Select Categories"
+        });
+        $('#category-select').change(function() {
+            var selectedValues = $(this).val();
+            $('#category-input').val(selectedValues);
         });
     </script>
 @endpush

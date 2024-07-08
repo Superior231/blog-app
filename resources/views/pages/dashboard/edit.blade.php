@@ -2,6 +2,7 @@
 
 @push('styles')
     <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 @endpush
 
 @section('content')
@@ -54,13 +55,29 @@
                 <h5 class="card-title">Data</h5>
                 <hr class="bg-secondary">
                 <div class="mb-3">
+                    <label for="title">Kategori</label>
+                    <select class="form-select" id="category-select" multiple="multiple">
+                        @foreach ($categories as $item)
+                            <option value="{{ $item->title }}" {{ in_array($item->title, explode(',', $article->category)) ? 'selected' : '' }}>{{ $item->title }}</option>
+                        @endforeach
+                    </select>
+                    <input type="hidden" value="{{ $article->category }}" name="category" id="category-input">
+                                      
+                </div>
+                <div class="mb-3">
                     <label for="title">Judul</label>
-                    <input type="text" name="title" class="form-control" id="title"
+                    <input type="text" name="title" class="form-control @if($errors->has('title')) is-invalid @endif" id="title"
                         placeholder="Masukkan judul artikelnya" value="{{ $article->title }}" required>
+                        
+                    @error('title')
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
+                    @enderror
                 </div>
                 <div class="mb-3">
                     <label for="body">Isi Konten</label>
-                    <textarea name="body" id="body" cols="30" rows="10">{{ $article->body }}</textarea>
+                    <textarea name="body" id="body" cols="30" rows="10" required>{{ $article->body }}</textarea>
                 </div>
             </div>
         </div>
@@ -76,6 +93,7 @@
         integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous">
     </script>
     <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
     <script>
         $(document).ready(function() {
@@ -83,6 +101,15 @@
                 height: 400,
                 tabsize: 5
             });
+        });
+
+        $('#category-select').select2({
+            tags: true,
+            placeholder: "Select Categories",
+        });
+        $('#category-select').change(function() {
+            var selectedValues = $(this).val();
+            $('#category-input').val(selectedValues);
         });
     </script>
 @endpush

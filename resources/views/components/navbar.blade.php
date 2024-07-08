@@ -18,6 +18,11 @@
                     <li class="nav-item">
                         <a href="{{ route('dashboard.index') }}" class="nav-link text-center {{ $active == 'dashboard' ? 'text-primary fw-semibold' : '' }}">Dashboard</a>
                     </li>
+                    @if (Auth::user()->roles == 'admin')
+                        <li class="nav-item">
+                            <a href="{{ route('category.index') }}" class="nav-link text-center {{ $active == 'category' ? 'text-primary fw-semibold' : '' }}">Category</a>
+                        </li>
+                    @endif
                 </ul>
                 <ul class="navbar-nav mx-0" id="dropdown">
                     <li class="nav-item dropdown">
@@ -55,12 +60,7 @@
                     </li>
                 </ul>
             @else
-                <ul class="navbar-nav d-flex justify-content-center w-100">
-                    <li class="nav-item">
-                        <a href="{{ route('home') }}" class="nav-link text-center {{ $active == 'home' ? 'text-primary fw-semibold' : '' }}">Home</a>
-                    </li>
-                </ul>
-                <ul class="navbar-nav gap-2">
+                <ul class="navbar-nav ms-auto mx-0 gap-2">
                     <li class="nav-item">
                         <a href="{{ route('login') }}" class="nav-link text-center border border-secondary px-3 py-2 rounded-3">Masuk</a>
                     </li>

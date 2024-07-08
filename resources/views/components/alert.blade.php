@@ -11,7 +11,7 @@
 
 {{-- Error --}}
 @if (session()->has('error'))
-    <div class="alert alert-error alert-dismissible d-flex align-items-center gap-2" role="alert">
+    <div class="alert alert-danger alert-dismissible d-flex align-items-center gap-2" role="alert">
         <i class='bx bxs-error-circle text-error fs-4'></i>
         <div>
             {{ session('error') }}
@@ -19,3 +19,15 @@
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
 @endif
+
+
+@if ($errors->has('title'))
+    <div class="alert alert-danger alert-dismissible d-flex align-items-center gap-2" role="alert">
+        <i class='bx bxs-error-circle text-error fs-4'></i>
+        <div>
+            {{ $errors->first('title') }}
+        </div>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+@endif
+
