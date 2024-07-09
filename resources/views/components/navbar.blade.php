@@ -41,11 +41,6 @@
                         </a>
                         <ul class="dropdown-menu dropdown-menu-light dropdown-menu-end"
                             aria-labelledby="navbarDropdownMenuLink">
-                            <li><a class="dropdown-item" href="#">My profile</a></li>
-                            <li><a class="dropdown-item" href="#">Pengaturan</a></li>
-                            <li>
-                                <hr class="dropdown-divider-light py-0 my-1">
-                            </li>
                             <li>
                                 <a id="logout-confirmaton" class="dropdown-item" href="{{ route('logout') }}"
                                 onclick="event.preventDefault(); logout();">

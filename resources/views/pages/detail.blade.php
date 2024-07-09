@@ -24,17 +24,18 @@
                             <img class="img" src="https://ui-avatars.com/api/?background=random&name={{ urlencode($article->user->name) }}">
                         @endif
                     </div>
-                    <p class="my-0 py-0 text-dark fs-7">{{ $article->author ? $article->author : $article->user->name }}</p>
+                    <p class="my-0 py-0 text-dark fs-7">{{ $article->user->name }}</p>
                 </div>
-                <p class="mb-0 text-secondary fs-7">Sumber : <i>{{ $article->source ? $article->source : 'blog-app.hikmal-falah.com' }}</i></p>
-                <p class="mb-0 text-secondary fs-7">Dipublish pada {{ Carbon\Carbon::parse($article->date)->translatedFormat('d F Y') }}</p>
+                <p class="mb-0 text-secondary fs-7">Dipublish pada {{ Carbon\Carbon::parse($article->created_at)->translatedFormat('d F Y') }}</p>
             </div>
         </div>
     </section>
 
-    <section>
+    <section class="article-body">
         <div class="container px-3 px-md-5">
-            <img src="{{ url('storage/thumbnails/' . $article->thumbnail) }}" alt="thumbnail" class="rounded-2 mb-5">
+            <div class="thumbnail">
+                <img src="{{ url('storage/thumbnails/' . $article->thumbnail) }}" alt="thumbnail" class="rounded-2 mb-5">
+            </div>
             <div class="px-0 mx-0">
                 {!! $article->body !!}
             </div>

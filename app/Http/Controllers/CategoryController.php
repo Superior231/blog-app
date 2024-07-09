@@ -12,7 +12,7 @@ class CategoryController extends Controller
         $categories = Category::orderBy('title', 'asc')->paginate(10);
 
         return view('pages.category.index', [
-            'title' => 'Kategori',
+            'title' => 'Blog App - Kategori',
             'active' => 'category',
             'categories' => $categories
         ]);

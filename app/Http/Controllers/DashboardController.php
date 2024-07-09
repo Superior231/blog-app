@@ -16,23 +16,29 @@ class DashboardController extends Controller
     {
         if (Auth::user()->roles == 'admin') {
             $articles = Article::orderBy('id', 'desc')->get();
+            $myArticles = Article::where('user_id', Auth::user()->id)->count();
+            $categories = Category::count();
         } else {
             $articles = Article::where('user_id', Auth::user()->id)->orderBy('id', 'desc')->get();
+            $myArticles = Article::where('user_id', Auth::user()->id)->count();
+            $categories = Category::count();
         }
 
         return view('pages.dashboard.index', [
-            'title' => 'Dashboard',
+            'title' => 'Blog App - Dashboard',
             'active' => 'dashboard',
             'articles' => $articles,
+            'myArticles' => $myArticles,
+            'categories' => $categories
         ]);
     }
 
     public function create()
     {
-        $categories = Category::all();
+        $categories = Category::orderBy('title', 'asc')->get();
 
         return view('pages.dashboard.create', [
-            'title' => 'Buat Artikel',
+            'title' => 'Blog App - Buat Artikel',
             'active' => 'dashboard',
             'categories' => $categories
         ]);
@@ -60,10 +66,6 @@ class DashboardController extends Controller
         
         $article = Article::create($data);
 
-        if ($article && isset($data['category_id'])) {
-            $article->categories()->attach($data['category_id']);
-        }
-
         if ($article) {
             return redirect()->route('dashboard.index')->with('success', 'Artikel berhasil dibuat!');
         } else {
@@ -74,10 +76,10 @@ class DashboardController extends Controller
     public function edit($slug)
     {
         $article = Article::where('slug', $slug)->first();
-        $categories = Category::all();
+        $categories = Category::orderBy('title', 'asc')->get();
 
         return view('pages.dashboard.edit', [
-            'title' => 'Edit Artikel',
+            'title' => 'Blog App - Edit Artikel',
             'active' => 'dashboard',
             'article' => $article,
             'categories' => $categories,
@@ -98,9 +100,6 @@ class DashboardController extends Controller
 
         $article = Article::find($id);
         $article->category = $request->input('category', $article->category);
-        $article->author = $request->input('author', $article->author);
-        $article->source = $request->input('source', $article->source);
-        $article->date = $request->input('date', $article->date);
         $article->title = $request->input('title', $article->title);
         $article->body = $request->input('body', $article->body);
         $article['slug'] = Str::slug($request->title);

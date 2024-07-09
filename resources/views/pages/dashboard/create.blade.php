@@ -28,28 +28,6 @@
             </div>
         </div>
 
-        <!-- Meta -->
-        <div class="card">
-            <div class="card-body p-3 p-lg-4">
-                <h5 class="card-title">Meta</h5>
-                <hr class="bg-secondary">
-                <div class="mb-3">
-                    <label for="author">Author</label>
-                    <input type="text" name="author" class="form-control" id="author" placeholder="Masukkan nama penulisnya" autofocus value="{{ old('author') }}">
-                </div>
-                <div class="row row-cols-1 row-cols-lg-2 g-3">
-                    <div class="col">
-                        <label for="source">Sumber <small class="text-secondary">(opsional)</small></label>
-                        <input type="text" name="source" class="form-control" id="source" placeholder="ex. tribunnews.com" value="{{ old('source') }}">
-                    </div>
-                    <div class="col">
-                        <label for="date">Date</label>
-                        <input type="date" name="date" class="form-control" id="date" required value="{{ old('date') }}">
-                    </div>
-                </div>
-            </div>
-        </div>
-
         <!-- Data -->
         <div class="card">
             <div class="card-body p-3 p-lg-4">
@@ -97,7 +75,19 @@
         $(document).ready(function() {
             $('#body').summernote({
                 height: 400,
-                tabsize: 5
+                tabsize: 5,
+                toolbar: [
+                    ['style', ['style']],
+                    ['font', ['bold', 'italic', 'underline', 'clear', 'strikethrough', 'superscript', 'subscript']],
+                    ['fontsize', ['fontsize']],
+                    ['fontname', ['fontname']],
+                    ['color', ['color']],
+                    ['para', ['ul', 'ol', 'paragraph']],
+                    ['height', ['height']],
+                    ['table', ['table']],
+                    ['insert', ['link', 'picture', 'video', 'hr']],
+                    ['view', ['fullscreen', 'codeview', 'help']]
+                ]
             });
         });
 

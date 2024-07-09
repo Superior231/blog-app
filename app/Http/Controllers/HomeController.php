@@ -9,7 +9,7 @@ class HomeController extends Controller
 {
     public function index()
     {
-        $articles = Article::orderBy('created_at', 'desc')->paginate(5);
+        $articles = Article::orderBy('created_at', 'desc')->paginate(9);
 
         return view('pages.home', [
             'title' => 'Blog App',
@@ -23,7 +23,7 @@ class HomeController extends Controller
         $article = Article::where('slug', $slug)->first();
 
         return view('pages.detail', [
-            'title' => $article->title,
+            'title' => 'Blog App - ' . $article->title,
             'active' => 'home',
             'article' => $article
         ]);

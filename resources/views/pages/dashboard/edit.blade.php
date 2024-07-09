@@ -12,7 +12,7 @@
         </a>
         <h3 class="text-dark fw-bold my-0 py-0">Edit Artikel</h3>
     </div>
-    <form action="{{ route('dashboard.update', $article->id) }}" method="post" enctype="multipart/form-data">
+    <form action="{{ route('dashboard.update', $article->id) }}" method="post" enctype="multipart/form-data" class="d-flex flex-column gap-3">
         @csrf @method('PUT')
 
         <!-- Assets -->
@@ -23,28 +23,6 @@
                 <div class="mb-3">
                     <label for="thumbnail">Thumbnail</label>
                     <input type="file" name="thumbnail" id="thumbnail" class="form-control" accept=".jpg, .jpeg, .png, .webp">
-                </div>
-            </div>
-        </div>
-
-        <!-- Meta -->
-        <div class="card">
-            <div class="card-body p-3 p-lg-4">
-                <h5 class="card-title">Meta</h5>
-                <hr class="bg-secondary">
-                <div class="mb-3">
-                    <label for="author">Author</label>
-                    <input type="text" name="author" class="form-control" id="author" value="{{ $article->author }}" placeholder="Masukkan nama penulisnya" autofocus>
-                </div>
-                <div class="row row-cols-1 row-cols-lg-2 g-3">
-                    <div class="col">
-                        <label for="source">Sumber <small class="text-secondary">(opsional)</small></label>
-                        <input type="text" name="source" class="form-control" id="source" value="{{ $article->source }}" placeholder="ex. tribunnews.com">
-                    </div>
-                    <div class="col">
-                        <label for="date">Date</label>
-                        <input type="date" name="date" class="form-control" id="date" value="{{ $article->date }}" required>
-                    </div>
                 </div>
             </div>
         </div>
@@ -99,7 +77,19 @@
         $(document).ready(function() {
             $('#body').summernote({
                 height: 400,
-                tabsize: 5
+                tabsize: 5,
+                toolbar: [
+                    ['style', ['style']],
+                    ['font', ['bold', 'italic', 'underline', 'clear', 'strikethrough', 'superscript', 'subscript']],
+                    ['fontsize', ['fontsize']],
+                    ['fontname', ['fontname']],
+                    ['color', ['color']],
+                    ['para', ['ul', 'ol', 'paragraph']],
+                    ['height', ['height']],
+                    ['table', ['table']],
+                    ['insert', ['link', 'picture', 'video', 'hr']],
+                    ['view', ['fullscreen', 'codeview', 'help']]
+                ]
             });
         });
 

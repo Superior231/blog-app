@@ -12,9 +12,6 @@ class Article extends Model
     protected $fillable = [
         'user_id',
         'category',
-        'author',
-        'source',
-        'date',
         'title',
         'slug',
         'thumbnail',
