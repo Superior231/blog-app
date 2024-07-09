@@ -35,7 +35,7 @@
     <section>
         <div class="container px-3 px-md-5">
             <img src="{{ url('storage/thumbnails/' . $article->thumbnail) }}" alt="thumbnail" class="rounded-2 mb-5">
-            <div class="text-secondary px-0 mx-0">
+            <div class="px-0 mx-0">
                 {!! $article->body !!}
             </div>
         </div>

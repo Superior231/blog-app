@@ -72,57 +72,74 @@ a {
 }
 
 .logo img {
-    width: 30px;
+  width: 30px;
 }
 
 .logo span {
-    margin-bottom: 0;
-    font-weight: bold;
-    font-size: 18px;
-    color: #212529;
+  margin-bottom: 0;
+  font-weight: bold;
+  font-size: 18px;
+  color: #212529;
 }
 
 section {
-    padding: 70px 0;
+  padding: 70px 0;
 }
 
 @media screen and (max-width: 768px) {
-    section {
-        padding: 40px 0;
-    }
+  section {
+    padding: 40px 0;
+  }
 }
 
 .article img {
-    transition: .2s ease-in;
+  transition: .2s ease-in;
 }
 
 .article:hover img {
-    filter: blur(1.5px);
+  filter: blur(1.5px);
 }
 
 .article h3 {
-    font-size: 22px;
-    font-weight: bold;
-    color: #212529;
-    transition: .2s ease-in;
+  font-size: 22px;
+  font-weight: bold;
+  color: #212529;
+  transition: .2s ease-in;
 }
 
 .article:hover h3 {
-    color: #4564e5;
+  color: #4564e5;
 }
 
 .link {
-    color: #6c757d;
+  color: #6c757d;
 }
 
 .link:hover {
-    color: #4564e5;
+  color: #4564e5;
 }
 
 
-/* Form */
-
-/* Form End */
+/* Text */
+h1 {
+  font-size: clamp(30px, 3vw, 35px) !important;
+}
+h2 {
+  font-size: clamp(25px, 3vw, 30px) !important;
+}
+h3 {
+  font-size: clamp(20px, 3vw, 25px) !important;
+}
+h4 {
+  font-size: clamp(15px, 3vw, 20px) !important;
+}
+h5 {
+  font-size: clamp(10px, 3vw, 15px) !important;
+}
+h6 {
+  font-size: clamp(5px, 3vw, 10px) !important;
+}
+/* Text End */
 
 
 /* Summernote */
