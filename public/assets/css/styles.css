@@ -129,6 +129,10 @@ section {
   color: #4564e5;
 }
 
+#table-profile td {
+  padding: 0px !important;
+}
+
 
 /* Text */
 h1 {
@@ -148,6 +152,10 @@ h5 {
 }
 h6 {
   font-size: clamp(5px, 3vw, 10px) !important;
+}
+
+td > span {
+  font-size: clamp(10px, 3vw, 15px) !important;
 }
 /* Text End */
 

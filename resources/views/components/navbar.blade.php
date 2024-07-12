@@ -20,7 +20,10 @@
                     </li>
                     @if (Auth::user()->roles == 'admin')
                         <li class="nav-item">
-                            <a href="{{ route('category.index') }}" class="nav-link text-center {{ $active == 'category' ? 'text-primary fw-semibold' : '' }}">Category</a>
+                            <a href="{{ route('category.index') }}" class="nav-link text-center {{ $active == 'category' ? 'text-primary fw-semibold' : '' }}">Categories</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('users.index') }}" class="nav-link text-center {{ $active == 'users' ? 'text-primary fw-semibold' : '' }}">Users</a>
                         </li>
                     @endif
                 </ul>
@@ -41,6 +44,12 @@
                         </a>
                         <ul class="dropdown-menu dropdown-menu-light dropdown-menu-end"
                             aria-labelledby="navbarDropdownMenuLink">
+                            <li>
+                                <a class="dropdown-item {{ $active == 'my profile' ? 'active' : '' }}" href="{{ route('profile.index') }}">My Profile</a>
+                            </li>
+                            <li>
+                                <hr class="dropdown-divider-dark py-0 my-1">
+                            </li>
                             <li>
                                 <a id="logout-confirmaton" class="dropdown-item" href="{{ route('logout') }}"
                                 onclick="event.preventDefault(); logout();">

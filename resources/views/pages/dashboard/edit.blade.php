@@ -44,7 +44,7 @@
                 </div>
                 <div class="mb-3">
                     <label for="title">Judul</label>
-                    <input type="text" name="title" class="form-control @if($errors->has('title')) is-invalid @endif" id="title"
+                    <input type="text" name="title" class="form-control @error('title') is-invalid @enderror" id="title"
                         placeholder="Masukkan judul artikelnya" value="{{ $article->title }}" required>
                         
                     @error('title')

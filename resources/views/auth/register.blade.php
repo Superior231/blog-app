@@ -3,7 +3,7 @@
 ])
 
 @section('content')
-    <h5 class="text-dark fw-bold">Sign Up</h5>
+    <h4 class="text-dark fw-bold">Sign Up</h4>
 
     <a href="{{ route('google.redirect') }}" class="btn btn-light border-dark color-dark rounded-3 w-100 mt-2 mb-4">
         <img src="{{ url('assets/images/google-icon.png') }}" style="width: 20px;" alt="Google Icon">

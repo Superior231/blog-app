@@ -3,7 +3,7 @@
 ])
 
 @section('content')
-    <h5 class="text-dark fw-bold mb-4">Sign In</h5>
+    <h4 class="text-dark fw-bold mb-4">Sign In</h4>
     <form method="POST" action="{{ route('login') }}">
         @csrf
 

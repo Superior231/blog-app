@@ -120,13 +120,9 @@ class DashboardController extends Controller
         $article->save();
 
         if ($article) {
-            return redirect()->route('dashboard.index')->with([
-                'success' => 'Artikel berhasil diedit!'
-            ]);
+            return redirect()->route('dashboard.index')->with('success', 'Artikel berhasil diedit!');
         } else {
-            return redirect()->route('dashboard.index')->with([
-                'error' => 'Artikel gagal diedit!'
-            ]);
+            return redirect()->route('dashboard.index')->with('error', 'Artikel gagal diedit!');
         }
     }
 
@@ -141,13 +137,9 @@ class DashboardController extends Controller
         $article->delete();
 
         if ($article) {
-            return redirect()->route('dashboard.index')->with([
-                'success' => 'Artikel berhasil dihapus!'
-            ]);
+            return redirect()->route('dashboard.index')->with('success', 'Artikel berhasil dihapus!');
         } else {
-            return redirect()->route('dashboard.index')->with([
-                'error' => 'Artikel gagal dihapus!'
-            ]);
+            return redirect()->route('dashboard.index')->with('error', 'Artikel gagal dihapus!');
         }
     }
 }

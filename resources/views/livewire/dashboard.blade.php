@@ -7,13 +7,15 @@
                     <div class="btn-group">
                         <button type="button" class="dropdown-toggle" data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false">Kategori</button>
                         <ul class="dropdown-menu dropdown-menu-lg-start">
-                            @foreach ($categories as $category)
-                                <li>
-                                    <label class="dropdown-item" style="cursor: pointer;">
-                                        <input type="checkbox" wire:model.live="categoryFilters" value="{{ $category->title }}"> {{ $category->title }}
-                                    </label>
-                                </li>
-                            @endforeach
+                            <div class="categories" style="max-height: 300px; overflow-y: scroll;">
+                                @foreach ($categories as $category)
+                                    <li>
+                                        <label class="dropdown-item" style="cursor: pointer;">
+                                            <input type="checkbox" wire:model.live="categoryFilters" value="{{ $category->title }}"> {{ $category->title }}
+                                        </label>
+                                    </li>
+                                @endforeach
+                            </div>
                         </ul>
                     </div>
                 </div>
