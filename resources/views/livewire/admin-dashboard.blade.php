@@ -50,7 +50,8 @@
                         <tr>
                             <th class="text-center">No</th>
                             <th>Judul Artikel</th>
-                            <th>Tanggal Post</th>
+                            <th>Author</th>
+                            <th>Date</th>
                             <th class="text-center">Actions</th>
                         </tr>
                     </thead>
@@ -58,8 +59,30 @@
                         @forelse ($articles as $index => $item)
                             <tr class="align-middle">
                                 <td class="text-center">{{ ($articles->currentPage() - 1) * $articles->perPage() + $index + 1 }}</td>
-                                <td>{{ $item->title }}</td>
-                                <td>{{ Carbon\Carbon::parse($item->date)->translatedFormat('d F Y') }}</td>
+                                <td>
+                                    <div class="title" style="min-width: 250px;">
+                                        {{ $item->title }}
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="username-info d-flex justify-content-center align-items-center gap-2" style="width: max-content;">
+                                        <div class="profile-image">
+                                            @if (!empty($item->user->avatar))
+                                                <img class="img" src="{{ asset('storage/avatars/' . $item->user->avatar) }}">
+                                            @elseif (!empty($item->user->avatar_google))
+                                                <img class="img" src="{{ $item->user->avatar_google }}">
+                                            @else
+                                                <img class="img" src="https://ui-avatars.com/api/?background=random&name={{ urlencode($item->user->name) }}">
+                                            @endif
+                                        </div>
+                                        <span class="fw-normal py-0 my-0">{{ $item->user->name }}</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="date" style="width: max-content;">
+                                        {{ Carbon\Carbon::parse($item->date)->translatedFormat('d F Y') }}
+                                    </div>
+                                </td>
                                 <td>
                                     <div class="d-flex justify-content-center gap-1">
                                         <a href="{{ route('dashboard.edit', $item->slug) }}" class="btn py-1 btn-primary fw-normal">Edit</a>
