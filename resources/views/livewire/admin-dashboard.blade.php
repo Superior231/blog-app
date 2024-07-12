@@ -97,7 +97,7 @@
                             
                         @empty
                             <tr>
-                                <td class="text-center" colspan="4">Data tidak artikel.</td>
+                                <td class="text-center" colspan="5">Data tidak artikel.</td>
                             </tr>
                         @endforelse
                     </tbody>
