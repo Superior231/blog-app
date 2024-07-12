@@ -46,9 +46,9 @@
                 @endforeach
             </div>
 
-            <div class="row g-5 g-md-4 mt-0 pt-0 mt-lg-2 mb-5">
+            <div class="row g-3 g-md-4 mt-0 pt-0 mt-lg-2 mb-5">
                 @forelse ($articles as $item)
-                    <div class="col-md-4">
+                    <div class="col-md-4 mb-3 mb-md-0">
                         <div class="card h-100">
                             <a href="{{ route('detail', $item->slug) }}" class="article h-100">
                                 <div class="thumbnail">
