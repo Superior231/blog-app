@@ -10,7 +10,7 @@
             <h1 class="text-dark fw-bold">
                 {{ $article->title }}
             </h1>
-            <p class="mb-0 text-secondary fs-7">Kategori : {{ $article->category }}</p>
+            <p class="mb-0 text-secondary fs-7">Kategori : {{ str_replace(',', ', ', $article->category) }}</p>
             <hr class="bg-secondary">
             <div class="info d-flex flex-column gap-1">
                 <div class="author d-flex align-items-center gap-1">
