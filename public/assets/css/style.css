@@ -5,7 +5,7 @@
   --primary-color: var(--bs-primary);
   --soft-blue: #f1f5fb;
   --text-dark: #212529;
-  --bg-light: var(--text-light);
+  --bg-light: #fff;
   --bg-secondary: #6d747d;
 
   /* Text Color */
