@@ -29,7 +29,7 @@
                         <a class="d-flex align-items-center justify-content-center text-decoration-none p-0 m-0" style="cursor: pointer;" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false" title="Filter">
                             <i class='bx bx-slider p-0 m-0'></i>
                         </a>
-    
+
                         <ul class="dropdown-menu dropdown-menu-light" aria-labelledby="dropdownMenuLink">
                             <li><a class="dropdown-item {{ $currentFilter == 'Terbaru' ? 'bg-primary text-light' : '' }}" wire:click="sortBy('terbaru')" style="cursor: pointer;">Terbaru</a></li>
                             <li><a class="dropdown-item {{ $currentFilter == 'Terlama' ? 'bg-primary text-light' : '' }}" wire:click="sortBy('terlama')" style="cursor: pointer;">Terlama</a></li>
@@ -61,22 +61,22 @@
                                 </div>
                                 <h3 class="mb-3">{{ $item->title }}</h3>
                             </a>
-
-                            <div class="article-interaction d-flex align-items-center justify-content-end gap-2">
+                            
+                            <div class="article-interaction d-flex align-items-center justify-content-end gap-2 mt-2">
                                 <div class="likes d-flex align-items-center gap-1">
-                                    <i class='bx bx-like'></i>
-                                    <p class="my-0 py-0 text-dark fs-7">12</p>
+                                    <i class='bx bxs-like'></i>
+                                    <p class="my-0 py-0 text-dark fs-7">{{ $item->like_articles->where('like', true)->count() }}</p>
                                 </div>
                                 <div class="dislikes d-flex align-items-center gap-1">
-                                    <i class='bx bx-dislike'></i>
-                                    <p class="my-0 py-0 text-dark fs-7">2</p>
+                                    <i class='bx bxs-dislike'></i>
+                                    <p class="my-0 py-0 text-dark fs-7">{{ $item->like_articles->where('dislike', true)->count() }}</p>
                                 </div>
                                 <div class="comments d-flex align-items-center gap-1">
-                                    <i class='bx bx-comment'></i>
+                                    <i class='bx bxs-comment-detail'></i>
                                     <p class="my-0 py-0 text-dark fs-7">5</p>
                                 </div>
                             </div>
-                            
+
                             <hr class="bg-secondary">
                             <div class="footer d-flex justify-content-between align-items-center">
                                 <div class="author d-flex align-items-center gap-1">
@@ -95,7 +95,7 @@
                             </div>
                         </div>
                     </div>
-                    
+
                 @empty
                     <div class="d-flex justify-content-center align-items-center">
                         <p class="fs-4 text-dark">Artikel tidak ada.</p>

@@ -28,6 +28,7 @@
                 </div>
                 <p class="mb-0 text-secondary fs-7">Dipublish pada {{ Carbon\Carbon::parse($article->created_at)->translatedFormat('d F Y') }}</p>
             </div>
+            @livewire('like-article', ['article_id' => $article->id])
         </div>
     </section>
 
@@ -42,3 +43,30 @@
         </div>
     </section>
 @endsection
+
+@push('scripts')
+    <script>
+        function login() {
+            Swal.fire({
+                icon: 'info',
+                title: 'Information',
+                text: 'Untuk melanjutkan, harap login terlebih dahulu!',
+                showCancelButton: true,
+                confirmButtonText: 'Login',
+                customClass: {
+                    popup: 'sw-popup',
+                    title: 'sw-title',
+                    htmlContainer: 'sw-text',
+                    closeButton: 'sw-close',
+                    icon: 'border-primary text-primary',
+                    confirmButton: 'btn-primary',
+                },
+                reverseButtons: true,
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = '{{ route('login') }}';
+                }
+            });
+        }
+    </script>
+@endpush

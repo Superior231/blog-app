@@ -23,4 +23,9 @@ class Article extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function like_articles()
+    {
+        return $this->hasMany(LikeArticle::class);
+    }
 }

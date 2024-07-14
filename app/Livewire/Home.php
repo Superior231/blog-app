@@ -4,6 +4,7 @@ namespace App\Livewire;
 
 use App\Models\Article;
 use App\Models\Category;
+use App\Models\LikeArticle;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -24,10 +25,12 @@ class Home extends Component
     public $categoryFilters = [];
     public $sortedCategoryFilters = [];
 
+
     public function updatingSearch()
     {
         $this->resetPage();
     }
+
 
     public function sortBy($field)
     {
@@ -48,11 +51,12 @@ class Home extends Component
         $this->resetPage();
     }
 
+
     public function render()
     {
         $query = Article::where('title', 'like', '%'.$this->search.'%');
         $categories = Category::orderBy('title', 'asc')->get();
-        
+
         if (!empty($this->categoryFilters)) {
             $query->where(function ($query) {
                 foreach ($this->categoryFilters as $category) {
