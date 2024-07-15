@@ -61,11 +61,7 @@ class Dashboard extends Component
             });
         }
 
-        if (Auth::user()->roles == 'admin') {
-            $articles = $query->orderBy($this->sortField, $this->sortDirection)->paginate(10);
-        } else {
-            $articles = $query->where('user_id', Auth::user()->id)->orderBy($this->sortField, $this->sortDirection)->paginate(10);
-        }
+        $articles = $query->where('user_id', Auth::user()->id)->orderBy($this->sortField, $this->sortDirection)->paginate(10);
 
         // Mengurutkan categoryFilters secara alfabetis
         $this->sortedCategoryFilters = $this->categoryFilters;

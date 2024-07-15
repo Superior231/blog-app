@@ -52,8 +52,8 @@
                         <tr>
                             <th class="text-center">No</th>
                             <th>Judul Artikel</th>
-                            <th>Author</th>
-                            <th>Date</th>
+                            <th>Updated_at</th>
+                            <th>Created_at</th>
                             <th class="text-center">Actions</th>
                         </tr>
                     </thead>
@@ -67,22 +67,13 @@
                                     </div>
                                 </td>
                                 <td>
-                                    <div class="username-info d-flex justify-content-center align-items-center gap-2" style="width: max-content;">
-                                        <div class="profile-image">
-                                            @if (!empty($item->user->avatar))
-                                                <img class="img" src="{{ asset('storage/avatars/' . $item->user->avatar) }}">
-                                            @elseif (!empty($item->user->avatar_google))
-                                                <img class="img" src="{{ $item->user->avatar_google }}">
-                                            @else
-                                                <img class="img" src="https://ui-avatars.com/api/?background=random&name={{ urlencode($item->user->name) }}">
-                                            @endif
-                                        </div>
-                                        <span class="fw-normal py-0 my-0">{{ $item->user->name }}</span>
+                                    <div class="created-at" style="width: max-content;">
+                                        {{ Carbon\Carbon::parse($item->updated_at)->translatedFormat('d F Y, H:i') }} WIB
                                     </div>
                                 </td>
                                 <td>
-                                    <div class="date" style="width: max-content;">
-                                        {{ Carbon\Carbon::parse($item->date)->translatedFormat('d F Y') }}
+                                    <div class="created-at" style="width: max-content;">
+                                        {{ Carbon\Carbon::parse($item->created_at)->translatedFormat('d F Y, H:i') }} WIB
                                     </div>
                                 </td>
                                 <td>

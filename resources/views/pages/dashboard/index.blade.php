@@ -52,11 +52,7 @@
     @endif
 
     <div class="d-flex align-items-center justify-content-between mb-3">
-        @if (Auth::user()->roles === 'admin')
-            <h3 class="mb-0 text-dark fw-bold">All Articles</h3>
-        @else
-            <h3 class="mb-0 text-dark fw-bold">My Articles</h3>
-        @endif
+        <h3 class="mb-0 text-dark fw-bold">My Articles</h3>
         <a href="{{ route('dashboard.create') }}" class="btn btn-primary">Tambah Artikel</a>
     </div>
 
@@ -66,7 +62,7 @@
 
     @if (Auth::user()->roles === 'admin')
         <div class="d-flex align-items-center justify-content-between mb-3 mt-5">
-            <h3 class="mb-0 text-dark fw-bold">My Articles</h3>
+            <h3 class="mb-0 text-dark fw-bold">All Articles</h3>
         </div>
         @livewire('admin-dashboard')
     @endif

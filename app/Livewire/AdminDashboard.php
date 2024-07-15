@@ -60,9 +60,8 @@ class AdminDashboard extends Component
                 }
             });
         }
-
         
-        $articles = $query->where('user_id', Auth::user()->id)->orderBy($this->sortField, $this->sortDirection)->paginate(10);
+        $articles = $query->orderBy($this->sortField, $this->sortDirection)->paginate(10);
 
         // Mengurutkan categoryFilters secara alfabetis
         $this->sortedCategoryFilters = $this->categoryFilters;

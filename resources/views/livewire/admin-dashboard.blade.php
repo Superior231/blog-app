@@ -22,7 +22,7 @@
                 <!-- Search -->
                 <div class="search-box">
                     <i class='bx bx-search'></i>
-                    <input class="ms-0 ps-1" type="search" id="search" placeholder="Cari artikel..." autocomplete="off"  wire:model.live="search" style="outline: none !important; border: none;">
+                    <input class="ms-0 ps-1" type="search" placeholder="Cari artikel..." autocomplete="off"  wire:model.live="search" style="outline: none !important; border: none;">
                     <div class="dropdown dropup">
                         <a class="d-flex align-items-center justify-content-center text-decoration-none p-0 m-0" style="cursor: pointer;" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false" title="Filter">
                             <i class='bx bx-slider p-0 m-0'></i>
@@ -51,7 +51,8 @@
                             <th class="text-center">No</th>
                             <th>Judul Artikel</th>
                             <th>Author</th>
-                            <th>Date</th>
+                            <th>Updated_at</th>
+                            <th>Created_at</th>
                             <th class="text-center">Actions</th>
                         </tr>
                     </thead>
@@ -79,8 +80,13 @@
                                     </div>
                                 </td>
                                 <td>
-                                    <div class="date" style="width: max-content;">
-                                        {{ Carbon\Carbon::parse($item->date)->translatedFormat('d F Y') }}
+                                    <div class="created-at" style="width: max-content;">
+                                        {{ Carbon\Carbon::parse($item->updated_at)->translatedFormat('d F Y, H:i') }} WIB
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="created-at" style="width: max-content;">
+                                        {{ Carbon\Carbon::parse($item->created_at)->translatedFormat('d F Y, H:i') }} WIB
                                     </div>
                                 </td>
                                 <td>
