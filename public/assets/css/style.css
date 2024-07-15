@@ -20,6 +20,7 @@
   --border-5: 5px;
   --border-10: 10px;
   --border-50: 50px;
+  --border-circle: 200px;
   /* Border End */
 
   /* Transisi */
@@ -247,6 +248,70 @@ section.thumbnail img {
 }
 .article-interaction a.active i {
   font-size: 20px;
+}
+
+.view-details {
+  opacity: 0;
+}
+.bx.bx-chevron-up {
+  display: none;
+}
+.view-details.active {
+  opacity: 1;
+  transition: var(--tran-04);
+}
+.view-details.active .bx.bx-chevron-down {
+  display: none !important;
+}
+
+.author .info {
+  cursor: pointer;
+}
+.author .profile-image {
+  position: absolute;
+}
+.author-name:hover {
+  text-decoration: underline;
+}
+.author .info {
+  margin-left: 50px;
+}
+
+.actions .share {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  cursor: pointer;
+}
+.actions .share button {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--border-50);
+  border: none;
+}
+.actions .share button i {
+  padding: 0;
+  margin: 0;
+  color: var(--text-color-white);
+}
+.actions .share .facebook {
+  background-color: var(--primary-color);
+}
+.actions .share .x {
+  background-color: var(--text-dark);
+}
+.actions .share .email {
+  background-color: var(--bg-secondary);
+}
+.actions .share button.copy-link-btn {
+  background-color: var(--primary-color);
+  border: 1px solid var(--primary-color);
+}
+.actions .share button.copy-link-btn p {
+  color: var(--text-color-white);
 }
 /* Article End */
 

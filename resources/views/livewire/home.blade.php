@@ -59,7 +59,7 @@
                                         <p class="badge p-1 m-0 text-primary">{{ $categories }}</p>
                                     @endforeach
                                 </div>
-                                <h3 class="mb-3">{{ $item->title }}</h3>
+                                <h3 class="article-title mb-3">{{ $item->title }}</h3>
                             </a>
                             
                             <div class="article-interaction d-flex align-items-center justify-content-end gap-2 mt-2">
