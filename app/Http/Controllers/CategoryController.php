@@ -9,7 +9,7 @@ class CategoryController extends Controller
 {
     public function index()
     {
-        $categories = Category::orderBy('title', 'asc')->paginate(10);
+        $categories = Category::all();
 
         return view('pages.category.index', [
             'title' => 'Blog App - Kategori',

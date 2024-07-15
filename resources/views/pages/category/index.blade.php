@@ -2,6 +2,8 @@
 
 @push('styles')
     @livewireStyles()
+    <!-- Datatables -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
 @endpush
 
 @section('content')
@@ -12,7 +14,41 @@
 
     @include('components.alert')
 
-    @livewire('category')
+    <div class="card">
+        <div class="card-body p-3 p-lg-4">
+            <div class="table-responsive pb-5">
+                <table class="table" id="myDataTable">
+                    <thead>
+                        <tr>
+                            <th>Category</th>
+                            <th>Updated_at</th>
+                            <th>Created_at</th>
+                            <th class="text-center">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($categories as $item)
+                            <tr class="align-middle">
+                                <td>{{ $item->title }}</td>
+                                <td>{{ Carbon\Carbon::parse($item->updated_at)->translatedFormat('d F Y, H:i') }} WIB</td>
+                                <td>{{ Carbon\Carbon::parse($item->created_at)->translatedFormat('d F Y, H:i') }} WIB</td>
+                                <td>
+                                    <div class="d-flex justify-content-center gap-1">
+                                        <a href="#" class="btn py-1 btn-primary fw-normal" onclick="editCategory('{{ $item->id }}', '{{ $item->title }}')" data-bs-toggle="modal" data-bs-target="#edit-kategori-modal">Edit</a>
+                                        <form id="delete-category-form-{{ $item->id }}" action="{{ route('category.destroy', $item->id) }}" method="POST">
+                                            @csrf @method('DELETE')
+        
+                                            <button type="button" class="btn py-1 btn-light fw-normal" onclick="confirmDeleteCategory({{ $item->id }})">Hapus</button>
+                                        </form>
+                                    </div>
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 
 
     <!-- Modal -->
@@ -69,9 +105,24 @@
 
 @push('scripts')
     @livewireScripts()
+    <!-- JQuery -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
+    <!-- Datatables Js -->
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+
     <script>
+        $(document).ready(function() {
+            $('#myDataTable').DataTable();
+        });
+        $('#myDataTable').DataTable({
+            "language": {
+                "searchPlaceholder": "Search category..."
+            }
+        });
+
+
         function editCategory(id, title) {
             $('#edit-title').val(title);
 
