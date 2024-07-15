@@ -17,7 +17,7 @@
     <div class="card">
         <div class="card-body p-3 p-lg-4">
             <div class="table-responsive pb-5">
-                <table class="table" id="myDataTable">
+                <table class="table table-striped table-hover" id="myDataTable">
                     <thead>
                         <tr>
                             <th>Category</th>

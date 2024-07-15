@@ -60,7 +60,7 @@
     <div class="card">
         <div class="card-body p-3 p-lg-4">
             <div class="table-responsive pb-5">
-                <table id="myDataTable" class="table" style="width:100%">
+                <table class="table table-striped table-hover" id="myDataTable" style="width:100%">
                     <thead>
                         <tr>
                             <th>Username</th>
