@@ -39,16 +39,16 @@
             
             <div class="actions d-flex align-items-center justify-content-between">
                 <div class="share">
-                    <button onclick="shareToFacebook('{{ url('/detail/' . $article->slug) }}')" class="facebook" id="facebook-share-{{ $article->id }}">
+                    <button onclick="shareToFacebook('{{ url('/detail/' . $article->slug) }}')" class="facebook" title="Share to Facebook">
                         <i class="fa-brands fa-facebook-f"></i>
                     </button>
-                    <button onclick="shareToTwitter('{{ url('/detail/' . $article->slug) }}', '{{ $article->title }}')" class="x" id="twitter-share-{{ $article->id }}">
+                    <button onclick="shareToX('{{ url('/detail/' . $article->slug) }}', '{{ $article->title }}')" class="x" title="Share to X">
                         <i class="fa-brands fa-x-twitter"></i>
                     </button>
-                    <button onclick="shareToEmail('{{ url('/detail/' . $article->slug) }}', '{{ $article->title }}')" class="email" id="email-share-{{ $article->id }}">
+                    <button onclick="shareToEmail('{{ url('/detail/' . $article->slug) }}', '{{ $article->title }}')" class="email" title="Share to Email">
                         <i class="fa-solid fa-envelope"></i>
                     </button>
-                    <button onclick="copyLink('{{ $article->id }}')" class="copy-link-btn" id="copy-link-btn-{{ $article->id }}">
+                    <button onclick="copyLink('{{ $article->id }}')" class="copy-link-btn" id="copy-link-btn-{{ $article->id }}" title="Copy Link">
                         <p class="copy-link-text p-0 m-0 fs-7" id="copy-link-text-{{ $article->id }}">
                             <i class="fa-solid fa-copy"></i>
                         </p>

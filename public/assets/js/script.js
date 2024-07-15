@@ -115,9 +115,9 @@ function shareToFacebook(url) {
     window.open(facebookShareLink, '_blank');
 }
 
-function shareToTwitter(url, title) {
-    const twitterShareLink = `https://twitter.com/intent/tweet?url=${encodeURIComponent(url)}&text=${encodeURIComponent(title)}`;
-    window.open(twitterShareLink, '_blank');
+function shareToX(url, title) {
+    const XShareLink = `https://x.com/intent/post?url=${encodeURIComponent(url)}&text=${encodeURIComponent(title)}`;
+    window.open(XShareLink, '_blank');
 }
 
 function shareToEmail(url, title) {
