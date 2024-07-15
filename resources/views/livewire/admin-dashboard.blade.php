@@ -103,7 +103,7 @@
                             
                         @empty
                             <tr>
-                                <td class="text-center" colspan="5">Data tidak artikel.</td>
+                                <td class="text-center" colspan="5">Artikel tidak ada.</td>
                             </tr>
                         @endforelse
                     </tbody>
