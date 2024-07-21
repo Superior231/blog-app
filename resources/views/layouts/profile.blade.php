@@ -148,7 +148,13 @@
                             </div>
                             <div class="modal-body d-flex flex-column align-items-center gap-3">
                                 <div class="profile-image" style="width: 120px; height: 120px;">
-                                    <img class="img img-avatar" id="edit-avatar" src="{{ asset('storage/avatars/' . Auth::user()->avatar) }}">
+                                    @if (!empty($user->avatar))
+                                        <img class="img img-avatar" id="edit-avatar" src="{{ asset('storage/avatars/' . $user->avatar) }}">
+                                    @elseif (!empty($user->avatar_google))
+                                        <img class="img img-avatar" id="edit-avatar" src="{{ $user->avatar_google }}">
+                                    @else
+                                        <img class="img img-avatar" id="edit-avatar" src="https://ui-avatars.com/api/?background=random&name={{ urlencode($user->name) }}">
+                                    @endif
                                 </div>
 
                                 <div class="mb-3 w-100">
