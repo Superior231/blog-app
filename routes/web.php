@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Author;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\GoogleLoginController;
@@ -15,11 +16,20 @@ Auth::routes();
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/detail/{slug}', [HomeController::class, 'detail'])->name('detail');
 
+// Author
+Route::get('/author/{slug}', [ProfileController::class, 'author'])->name('author.show');
+Route::get('/article/{slug}', [ProfileController::class, 'authorArticle'])->name('author.article');
+
 // Users
 Route::prefix('/')->middleware('auth')->group(function() {
     Route::resource('dashboard', DashboardController::class);
+
+    // profile
+    Route::get('/article', [ProfileController::class, 'profileArticle'])->name('profile.article');
     Route::resource('profile', ProfileController::class);
+    Route::get('/profile/{slug}/edit', [ProfileController::class, 'edit'])->name('edit.profile');
     Route::delete('/profile/delete-avatar/{id}', [ProfileController::class, 'deleteAvatar'])->name('delete-avatar');
+    Route::delete('/profile/delete-banner/{id}', [ProfileController::class, 'deleteBanner'])->name('delete-banner');
 });
 
 

@@ -79,7 +79,7 @@
 
                             <hr class="bg-secondary">
                             <div class="footer d-flex justify-content-between align-items-center">
-                                <div class="author d-flex align-items-center gap-1">
+                                <a href="{{ route('author.show', ['slug' => $item->user->slug]) }}" class="author d-flex align-items-center gap-1">
                                     <div class="profile-author">
                                         @if (!empty($item->user->avatar))
                                             <img class="img" src="{{ asset('storage/avatars/' . $item->user->avatar) }}">
@@ -90,7 +90,7 @@
                                         @endif
                                     </div>
                                     <p class="my-0 py-0 text-dark fs-7">{{ $item->author ? $item->author : $item->user->name }}</p>
-                                </div>
+                                </a>
                                 <p class="mb-0 text-secondary fs-7">{{ Carbon\Carbon::parse($item->created_at)->translatedFormat('d F Y') }}</p>
                             </div>
                         </div>

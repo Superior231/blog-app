@@ -4,17 +4,20 @@ namespace App\Livewire;
 
 use App\Models\Article;
 use App\Models\Category;
-use App\Models\LikeArticle;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-class Home extends Component
+class UserArticle extends Component
 {
     use WithPagination;
+
     protected $paginationTheme = 'bootstrap';
     public $numberOfPaginatorsRendered = [];
     public $search = '';
+    public $slug;
+    public $userId;
 
     // Filter
     public $sortField = 'created_at';
@@ -51,10 +54,17 @@ class Home extends Component
         $this->resetPage();
     }
 
+    public function mount($slug, $id)
+    {
+        $this->slug = $slug;
+        $this->userId = $id;
+    }
+
 
     public function render()
     {
-        $query = Article::where('title', 'like', '%'.$this->search.'%');
+        $user = User::where('slug', $this->slug)->where('id', $this->userId)->firstOrFail();
+        $query = Article::where('user_id', $user->id)->where('title', 'like', '%'.$this->search.'%');
         $categories = Category::orderBy('title', 'asc')->get();
 
         if (!empty($this->categoryFilters)) {
@@ -64,14 +74,15 @@ class Home extends Component
                 }
             });
         }
-
-        $articles = $query->orderBy($this->sortField, $this->sortDirection)->paginate(6);
+        
+        $articles = $query->orderBy($this->sortField, $this->sortDirection)->paginate(10);
 
         // Mengurutkan categoryFilters secara alfabetis
         $this->sortedCategoryFilters = $this->categoryFilters;
         sort($this->sortedCategoryFilters);
 
-        return view('livewire.home', [
+        return view('livewire.user-article', [
+            'user' => $user,
             'articles' => $articles,
             'categories' => $categories,
             'currentFilter' => $this->currentFilter,

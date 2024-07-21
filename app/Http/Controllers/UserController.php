@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Str;
 
 class UserController extends Controller
 {
@@ -42,6 +43,7 @@ class UserController extends Controller
         ]);
 
         $validatedData['password'] = Hash::make($validatedData['password']);
+        $validatedData['slug'] = Str::slug(explode('@', $validatedData['email'])[0]);
 
         $user = User::create($validatedData);
 
@@ -62,7 +64,6 @@ class UserController extends Controller
             'name' => [
                 'required',
                 'max:20',
-                Rule::unique('users')->ignore($id),
             ],
             'avatar' => 'image|mimes:jpg,jpeg,png,webp|max:5048',
         ], [
@@ -76,6 +77,13 @@ class UserController extends Controller
         $user->email = $request->input('email', $user->email);
         $user->roles = $request->input('roles', $user->roles);
         $user->avatar = $request->input('avatar', $user->avatar);
+        $user->gender = $request->input('gender', $user->gender);
+        $user->description = $request->input('description', $user->description);
+        $user->facebook = $request->input('facebook', $user->facebook);
+        $user->twitter = $request->input('twitter', $user->twitter);
+        $user->instagram = $request->input('instagram', $user->instagram);
+
+        $user->slug = Str::slug(explode('@', $user->email)[0]);
         
 
         if ($request->hasFile('avatar')) {

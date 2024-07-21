@@ -80,6 +80,29 @@
 
 @push('scripts')
     <script>
+        function login() {
+            Swal.fire({
+                icon: 'info',
+                title: 'Information',
+                text: 'Untuk melanjutkan, harap login terlebih dahulu!',
+                showCancelButton: true,
+                confirmButtonText: 'Login',
+                customClass: {
+                    popup: 'sw-popup',
+                    title: 'sw-title',
+                    htmlContainer: 'sw-text',
+                    closeButton: 'sw-close',
+                    icon: 'border-primary text-primary',
+                    confirmButton: 'btn-primary',
+                },
+                reverseButtons: true,
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = '{{ route('login') }}';
+                }
+            });
+        }
+        
         function logout() {
             Swal.fire({
                 icon: 'question',

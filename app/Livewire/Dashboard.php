@@ -50,6 +50,7 @@ class Dashboard extends Component
 
     public function render()
     {
+        $user = Auth::user();
         $query = Article::where('title', 'like', '%'.$this->search.'%');
         $categories = Category::orderBy('title', 'asc')->get();
         
@@ -61,7 +62,7 @@ class Dashboard extends Component
             });
         }
 
-        $articles = $query->where('user_id', Auth::user()->id)->orderBy($this->sortField, $this->sortDirection)->paginate(10);
+        $articles = $query->where('user_id', $user->id)->orderBy($this->sortField, $this->sortDirection)->paginate(10);
 
         // Mengurutkan categoryFilters secara alfabetis
         $this->sortedCategoryFilters = $this->categoryFilters;

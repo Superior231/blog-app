@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Str;
 
 class ProfileController extends Controller
 {
@@ -16,22 +17,30 @@ class ProfileController extends Controller
         $user = Auth::user();
         $myArticles = Article::where('user_id', Auth::user()->id)->count();
 
-        return view('pages.profile', [
+        return view('pages.profile.profile', [
             'title' => 'Blog App - My Profile',
             'active' => 'my profile',
+            'nav_tab_active' => 'profile',
             'user' => $user,
             'myArticles' => $myArticles
+        ]);
+    }
+
+    public function edit($slug)
+    {
+        $user = User::where('slug', $slug)->first();
+
+        return view('pages.profile.edit', [
+            'title' => 'Blog App - Edit Profile',
+            'active' => 'my profile',
+            'user' => $user
         ]);
     }
 
     public function update(Request $request, string $id)
     {
         $request->validate([
-            'name' => [
-                'required',
-                'max:20',
-                Rule::unique('users')->ignore($id),
-            ],
+            'name' => 'required|max:20',
             'avatar' => 'image|mimes:jpg,jpeg,png,webp|max:5048',
         ], [
             'name.max' => 'Nama tidak boleh lebih dari 20 karakter.',
@@ -40,9 +49,13 @@ class ProfileController extends Controller
         
         $user = User::find($id);
         $user->name = $request->input('name', $user->name);
-        $user->avatar = $request->input('avatar', $user->avatar);
+        $user->gender = $request->input('gender', $user->gender);
+        $user->description = $request->input('description', $user->description);
+        $user->facebook = $request->input('facebook', $user->facebook);
+        $user->twitter = $request->input('twitter', $user->twitter);
+        $user->instagram = $request->input('instagram', $user->instagram);
         
-
+        // Avatar
         if ($request->hasFile('avatar')) {
             // Hapus file avatar lama jika ada
             if ($user->avatar) {
@@ -54,6 +67,20 @@ class ProfileController extends Controller
             $fileName = time() . '_' . $file->getClientOriginalName();
             $file->storeAs('public/avatars', $fileName); // Menyimpan file ke folder 'storage/avatars'
             $user->avatar = $fileName;
+        }
+
+        // Banner
+        if ($request->hasFile('banner')) {
+            // Hapus file banner lama jika ada
+            if ($user->banner) {
+                Storage::disk('public')->delete('banners/' . $user->banner);
+            }
+
+            // Upload and update banner
+            $file = $request->file('banner');
+            $fileName = time() . '_' . $file->getClientOriginalName();
+            $file->storeAs('public/banners', $fileName); // Menyimpan file ke folder 'storage/banners'
+            $user->banner = $fileName;
         }
         
         $user->save();
@@ -82,5 +109,62 @@ class ProfileController extends Controller
         } else {
             return redirect()->route('profile.index')->with('error', 'Avatar gagal dihapus!');
         }
+    }
+
+    public function deleteBanner($id)
+    {
+        $user = User::find($id);
+
+        // Hapus file banner jika ada
+        if (!empty($user->banner)) {
+            Storage::delete('public/banners/' . $user->banner);
+            $user->banner = null;
+        }
+
+        $user->save();
+
+        if ($user) {
+            return redirect()->route('profile.index')->with('success', 'Banner berhasil dihapus!');
+        } else {
+            return redirect()->route('profile.index')->with('error', 'Banner gagal dihapus!');
+        }
+    }
+
+    public function profileArticle()
+    {
+        $user = Auth::user();
+        $articles = Article::where('user_id', $user->id)->paginate(9);
+
+        return view('pages.profile.article', [
+            'title' => 'Blog App - My Profile Articles',
+            'active' => 'my profile',
+            'nav_tab_active' => 'article',
+            'articles' => $articles,
+            'user' => $user
+        ]);
+    }
+
+    public function author($slug)
+    {
+        $user = User::where('slug', $slug)->firstOrFail();
+
+        return view('pages.profile.profile', [
+            'title' => 'Blog App - ' . $user->name,
+            'active' => 'author',
+            'nav_tab_active' => 'profile',
+            'user' => $user
+        ]);
+    }
+
+    public function authorArticle($slug)
+    {
+        $user = User::where('slug', $slug)->firstOrFail();
+
+        return view('pages.profile.article', [
+            'title' => 'Blog App - ' . $user->name,
+            'active' => 'author',
+            'nav_tab_active' => 'article',
+            'user' => $user
+        ]);
     }
 }

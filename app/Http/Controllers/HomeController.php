@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Article;
 use App\Models\LikeArticle;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Livewire;
@@ -12,22 +13,18 @@ class HomeController extends Controller
 {   
     public function index()
     {
-        $articles = Article::with('like_articles')
-                    ->orderBy('created_at', 'desc')
-                    ->paginate(9);
-
         return view('pages.home', [
             'title' => 'Blog App',
-            'active' => 'home',
-            'articles' => $articles
+            'active' => 'home'
         ]);
     }
 
     public function detail($slug)
     {
-        $article = Article::where('slug', $slug)->first();
-
+        $article = Article::where('slug', $slug)->firstOrFail();
         $user_id = Auth::id();
+        $author = $article->user;
+
         $likeCount = LikeArticle::where('article_id', $article->id)->where('like', true)->count();
         $dislikeCount = LikeArticle::where('article_id', $article->id)->where('dislike', true)->count();
         $liked = LikeArticle::where('article_id', $article->id)
@@ -46,7 +43,8 @@ class HomeController extends Controller
             'likeCount' => $likeCount,
             'dislikeCount' => $dislikeCount,
             'liked' => $liked,
-            'disliked' => $disliked
+            'disliked' => $disliked,
+            'author' => $author
         ]);
     }
 }

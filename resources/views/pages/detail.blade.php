@@ -13,7 +13,7 @@
             <p class="mb-0 text-secondary fs-7">Kategori : {{ str_replace(',', ', ', $article->category) }}</p>
             <hr class="bg-secondary">
             <div class="author d-flex gap-2">
-                <a href="" class="profile-image">
+                <a href="{{ route('author.show', ['slug' => $author->slug]) }}" class="profile-image">
                     @if (!empty($article->user->avatar))
                         <img class="img" src="{{ asset('storage/avatars/' . $article->user->avatar) }}">
                     @elseif (!empty($article->user->avatar_google))
@@ -23,9 +23,10 @@
                     @endif
                 </a>
                 <div class="info d-flex flex-column">
-                    <a href="" class="author-name">
-                        <p class="my-0 py-0 text-primary fw-semibold">{{ $article->user->name }}</p>
-                    </a>
+                    <a href="{{ route('author.show', ['slug' => $author->slug]) }}" class="author-name">
+                        <p class="my-0 py-0 text-primary fw-semibold">{{ $author->name }}</p>
+                        <p class="my-0 py-0 text-secondary fs-7">&#64;{{ $author->slug }}</p>
+                    </a>                                     
                     <a class="d-flex align-items-center gap-1 p-0 m-0" onclick="viewDetails('{{ $article->id }}')">
                         <p class="mb-0 text-secondary fs-7">Diperbarui pada {{ Carbon\Carbon::parse($article->updated_at)->translatedFormat('d F Y, H:i') }} WIB</p>
                         <i class='bx bx-chevron-down text-secondary' id="icon-down-{{ $article->id }}"></i>
@@ -71,30 +72,3 @@
         </div>
     </section>
 @endsection
-
-@push('scripts')
-    <script>
-        function login() {
-            Swal.fire({
-                icon: 'info',
-                title: 'Information',
-                text: 'Untuk melanjutkan, harap login terlebih dahulu!',
-                showCancelButton: true,
-                confirmButtonText: 'Login',
-                customClass: {
-                    popup: 'sw-popup',
-                    title: 'sw-title',
-                    htmlContainer: 'sw-text',
-                    closeButton: 'sw-close',
-                    icon: 'border-primary text-primary',
-                    confirmButton: 'btn-primary',
-                },
-                reverseButtons: true,
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    window.location.href = '{{ route('login') }}';
-                }
-            });
-        }
-    </script>
-@endpush

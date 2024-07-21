@@ -23,7 +23,12 @@
                 <hr class="bg-secondary">
                 <div class="mb-3">
                     <label for="thumbnail">Thumbnail</label>
-                    <input type="file" name="thumbnail" id="thumbnail" class="form-control" accept=".jpg, .jpeg, .png, .webp" required>
+                    <input type="file" name="thumbnail" id="thumbnail" class="form-control @error('thumbnail') is-invalid @enderror" accept=".jpg, .jpeg, .png, .webp" required>
+                    @error('thumbnail')
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
+                    @enderror
                 </div>
             </div>
         </div>
