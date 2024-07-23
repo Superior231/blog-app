@@ -67,15 +67,15 @@
                         <img class="img" src="{{ url('assets/images/user.jpg') }}">
                     </a>
                     <div class="user-info d-flex justify-content-between w-100">
-                        <a href="#" class="author-name text-dark d-flex align-items-start gap-2">
-                            <div class="username d-flex flex-column gap-0">
+                        <div class="author-name d-flex align-items-start gap-2">
+                            <a href="#" class="username d-flex flex-column gap-0">
                                 <p class="fw-semibold p-0 m-0 fs-7">Hikmal Falah Agung M</p>
                                 <p class="text-color fs-7">
                                     @hikmalfalaham
                                 </p>
-                            </div>
+                            </a>
                             <p class="text-color p-0 m-0 fs-8">&middot; 5 menit yang lalu</p>
-                        </a>
+                        </div>
                         <div class="actions d-flex align-items-center gap-2">
                             <div class="hapus">
                                 <a class="text-danger text-decoration-none" href="#" title="Hapus Komentar">
@@ -161,15 +161,15 @@
                                 <img class="img" src="{{ url('assets/images/user.jpg') }}">
                             </a>
                             <div class="user-info d-flex justify-content-between w-100">
-                                <a href="#" class="author-name text-dark d-flex align-items-start gap-2">
-                                    <div class="username d-flex flex-column gap-0">
+                                <div class="author-name d-flex align-items-start gap-2">
+                                    <a href="#" class="username d-flex flex-column gap-0">
                                         <p class="fw-semibold p-0 m-0 fs-7">Justina Xie</p>
                                         <p class="text-color fs-7">
                                             @xcl0624
                                         </p>
-                                    </div>
+                                    </a>
                                     <p class="text-color p-0 m-0 fs-8">&middot; 1 menit yang lalu</p>
-                                </a>
+                                </div>
                                 <div class="actions d-flex align-items-center gap-2">
                                     <div class="hapus">
                                         <a class="text-danger text-decoration-none" href="#"
