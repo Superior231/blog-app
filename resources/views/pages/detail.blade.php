@@ -71,4 +71,77 @@
             </div>
         </div>
     </section>
+
+    <section class="bg-soft-blue py-2">
+        <div class="container px-3 px-md-5">
+            @livewire('comment')
+        </div>
+    </section>
+
+
+    <!-- Report Comment -->
+    @auth
+        <div class="modal fade report-comment-modal" id="reportComment-1" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-scrollable">
+                <div class="modal-content">
+                    <div class="modal-header border-0">
+                        <h3 class="modal-title">Report Comment</h3>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body pt-0 pb-2">
+                        <div class="comment-content text-decoration-none d-flex flex-column bg-soft-blue px-3 pt-0 pb-3">
+                            <div class="sticky-top d-flex align-items-center bg-soft-blue pt-3">
+                                <div class="header position-relative">
+                                    <div class="profile-image position-absolute top-0">
+                                        <img src="{{ url('assets/images/user.jpg') }}" class="img" id="user-profile" alt="profile image">
+                                    </div>
+                                    <div class="user-info d-flex gap-2" style="margin-left: 50px;">
+                                        <div class="username d-flex flex-column gap-0">
+                                            <p class="fw-semibold p-0 m-0 fs-7" id="name">Justina Xie</p>
+                                            <p class="text-color fs-7" id="username">
+                                                @xcl0624
+                                            </p>
+                                        </div>
+                                        <p class="text-color p-0 m-0 fs-8" id="created_at">&middot; 5 menit yang lalu</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="user-comment">
+                                <span class="comment-body py-0 my-0" id="comment-body">
+                                    Lorem ipsum, dolor sit amet consectetur adipisicing elit. Assumenda possimus unde nisi quae recusandae libero odio ipsum excepturi fugiat atque.
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer d-flex flex-column align-items-start pt-0">
+                        <label for="report" class="my-2">Report Type</label>
+                        <form action="#" method="POST" class="w-100">
+                            @csrf
+                            <input type="hidden" name="user_id" id="user_id" value="{{ Auth::user()->id }}">
+                            <input type="hidden" name="comment_id" id="comment_id" value="">
+                            <select class="form-select" id="report" name="report" required>
+                                <option value="Spam">Spam</option>
+                                <option value="Promosi">Promosi</option>
+                                <option value="Rasis">Rasis</option>
+                                <option value="Berkata Kasar">Berkata Kasar</option>
+                                <option value="Ujaran Kebencian">Ujaran Kebencian</option>
+                                <option value="Pembulian">Pembulian</option>
+                                <option value="Pornografi">Pornografi</option>
+                            </select>
+                            <div class="d-flex align-items-center justify-content-end gap-2 mt-3 w-100">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                                <button type="submit" class="btn btn-primary" id="report-button">Report</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endauth
 @endsection
+
+@push('scripts')
+    <!-- JQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="{{ url('assets/js/comment.js') }}"></script>
+@endpush
