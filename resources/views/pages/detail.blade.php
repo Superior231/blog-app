@@ -81,7 +81,7 @@
 
     <!-- Report Comment -->
     @auth
-        <div class="modal fade report-comment-modal" id="reportComment-1" tabindex="-1" aria-hidden="true">
+        <div class="modal fade report-comment-modal" id="reportComment" tabindex="-1" aria-hidden="true">
             <div class="modal-dialog modal-dialog-scrollable">
                 <div class="modal-content">
                     <div class="modal-header border-0">

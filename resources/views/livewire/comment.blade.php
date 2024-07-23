@@ -90,10 +90,16 @@
                                 </a>
                                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                                     <li>
-                                        <button data-bs-toggle="modal" data-bs-target="#reportComment-1"
-                                            class="dropdown-item d-flex align-items-center gap-2">
-                                            <i class='bx bxs-flag-alt fs-5'></i> Report
-                                        </button>
+                                        @auth()
+                                            <button data-bs-toggle="modal" data-bs-target="#reportComment"
+                                                class="dropdown-item d-flex align-items-center gap-2">
+                                                <i class='bx bxs-flag-alt fs-5'></i> Report
+                                            </button>
+                                        @else
+                                            <button class="dropdown-item d-flex align-items-center gap-2" onclick="login()">
+                                                <i class='bx bxs-flag-alt fs-5'></i> Report
+                                            </button>
+                                        @endauth
                                     </li>
                                 </ul>
                             </div>
@@ -179,10 +185,16 @@
                                         </a>
                                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink-replay">
                                             <li>
-                                                <button data-bs-toggle="modal" data-bs-target="#reportComment"
-                                                    class="dropdown-item d-flex align-items-center gap-2">
-                                                    <i class='bx bxs-flag-alt fs-5'></i> Report
-                                                </button>
+                                                @auth()
+                                                    <button data-bs-toggle="modal" data-bs-target="#reportComment"
+                                                        class="dropdown-item d-flex align-items-center gap-2">
+                                                        <i class='bx bxs-flag-alt fs-5'></i> Report
+                                                    </button>
+                                                @else
+                                                    <button class="dropdown-item d-flex align-items-center gap-2" onclick="login()">
+                                                        <i class='bx bxs-flag-alt fs-5'></i> Report
+                                                    </button>
+                                                @endauth
                                             </li>
                                         </ul>
                                     </div>
