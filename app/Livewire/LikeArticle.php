@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use App\Models\Comment;
 use App\Models\LikeArticle as Like;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
@@ -74,6 +75,10 @@ class LikeArticle extends Component
 
     public function render()
     {
-        return view('livewire.like-article');
+        $total_comments = Comment::where('article_id', $this->article_id)->count();
+
+        return view('livewire.like-article', [
+            'total_comments' => $total_comments
+        ]);
     }
 }

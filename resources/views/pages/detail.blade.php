@@ -1,5 +1,9 @@
 @extends('layouts.home')
 
+@push('styles')
+    @livewireStyles()
+@endpush
+
 @section('content')
     <section class="thumbnail py-0 my-0">
         <img src="{{ url('storage/thumbnails/' . $article->thumbnail) }}" alt="thumbnail">
@@ -74,10 +78,9 @@
 
     <section class="bg-soft-blue py-2">
         <div class="container px-3 px-md-5">
-            @livewire('comment')
+            @livewire('comment', ['id' => $article->id])
         </div>
     </section>
-
 
     <!-- Report Comment -->
     @auth
@@ -97,19 +100,15 @@
                                     </div>
                                     <div class="user-info d-flex gap-2" style="margin-left: 50px;">
                                         <div class="username d-flex flex-column gap-0">
-                                            <p class="fw-semibold p-0 m-0 fs-7" id="name">Justina Xie</p>
-                                            <p class="text-color fs-7" id="username">
-                                                @xcl0624
-                                            </p>
+                                            <p class="fw-semibold p-0 m-0 fs-7" id="username"></p>
+                                            <p class="text-color fs-7" id="slug"></p>
                                         </div>
-                                        <p class="text-color p-0 m-0 fs-8" id="created_at">&middot; 5 menit yang lalu</p>
+                                        <p class="text-color p-0 m-0 fs-8" id="created_at">&middot; </p>
                                     </div>
                                 </div>
                             </div>
                             <div class="user-comment">
-                                <span class="comment-body py-0 my-0" id="comment-body">
-                                    Lorem ipsum, dolor sit amet consectetur adipisicing elit. Assumenda possimus unde nisi quae recusandae libero odio ipsum excepturi fugiat atque.
-                                </span>
+                                <span class="comment-body py-0 my-0" id="comment-body"></span>
                             </div>
                         </div>
                     </div>
@@ -138,10 +137,29 @@
             </div>
         </div>
     @endauth
+
+    @include('components.toast')
 @endsection
 
 @push('scripts')
+    @livewireScripts()
+    
     <!-- JQuery -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="{{ url('assets/js/comment.js') }}"></script>
+
+    <script>
+        $(document).ready(function(){
+            // Cek apakah ada session success
+            if ("{{ session()->has('success') }}") {
+                // Tampilkan toast
+                $('#toast-success-content').toast('show');
+                
+            } else if ("{{ session()->has('error') }}") {
+                $('#toast-error-content').toast('show');
+            }
+        });
+        
+        var avatarBaseUrl = '{{ asset('storage/avatars/') }}/';
+    </script>
 @endpush

@@ -73,7 +73,7 @@
                                 </div>
                                 <div class="comments d-flex align-items-center gap-1">
                                     <i class='bx bxs-comment-detail'></i>
-                                    <p class="my-0 py-0 text-dark fs-7">5</p>
+                                    <p class="my-0 py-0 text-dark fs-7">{{ $item->comments->where('article_id', $item->id)->count() }}</p>
                                 </div>
                             </div>
 

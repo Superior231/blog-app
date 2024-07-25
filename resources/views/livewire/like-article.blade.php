@@ -10,7 +10,7 @@
         </a>
         <a class="comments d-flex align-items-center gap-1">
             <i class='bx bxs-comment-detail'></i>
-            <p class="my-0 py-0 text-dark fs-7">5</p>
+            <p class="my-0 py-0 text-dark fs-7">{{ $total_comments }}</p>
         </a>
 
     @else
@@ -24,7 +24,7 @@
         </a>
         <a onclick="login()" class="comments d-flex align-items-center gap-1">
             <i class='bx bxs-comment-detail'></i>
-            <p class="my-0 py-0 text-dark fs-7">5</p>
+            <p class="my-0 py-0 text-dark fs-7">{{ $total_comments }}</p>
         </a>
     @endauth
 </div>

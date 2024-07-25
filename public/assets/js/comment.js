@@ -9,10 +9,8 @@ function commentBox(textarea, buttonId) {
         
         if (commentText.length > 0) {
             button.classList.add('text-primary');
-            button.disabled = false;
         } else {
             button.classList.remove('text-primary');
-            button.disabled = true;
         }
     } catch (error) {
         console.error('Fitur comment box tidak ditemukan!', error);
@@ -29,12 +27,13 @@ function confirmDeleteComment(commentId) {
         text: 'Apakah Anda yakin ingin menghapus komentar ini?',
         showCancelButton: true,
         confirmButtonText: 'Ya',
+        cancelButtonText: 'Tidak',
         customClass: {
             popup: 'sw-popup',
             title: 'sw-title',
             htmlContainer: 'sw-text',
             closeButton: 'sw-close',
-            icon: 'sw-icon',
+            icon: 'text-primary',
             confirmButton: 'sw-confirm',
         },
         reverseButtons: true,
@@ -53,7 +52,7 @@ function confirmDeleteComment(commentId) {
                 }
             });
 
-            Livewire.emit('deleteComment', commentId);
+            Livewire.dispatch('deleteComment', { id: commentId });
         }
     });
 }
@@ -89,13 +88,13 @@ function confirmDeleteReplay(commentId) {
                 }
             });
 
-            Livewire.emit('deleteComment', commentId); // Emit event to delete replay
+            Livewire.dispatch('deleteComment', { id: commentId });
         }
     });
 }
 
-function replay(commentId) {
-    const replayComment = document.getElementById(`replay-comment-${commentId}`);
+function reply(commentId) {
+    const replayComment = document.getElementById(`reply-comment-${commentId}`);
     if (replayComment) {
         if (replayComment.classList.contains('d-none')) {
             replayComment.classList.remove('d-none');
@@ -107,25 +106,27 @@ function replay(commentId) {
     }
 }
 
-function reportComment(id, avatar, avatar_google, name, created_at, body) {
-    var avatarUrl = avatar ? "{{ asset('storage/avatars/') }}/" + avatar : 
+function reportComment(id, avatar, avatar_google, name, slug, created_at, body) {
+    var avatarUrl = avatar ? avatarBaseUrl + avatar : 
             (avatar_google ? avatar_google : "https://ui-avatars.com/api/?background=random&name=" + encodeURIComponent(name));
 
     $('#comment_id').val(id);
     $('#user-profile').attr('src', avatarUrl);
     $('#username').text(name);
+    $('#slug').text('@' + slug);
     $('#created_at').text(created_at);
     $('#comment-body').text(body);
     $('#reportComment').modal('show');
 }
 
-function reportReplay(id, avatar, avatar_google, name, created_at, body) {
-    var avatarUrl = avatar ? "{{ asset('storage/avatars/') }}/" + avatar : 
+function reportReplay(id, avatar, avatar_google, name, slug, created_at, body) {
+    var avatarUrl = avatar ? avatarBaseUrl + avatar : 
             (avatar_google ? avatar_google : "https://ui-avatars.com/api/?background=random&name=" + encodeURIComponent(name));
 
     $('#comment_id').val(id);
     $('#user-profile').attr('src', avatarUrl);
     $('#username').text(name);
+    $('#slug').text('@' + slug);
     $('#created_at').text(created_at);
     $('#comment-body').text(body);
     $('#report-comment-form').attr('action', '#' + id);
