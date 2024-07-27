@@ -18,7 +18,7 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/detail/{slug}', [HomeController::class, 'detail'])->name('detail');
 
 // Author
-Route::get('/author/{slug}', [ProfileController::class, 'author'])->name('author.show');
+Route::get('/@{slug}', [ProfileController::class, 'author'])->name('author.show');
 Route::get('/article/{slug}', [ProfileController::class, 'authorArticle'])->name('author.article');
 
 // Users
