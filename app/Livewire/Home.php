@@ -4,8 +4,6 @@ namespace App\Livewire;
 
 use App\Models\Article;
 use App\Models\Category;
-use App\Models\LikeArticle;
-use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -21,7 +19,7 @@ class Home extends Component
     public $sortDirection = 'desc';
     public $currentFilter = 'Terbaru';
 
-    // category
+    // Category
     public $categoryFilters = [];
     public $sortedCategoryFilters = [];
 

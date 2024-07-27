@@ -12,7 +12,7 @@ class LikeArticle extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'article_id', 'user_id', 'like', 'dislike'
+        'article_id', 'user_id', 'like'
     ];
 
     public function article()

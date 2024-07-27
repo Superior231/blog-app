@@ -1,5 +1,5 @@
 <div>
-    <div class="comment py-3 py-md-5">
+    <div class="comment py-3 py-md-5" id="comment">
         <h3 class="py-3">{{ $total_comments }} Komentar</h3>
 
         {{-- Your Comment --}}

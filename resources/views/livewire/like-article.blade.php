@@ -1,29 +1,25 @@
-<div class="article-interaction d-flex align-items-center justify-content-end gap-2">
+<div class="article-interaction d-flex align-items-center justify-content-end">
     @auth()
-        <a wire:click.prevent="like({{ $article_id }})" class="likes d-flex align-items-center gap-1 @if($liked) active @endif">
-            <i class='bx bxs-like'></i>
-            <p class="my-0 py-0 fs-7">{{ $likeCount }}</p>
+        <a wire:click.prevent="like" class="likes d-flex align-items-center gap-1" role="button">
+            @if ($liked)
+                <i class='bx bxs-heart bx-tada text-danger fs-5'></i>
+                <p class="my-0 py-0 fs-7 fw-semibold text-danger">{{ $likeCount }}</p>
+            @else
+                <i class='bx bx-heart text-danger'></i>
+                <p class="my-0 py-0 fs-7">{{ $likeCount }}</p>
+            @endif
         </a>
-        <a wire:click.prevent="dislike({{ $article_id }})" class="dislikes d-flex align-items-center gap-1 @if($disliked) active @endif">
-            <i class='bx bxs-dislike'></i>
-            <p class="my-0 py-0 fs-7">{{ $dislikeCount }}</p>
-        </a>
-        <a class="comments d-flex align-items-center gap-1">
-            <i class='bx bxs-comment-detail'></i>
+        <a href="#comment" class="comments d-flex align-items-center gap-1">
+            <i class='bx bxs-comment-detail text-primary'></i>
             <p class="my-0 py-0 text-dark fs-7">{{ $total_comments }}</p>
         </a>
-
     @else
-        <a onclick="login()" class="likes d-flex align-items-center gap-1">
-            <i class='bx bxs-like'></i>
+        <a onclick="login()" class="likes d-flex align-items-center gap-1" role="button">
+            <i class='bx bx-heart text-danger'></i>
             <p class="my-0 py-0 text-dark fs-7">{{ $likeCount }}</p>
         </a>
-        <a onclick="login()" class="dislikes d-flex align-items-center gap-1">
-            <i class='bx bxs-dislike'></i>
-            <p class="my-0 py-0 text-dark fs-7">{{ $dislikeCount }}</p>
-        </a>
-        <a onclick="login()" class="comments d-flex align-items-center gap-1">
-            <i class='bx bxs-comment-detail'></i>
+        <a href="#comment" class="comments d-flex align-items-center gap-1" role="button">
+            <i class='bx bxs-comment-detail text-primary'></i>
             <p class="my-0 py-0 text-dark fs-7">{{ $total_comments }}</p>
         </a>
     @endauth

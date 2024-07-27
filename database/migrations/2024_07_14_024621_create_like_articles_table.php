@@ -16,7 +16,6 @@ return new class extends Migration
             $table->foreignId('article_id')->constrained('articles')->onDelete('cascade');
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->integer('like')->nullable();
-            $table->integer('dislike')->nullable();
             $table->timestamps();
         });
     }

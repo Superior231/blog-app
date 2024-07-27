@@ -15,7 +15,7 @@ class HomeController extends Controller
     {
         return view('pages.home', [
             'title' => 'Blog App',
-            'active' => 'home'
+            'active' => 'home',
         ]);
     }
 
@@ -26,14 +26,9 @@ class HomeController extends Controller
         $author = $article->user;
 
         $likeCount = LikeArticle::where('article_id', $article->id)->where('like', true)->count();
-        $dislikeCount = LikeArticle::where('article_id', $article->id)->where('dislike', true)->count();
         $liked = LikeArticle::where('article_id', $article->id)
                 ->where('user_id', $user_id)
                 ->where('like', true)
-                ->exists();
-        $disliked = LikeArticle::where('article_id', $article->id)
-                ->where('user_id', $user_id)
-                ->where('dislike', true)
                 ->exists();
 
         return view('pages.detail', [
@@ -41,9 +36,7 @@ class HomeController extends Controller
             'active' => 'home',
             'article' => $article,
             'likeCount' => $likeCount,
-            'dislikeCount' => $dislikeCount,
             'liked' => $liked,
-            'disliked' => $disliked,
             'author' => $author
         ]);
     }
