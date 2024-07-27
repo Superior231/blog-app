@@ -50,6 +50,7 @@ class CategorySeeder extends Seeder
             ['title' => 'Science'],
             ['title' => 'Smartphone'],
             ['title' => 'Sports'],
+            ['title' => 'Streaming'],
             ['title' => 'Style'],
             ['title' => 'Technology'],
             ['title' => 'Tips & Tricks'],
