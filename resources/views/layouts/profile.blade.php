@@ -139,6 +139,13 @@
             <div class="modal fade" id="edit-avatar-img" tabindex="-1" aria-labelledby="edit-avatar-img-label" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
+                        <div class="action position-relative">
+                            <form id="delete-avatar-form-{{ Auth::user()->id }}" action="{{ route('delete-avatar', Auth::user()->id) }}" method="POST">
+                                @csrf @method('DELETE') 
+                                <button class="px-3 py-2 bg-danger text-light border-none border-0 position-absolute top-0 end-0" type="button" onclick="deleteAvatar({{ Auth::user()->id }})" style="margin-top: 80px; z-index: 99999;">Hapus</button>
+                            </form>
+                        </div>
+
                         <form action="{{ route('profile.update', Auth::user()->id) }}" method="POST" enctype="multipart/form-data">
                             @csrf @method('PUT')
 
@@ -203,6 +210,8 @@
     @include('components.footer')
 
     @include('components.script')
+
+    <script src="{{ url('assets/js/profile.js') }}"></script>
 </body>
 
 </html>

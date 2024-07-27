@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Article;
+use App\Models\CommentReport;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -18,13 +19,19 @@ class UserController extends Controller
         $users = User::all();
         $user_total = User::where('roles', 'user')->count();
         $admin_total = User::where('roles', 'admin')->count();
+        $user_approved = User::where('status', 'Approved')->count();
+        $user_banned = User::where('status', 'Banned')->count();
+        $report_count = CommentReport::all()->count();
 
         return view('pages.users.index', [
             'title' => 'Blog App - Users',
             'active' => 'users',
             'users' => $users,
             'user_total' => $user_total,
-            'admin_total' => $admin_total
+            'admin_total' => $admin_total,
+            'user_approved' => $user_approved,
+            'user_banned' => $user_banned,
+            'report_count' => $report_count
         ]);
     }
 

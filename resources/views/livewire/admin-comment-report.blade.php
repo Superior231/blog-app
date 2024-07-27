@@ -1,8 +1,8 @@
 <div>
     <div class="user-reports-container">
         <div class="comment-reports">
-            <div class="title d-flex align-items-center mx-0 px-0 pb-3 mt-4">
-                <h3 class="my-0 fs-2">Laporan Komentar</h3>
+            <div class="title d-flex align-items-center mx-0 px-0 pb-3 mt-5">
+                <h3 class="mb-0 text-dark fw-bold">Laporan Komentar</h3>
             </div>
     
             <div class="actions mb-4">
@@ -108,8 +108,8 @@
                                                 <span class="badge bg-primary">{{ $item->report }}</span>
                                             </div>
                                         </div>
-                                        <div class="action">
-                                            <i class='bx bx-chevron-up' id="iconSeeComment{{ $item->id }}"></i>
+                                        <div class="action d-flex align-items-center">
+                                            <i class='fa-solid fa-angle-up fs-8' id="iconSeeComment{{ $item->id }}"></i>
                                         </div>
                                     </div>
                                     <div class="report-info d-none mt-3" id="reportBody{{ $item->id }}">

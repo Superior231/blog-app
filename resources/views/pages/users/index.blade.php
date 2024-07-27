@@ -36,7 +36,7 @@
             </div>
         </div>
 
-        <div class="col col-md-12 text-decoration-none">
+        <div class="col text-decoration-none">
             <div class="card">
                 <div class="card-body d-flex align-items-center justify-content-between">
                     <div class="info d-flex align-items-center gap-3">
@@ -44,6 +44,48 @@
                         <div class="card-info d-flex flex-column justify-content-center gap-2">
                             <h4 class="py-0 my-0 fw-semibold">Users</h4>
                             <h5 class="fs-6 py-0 my-0">{{ $user_total }}</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col text-decoration-none">
+            <div class="card">
+                <div class="card-body d-flex align-items-center justify-content-between">
+                    <div class="info d-flex align-items-center gap-3">
+                        <i class='bx bxs-check-circle fs-1 text-success py-0 my-0'></i>
+                        <div class="card-info d-flex flex-column justify-content-center gap-2">
+                            <h4 class="py-0 my-0 fw-semibold">Approved</h4>
+                            <h5 class="fs-6 py-0 my-0">{{ $user_approved }}</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col text-decoration-none">
+            <div class="card">
+                <div class="card-body d-flex align-items-center justify-content-between">
+                    <div class="info d-flex align-items-center gap-3">
+                        <i class='bx bxs-x-circle fs-1 text-danger py-0 my-0'></i>
+                        <div class="card-info d-flex flex-column justify-content-center gap-2">
+                            <h4 class="py-0 my-0 fw-semibold">Banned</h4>
+                            <h5 class="fs-6 py-0 my-0">{{ $user_banned }}</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col text-decoration-none">
+            <div class="card">
+                <div class="card-body d-flex align-items-center justify-content-between">
+                    <div class="info d-flex align-items-center gap-3">
+                        <i class='bx bxs-info-circle fs-1 text-primary py-0 my-0'></i>
+                        <div class="card-info d-flex flex-column justify-content-center gap-2">
+                            <h4 class="py-0 my-0 fw-semibold">Reports</h4>
+                            <h5 class="fs-6 py-0 my-0">{{ $report_count }}</h5>
                         </div>
                     </div>
                 </div>
@@ -338,12 +380,12 @@
             detailsElement.classList.toggle("active");
 
             if (detailsElement.classList.contains("active")) {
-                iconSeeComment.classList.remove("bx-chevron-up");
-                iconSeeComment.classList.add("bx-chevron-down");
+                iconSeeComment.classList.remove("fa-angle-up");
+                iconSeeComment.classList.add("fa-angle-down");
                 reportBody.classList.remove("d-none");
             } else {
-                iconSeeComment.classList.remove("bx-chevron-down");
-                iconSeeComment.classList.add("bx-chevron-up");
+                iconSeeComment.classList.remove("fa-angle-down");
+                iconSeeComment.classList.add("fa-angle-up");
                 reportBody.classList.add("d-none");
             }
         }
