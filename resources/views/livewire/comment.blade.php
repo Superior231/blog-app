@@ -4,7 +4,7 @@
 
         {{-- Your Comment --}}
         @auth()
-            <form wire:submit.prevent="store" action="#" class="header d-flex align-items-start gap-2">
+            <form wire:submit.prevent="store" class="header d-flex align-items-start gap-2">
                 <div class="profile-image">
                     @if (!empty(Auth::user()->avatar))
                         <img class="img" src="{{ asset('storage/avatars/' . Auth::user()->avatar) }}">

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Author;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CommentReportController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\GoogleLoginController;
 use App\Http\Controllers\HomeController;
@@ -30,6 +31,11 @@ Route::prefix('/')->middleware('auth')->group(function() {
     Route::get('/profile/{slug}/edit', [ProfileController::class, 'edit'])->name('edit.profile');
     Route::delete('/profile/delete-avatar/{id}', [ProfileController::class, 'deleteAvatar'])->name('delete-avatar');
     Route::delete('/profile/delete-banner/{id}', [ProfileController::class, 'deleteBanner'])->name('delete-banner');
+
+    //// reports
+    Route::post('/report-comment', [CommentReportController::class, 'reportComment'])->name('report.comment');
+    Route::delete('/report-comment/delete/{id}', [CommentReportController::class, 'deleteComment'])->name('report.delete.comment');
+    Route::delete('/report-comment/{id}', [CommentReportController::class, 'deleteCommentReport'])->name('report.delete');
 });
 
 

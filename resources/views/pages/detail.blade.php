@@ -114,7 +114,7 @@
                     </div>
                     <div class="modal-footer d-flex flex-column align-items-start pt-0">
                         <label for="report" class="my-2">Report Type</label>
-                        <form action="#" method="POST" class="w-100">
+                        <form action="{{ route('report.comment') }}" method="POST" class="w-100">
                             @csrf
                             <input type="hidden" name="user_id" id="user_id" value="{{ Auth::user()->id }}">
                             <input type="hidden" name="comment_id" id="comment_id" value="">
