@@ -35,6 +35,11 @@ class GoogleLoginController extends Controller
             );
         }
 
+        if ($user->status === 'Banned') {
+            Auth::logout();
+            return redirect()->route('login')->with('error', 'Akunmu talah dibanned!');
+        }
+
         Auth::login($user);
 
         return redirect('/');

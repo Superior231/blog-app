@@ -12,7 +12,7 @@
         <a class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#tambah-kategori-modal">Tambah Kategori</a>
     </div>
 
-    @include('components.alert')
+    @include('components.toast')
 
     <div class="card">
         <div class="card-body p-3 p-lg-4">

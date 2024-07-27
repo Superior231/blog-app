@@ -5,6 +5,7 @@
 @endpush
 
 @section('content')
+    @include('components.toast')
     <section class="thumbnail py-0 my-0">
         <img src="{{ url('storage/thumbnails/' . $article->thumbnail) }}" alt="thumbnail">
     </section>

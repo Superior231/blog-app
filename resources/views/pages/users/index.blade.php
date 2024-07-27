@@ -1,6 +1,7 @@
 @extends('layouts.main')
 
 @push('styles')
+    @livewireStyles()
     <!-- Datatables -->
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
 @endpush
@@ -55,7 +56,7 @@
         <a class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#tambah-user-modal">Tambah User</a>
     </div>
 
-    @include('components.alert')
+    @include('components.toast')
 
     <div class="card">
         <div class="card-body p-3 p-lg-4">
@@ -67,6 +68,7 @@
                             <th>Role</th>
                             <th>Email</th>
                             <th>Articles</th>
+                            <th>Status</th>
                             <th class="text-center">Actions</th>
                         </tr>
                     </thead>
@@ -107,8 +109,13 @@
                                 </div>
                             </td>
                             <td>
+                                <div class="status-info">
+                                    <span class="fw-normal py-0 my-0">{{ $item->status }}</span>
+                                </div>
+                            </td>
+                            <td>
                                 <div class="actions d-flex justify-content-center gap-2">
-                                    <a href="#" class="btn py-1 btn-primary fw-normal" onclick="editUsers('{{ $item->id }}', '{{ $item->avatar }}', '{{ $item->avatar_google }}', '{{ $item->roles }}', '{{ $item->name }}', '{{ $item->email }}')" data-bs-toggle="modal" data-bs-target="#edit-user-modal" title="Edit">Edit</a>
+                                    <a href="#" class="btn py-1 btn-primary fw-normal" onclick="editUsers('{{ $item->id }}', '{{ $item->avatar }}', '{{ $item->avatar_google }}', '{{ $item->roles }}', '{{ $item->name }}', '{{ $item->email }}', '{{ $item->status }}')" data-bs-toggle="modal" data-bs-target="#edit-user-modal" title="Edit">Edit</a>
 
                                     <form id="delete-user-form-{{ $item->id }}" action="{{ route('users.destroy', $item->id) }}" method="post" class="d-inline">
                                         @csrf
@@ -127,6 +134,8 @@
             </div>
         </div>
     </div>
+
+    @livewire('admin-comment-report')
 
     <!-- Modal -->
         <!-- Modal Tambah User -->
@@ -221,6 +230,14 @@
                                         <option value="admin">Admin</option>
                                     </select>
                                 </div>
+
+                                <div class="edit-status-container w-100">
+                                    <label for="edit-status" class="mb-2 mt-3">Status</label>
+                                    <select id="edit-status" name="status" class="form-select" aria-label="Default select example">
+                                        <option value="Approved">Approved</option>
+                                        <option value="Banned">Banned</option>
+                                    </select>
+                                </div>
                             </div>
         
                             <div class="error-message-container mb-2 mt-3">
@@ -257,6 +274,7 @@
 @endsection
 
 @push('scripts')
+    @livewireScripts()
     <!-- JQuery -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
@@ -274,7 +292,7 @@
             }
         });
 
-        function editUsers(id, avatar, avatar_google, roles, name, email) {
+        function editUsers(id, avatar, avatar_google, roles, name, email, status) {
             var avatarUrl = avatar ? '{{ asset('storage/avatars/') }}/' + avatar : 
                     (avatar_google ? avatar_google : "https://ui-avatars.com/api/?background=random&name=" + encodeURIComponent(name));
 
@@ -283,6 +301,7 @@
             $('#edit-roles').val(roles);
             $('#edit-name').val(name);
             $('#edit-email').val(email);
+            $('#edit-status').val(status);
 
             $('#edit-user-form').attr('action', "{{ route('users.update', '') }}" + '/' + id);
             $('#edit-user-modal').modal('show');
@@ -307,6 +326,93 @@
             }).then((result) => {
                 if (result.isConfirmed) {
                     document.getElementById('delete-user-form-' + userId).submit();
+                }
+            });
+        }
+
+        function seeAll(commentId) {
+            var detailsElement = document.getElementById("seeComment" + commentId);
+            var iconSeeComment = document.getElementById("iconSeeComment" + commentId)
+            var reportBody     = document.getElementById("reportBody" + commentId)
+
+            detailsElement.classList.toggle("active");
+
+            if (detailsElement.classList.contains("active")) {
+                iconSeeComment.classList.remove("bx-chevron-up");
+                iconSeeComment.classList.add("bx-chevron-down");
+                reportBody.classList.remove("d-none");
+            } else {
+                iconSeeComment.classList.remove("bx-chevron-down");
+                iconSeeComment.classList.add("bx-chevron-up");
+                reportBody.classList.add("d-none");
+            }
+        }
+
+        function confirmDeleteReport(reportId) {
+            Swal.fire({
+                icon: 'question',
+                title: 'Anda Yakin?',
+                text: 'Apakah Anda yakin ingin menghapus laporan ini?',
+                showCancelButton: true,
+                confirmButtonText: 'Ya',
+                customClass: {
+                    popup: 'sw-popup',
+                    title: 'sw-title',
+                    htmlContainer: 'sw-text',
+                    closeButton: 'sw-close',
+                    icon: 'text-primary',
+                    confirmButton: 'sw-confirm',
+                },
+                reverseButtons: true,
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    document.getElementById('delete-report-form-' + reportId).submit();
+                }
+            });
+        }
+
+        function confirmDeleteComment(reportId, commentId) {
+            Swal.fire({
+                icon: 'question',
+                title: 'Anda Yakin?',
+                text: 'Apakah Anda yakin ingin menghapus komentar ini?',
+                showCancelButton: true,
+                confirmButtonText: 'Ya',
+                customClass: {
+                    popup: 'sw-popup',
+                    title: 'sw-title',
+                    htmlContainer: 'sw-text',
+                    closeButton: 'sw-close',
+                    icon: 'text-primary',
+                    confirmButton: 'sw-confirm',
+                },
+                reverseButtons: true,
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    document.getElementById('delete-comment-form-' + reportId + '-' + commentId).submit();
+                }
+            });
+        }
+
+        function confirmBannedUser(reportId, userId) {
+            Swal.fire({
+                icon: 'question',
+                title: 'Anda Yakin?',
+                text: 'Apakah Anda yakin ingin memblokir user ini?',
+                showCancelButton: true,
+                confirmButtonText: 'Ya',
+                customClass: {
+                    popup: 'sw-popup',
+                    title: 'sw-title',
+                    htmlContainer: 'sw-text',
+                    closeButton: 'sw-close',
+                    icon: 'text-primary',
+                    confirmButton: 'sw-confirm',
+                },
+                reverseButtons: true,
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    document.getElementById('banned-user-form-' + reportId + '-' + userId).submit();
                 }
             });
         }

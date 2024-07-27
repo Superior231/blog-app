@@ -12,7 +12,7 @@
 
     <section class="profile bg-soft-blue pt-0 pb-4">
         <div class="container">
-            @include('components.alert')
+            @include('components.toast')
         </div>
 
         <!-- Header -->

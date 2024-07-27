@@ -17,6 +17,7 @@
     <div class="container">
         <div class="row align-items-center justify-content-center py-5" style="min-height: 100vh">
             <div class="col-md-5">
+                @include('components.toast')
                 <div class="card">
                     <div class="card-body p-4 p-lg-5">
                         <a href="." class="logo mb-4">
@@ -33,6 +34,7 @@
     </div>
 
     <script src="{{ url('assets/vendors/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+    @stack('scripts')
 </body>
 
 </html>

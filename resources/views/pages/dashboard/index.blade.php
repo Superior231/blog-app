@@ -56,7 +56,7 @@
         <a href="{{ route('dashboard.create') }}" class="btn btn-primary">Tambah Artikel</a>
     </div>
 
-    @include('components.alert')
+    @include('components.toast')
 
     @livewire('dashboard')
 

@@ -50,9 +50,9 @@ class Comment extends Component
         $this->body = '';
 
         if ($comment) {
-            return redirect()->back()->with('success', 'Komentar berhasil dibuat!');
+            return redirect()->with('success', 'Komentar berhasil dibuat!');
         } else {
-            return redirect()->back()->with('error', 'Komentar gagal dibuat!');
+            return redirect()->with('error', 'Komentar gagal dibuat!');
         }
     }
 

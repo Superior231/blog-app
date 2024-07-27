@@ -37,7 +37,7 @@ class UserController extends Controller
             'avatar' => 'image|mimes:jpg,jpeg,png,webp|max:5048',
             'roles' => 'required|string|in:admin,user',
         ], [
-            'email.unique' => 'Email sudah digunakan!.',
+            'email.unique' => 'Email sudah digunakan!',
             'name.max' => 'Nama tidak boleh lebih dari 20 karakter.',
             'avatar.max' => 'Ukuran avatar tidak boleh lebih dari 5MB.',
         ]);
@@ -67,7 +67,7 @@ class UserController extends Controller
             ],
             'avatar' => 'image|mimes:jpg,jpeg,png,webp|max:5048',
         ], [
-            'email.unique' => 'Email sudah digunakan!.',
+            'email.unique' => 'Email sudah digunakan!',
             'name.max' => 'Nama tidak boleh lebih dari 20 karakter.',
             'avatar.max' => 'Ukuran avatar tidak boleh lebih dari 5MB.',
         ]);
@@ -82,6 +82,7 @@ class UserController extends Controller
         $user->facebook = $request->input('facebook', $user->facebook);
         $user->twitter = $request->input('twitter', $user->twitter);
         $user->instagram = $request->input('instagram', $user->instagram);
+        $user->status = $request->input('status', $user->status);
 
         $user->slug = Str::slug(explode('@', $user->email)[0]);
         

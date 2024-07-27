@@ -568,6 +568,46 @@ section.thumbnail img {
 .comment .comment-container .reply span {
   font-weight: 500;
 }
+
+/* comment report */
+.card.card-report {
+  background-color: var(--bg-light);
+  padding: 10px 0px;
+  border-radius: 10px;
+}
+.card.card-report .card-header {
+  background-color: var(--bg-light);
+}
+.card.card-report .card-body {
+  padding: 10px;
+  background-color: var(--soft-blue);
+  margin: 5px 15px 15px 15px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.card.card-report .username .username-info {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.card.card.card-report .username .username-info .profile-image {
+  position: absolute;
+}
+
+.card.card-report .username .username-info .nickname > *,
+.card.card-report .username .username-info h6 {
+  margin-left: 50px !important;
+}
+.card.card-report .dropdown .dropdown-menu li:hover a,
+.card.card-report .dropdown .dropdown-menu li:hover a form button {
+  color: var(--text-color-light) !important;
+  background-color: var(--primary-color) !important;
+}
+.card.card-report .dropdown .dropdown-menu li:active a form button {
+  color: var(--text-color-light) !important;
+}
 /* Comment End */
 
 
