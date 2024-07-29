@@ -39,6 +39,7 @@ class CategorySeeder extends Seeder
             ['title' => 'Laptop'],
             ['title' => 'Lifestyle'],
             ['title' => 'Literature'],
+            ['title' => 'Management'],
             ['title' => 'Mobile'],
             ['title' => 'Mobile Developer'],
             ['title' => 'Motivation'],
