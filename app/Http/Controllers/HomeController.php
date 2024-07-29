@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Article;
+use App\Models\Comment;
 use App\Models\LikeArticle;
+use App\Models\LikeComment;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -21,7 +23,7 @@ class HomeController extends Controller
 
     public function detail($slug)
     {
-        $article = Article::where('slug', $slug)->firstOrFail();
+        $article = Article::where('slug', $slug)->with('comments')->firstOrFail();
         $user_id = Auth::id();
         $author = $article->user;
 
@@ -30,6 +32,7 @@ class HomeController extends Controller
                 ->where('user_id', $user_id)
                 ->where('like', true)
                 ->exists();
+            
 
         return view('pages.detail', [
             'title' => 'Blog App - ' . $article->title,

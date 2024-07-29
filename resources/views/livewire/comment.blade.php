@@ -124,12 +124,40 @@
 
                         <div class="actions d-flex align-items-center justify-content-between gap-2 my-2">
                             <div class="d-flex align-items-center gap-3">
-                                <div class="like text-decoration-none" style="cursor: pointer;">
-                                    <span class="text-color py-0 my-0"><i class='bx bxs-like py-0 my-0'></i> 1</span>
-                                </div>
-                                <div class="dislike text-decoration-none" style="cursor: pointer;">
-                                    <span class="text-color py-0 my-0"><i class='bx bxs-dislike py-0 my-0'></i> 0</span>
-                                </div>
+                                {{-- Like and Dislike --}}
+                                @auth
+                                    @if ($item->liked())
+                                        <button wire:click.prevent="like({{ $item->id }})" class="like-btn py-0 my-0 bg-transparent border-none border-0 d-flex align-items-center gap-1">
+                                            <i class='bx bxs-like text-primary my-0 py-0 fs-5'></i>
+                                            <p class="my-0 py-0 fs-7 fw-semibold text-primary">{{ $item->likeComments() }}</p>
+                                        </button>
+                                    @else
+                                        <button wire:click.prevent="like({{ $item->id }})" class="like-btn py-0 my-0 bg-transparent border-none border-0 d-flex align-items-center gap-1 text-color">
+                                            <i class='bx bxs-like my-0 py-0'></i>
+                                            <p class="my-0 py-0 fs-7">{{ $item->likeComments() }}</p>
+                                        </button>
+                                    @endif
+
+                                    @if ($item->disliked())
+                                        <button wire:click.prevent="dislike({{ $item->id }})" class="dislike-btn py-0 my-0 bg-transparent border-none border-0 d-flex align-items-center gap-1">
+                                            <i class='bx bxs-dislike text-danger my-0 py-0 fs-5'></i>
+                                            <p class="my-0 py-0 fs-7 fw-semibold text-danger">{{ $item->dislikeComments() }}</p>
+                                        </button>
+                                    @else
+                                        <button wire:click.prevent="dislike({{ $item->id }})" class="dislike-btn py-0 my-0 bg-transparent border-none border-0 d-flex align-items-center gap-1 text-color">
+                                            <i class='bx bxs-dislike my-0 py-0'></i>
+                                            <p class="my-0 py-0 fs-7">{{ $item->dislikeComments() }}</p>
+                                        </button>
+                                    @endif
+                                @else
+                                    <button onclick="login()" class="text-color py-0 my-0 bg-transparent border-none border-0">
+                                        <i class='bx bxs-like py-0 my-0'></i> {{ $item->likeComments() }}
+                                    </button>
+
+                                    <button onclick="login()" class="text-color py-0 my-0 bg-transparent border-none border-0">
+                                        <i class='bx bxs-dislike py-0 my-0'></i> {{ $item->dislikeComments() }}
+                                    </button>
+                                @endauth
                             </div>
                             <div class="reply text-decoration-none" style="cursor: pointer;" onclick="reply({{ $item->id }})">
                                 <span class="text-dark fs-7">{{ $item->childrens->count() > 0 ? "{$item->childrens->count()} Balasan" : 'Balas' }}</span>
@@ -233,12 +261,40 @@
                                         </span>
 
                                         <div class="actions d-flex align-items-center gap-3 my-2">
-                                            <div class="like text-decoration-none" style="cursor: pointer;">
-                                                <span class="text-color py-0 my-0"><i class='bx bxs-like py-0 my-0'></i> 0</span>
-                                            </div>
-                                            <div class="dislike text-decoration-none" style="cursor: pointer;">
-                                                <span class="text-color py-0 my-0"><i class='bx bxs-dislike py-0 my-0'></i> 0</span>
-                                            </div>
+                                            {{-- Like and Dislike --}}
+                                            @auth
+                                                @if ($item2->liked())
+                                                    <button wire:click.prevent="like({{ $item2->id }})" class="like-btn py-0 my-0 bg-transparent border-none border-0 d-flex align-items-center gap-1">
+                                                        <i class='bx bxs-like text-primary my-0 py-0 fs-5'></i>
+                                                        <p class="my-0 py-0 fs-7 fw-semibold text-primary">{{ $item2->likeComments() }}</p>
+                                                    </button>
+                                                @else
+                                                    <button wire:click.prevent="like({{ $item2->id }})" class="like-btn py-0 my-0 bg-transparent border-none border-0 d-flex align-items-center gap-1 text-color">
+                                                        <i class='bx bxs-like my-0 py-0'></i>
+                                                        <p class="my-0 py-0 fs-7">{{ $item2->likeComments() }}</p>
+                                                    </button>
+                                                @endif
+            
+                                                @if ($item2->disliked())
+                                                    <button wire:click.prevent="dislike({{ $item2->id }})" class="dislike-btn py-0 my-0 bg-transparent border-none border-0 d-flex align-items-center gap-1">
+                                                        <i class='bx bxs-dislike text-danger my-0 py-0 fs-5'></i>
+                                                        <p class="my-0 py-0 fs-7 fw-semibold text-danger">{{ $item2->dislikeComments() }}</p>
+                                                    </button>
+                                                @else
+                                                    <button wire:click.prevent="dislike({{ $item2->id }})" class="dislike-btn py-0 my-0 bg-transparent border-none border-0 d-flex align-items-center gap-1 text-color">
+                                                        <i class='bx bxs-dislike my-0 py-0'></i>
+                                                        <p class="my-0 py-0 fs-7">{{ $item2->dislikeComments() }}</p>
+                                                    </button>
+                                                @endif
+                                            @else
+                                                <button onclick="login()" class="text-color py-0 my-0 bg-transparent border-none border-0">
+                                                    <i class='bx bxs-like py-0 my-0'></i> {{ $item2->likeComments() }}
+                                                </button>
+
+                                                <button onclick="login()" class="text-color py-0 my-0 bg-transparent border-none border-0">
+                                                    <i class='bx bxs-dislike py-0 my-0'></i> {{ $item2->dislikeComments() }}
+                                                </button>
+                                            @endauth
                                         </div>
                                     </div>
                                 @endforeach

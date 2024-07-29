@@ -4,6 +4,7 @@ namespace App\Livewire;
 
 use App\Models\Article;
 use App\Models\Comment as ModelsComment;
+use App\Models\LikeComment;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
@@ -13,6 +14,11 @@ class Comment extends Component
     public $article, $comment_id;
     public $filter = 'latest';
     public $filterText = 'Terbaru';
+
+    public $likeCommentCount = 0;
+    public $dislikeCommentCount = 0;
+    public $commentLiked = false;
+    public $commentDisliked = false;
     
     protected $listeners = [
         'deleteComment' => 'destroy',
@@ -98,6 +104,53 @@ class Comment extends Component
         }
     }
 
+
+    // Likes and Dislikes
+    private function updateCounts($id)
+    {
+        $this->likeCommentCount = LikeComment::where('comment_id', $id)->where('like', true)->count();
+        $this->dislikeCommentCount = LikeComment::where('comment_id', $id)->where('dislike', true)->count();
+        $this->commentLiked = Auth::check() && LikeComment::where('comment_id', $id)->where('user_id', Auth::id())->where('like', true)->exists();
+        $this->commentDisliked = Auth::check() && LikeComment::where('comment_id', $id)->where('user_id', Auth::id())->where('dislike', true)->exists();
+    }
+
+    public function like($id)
+    {
+        $user_id = Auth::user()->id;
+        $like = LikeComment::where('comment_id', $id)
+                ->where('user_id', $user_id)
+                ->first();
+    
+        if ($like && $like->like) {
+            $like->delete();
+        } else {
+            LikeComment::updateOrCreate(
+                ['comment_id' => $id, 'user_id' => $user_id],
+                ['like' => true, 'dislike' => false]
+            );
+        }
+        $this->updateCounts($id);
+    }
+
+    public function dislike($id)
+    {
+        $user_id = Auth::user()->id;
+        $like = LikeComment::where('comment_id', $id)
+                ->where('user_id', $user_id)
+                ->first();
+    
+        if ($like && $like->dislike) {
+            $like->delete();
+        } else {
+            LikeComment::updateOrCreate(
+                ['comment_id' => $id, 'user_id' => $user_id],
+                ['like' => false, 'dislike' => true]
+            );
+        }
+        $this->updateCounts($id);
+    }
+
+
     public function render()
     {
         $commentsQuery = ModelsComment::with(['user', 'childrens'])
@@ -114,7 +167,10 @@ class Comment extends Component
 
         $comments = $commentsQuery->get();
         $total_comments = ModelsComment::where('article_id', $this->article->id)->count();
-
-        return view('livewire.comment', compact('comments', 'total_comments'));
+        
+        return view('livewire.comment', [
+            'comments' => $comments,
+            'total_comments' => $total_comments,
+        ]);
     }
 }
