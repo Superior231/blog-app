@@ -158,7 +158,7 @@ class ProfileController extends Controller
         }
 
         return view('pages.profile.profile', [
-            'title' => 'Blog App - ' . $user->name,
+            'title' => $user->name . ' (@' . $user->slug . ') - Profile',
             'active' => 'author',
             'nav_tab_active' => 'profile',
             'user' => $user,
@@ -171,7 +171,7 @@ class ProfileController extends Controller
         $user = User::where('slug', $slug)->firstOrFail();
 
         return view('pages.profile.article', [
-            'title' => 'Blog App - ' . $user->name,
+            'title' => $user->name . ' (@' . $user->slug . ') - Article',
             'active' => 'author',
             'nav_tab_active' => 'article',
             'user' => $user
