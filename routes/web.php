@@ -4,6 +4,7 @@ use App\Http\Controllers\Author;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CommentReportController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\FollowController;
 use App\Http\Controllers\GoogleLoginController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileController;
@@ -36,6 +37,10 @@ Route::prefix('/')->middleware('auth')->group(function() {
     Route::post('/report-comment', [CommentReportController::class, 'reportComment'])->name('report.comment');
     Route::delete('/report-comment/delete/{id}', [CommentReportController::class, 'deleteComment'])->name('report.delete.comment');
     Route::delete('/report-comment/{id}', [CommentReportController::class, 'deleteCommentReport'])->name('report.delete');
+
+    //// follows
+    Route::post('/follow', [FollowController::class, 'follow'])->name('follow');
+    Route::delete('/follow/{id}', [FollowController::class, 'unfollow'])->name('unfollow');
 });
 
 

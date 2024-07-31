@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Article;
+use App\Models\Follow;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -148,11 +149,20 @@ class ProfileController extends Controller
     {
         $user = User::where('slug', $slug)->firstOrFail();
 
+        // Cek apakah user sudah login atau belum
+        $isFollowing = null;
+        if (Auth::check()) {
+            $isFollowing = Follow::where('follower_id', Auth::user()->id)
+                                ->where('followed_id', $user->id)
+                                ->exists();
+        }
+
         return view('pages.profile.profile', [
             'title' => 'Blog App - ' . $user->name,
             'active' => 'author',
             'nav_tab_active' => 'profile',
-            'user' => $user
+            'user' => $user,
+            'isFollowing' => $isFollowing
         ]);
     }
 
