@@ -1,15 +1,19 @@
 @extends('layouts.profile')
 
+@push('styles')
+    @livewireStyles()
+@endpush
+
 @section('content')
     <div class="info d-flex align-items-center justify-content-center gap-4 mt-5 mb-4 mb-md-5">
-        <div class="followers-info d-flex flex-column align-items-center">
+        <a class="followers-info d-flex flex-column align-items-center text-dark" data-bs-toggle="modal" data-bs-target="#followersModal">
             <h3 class="fw-semibold">{{ $user->followers->count() }}</h3>
             <p class="fs-7">Followers</p>
-        </div>
-        <div class="followeing-info d-flex flex-column align-items-center">
+        </a>
+        <a class="following-info d-flex flex-column align-items-center text-dark" data-bs-toggle="modal" data-bs-target="#followingModal">
             <h3 class="fw-semibold">{{ $user->following->count() }}</h3>
             <p class="fs-7">Following</p>
-        </div>
+        </a>
         <div class="articles-info d-flex flex-column align-items-center">
             <h3 class="fw-semibold">{{ $user->articles->count() }}</h3>
             <p class="fs-7">Articles</p>
@@ -76,4 +80,65 @@
             @endauth
         </p>
     </div>
+
+    <!-- Followers Modal -->
+    @livewire('follow-modal', ['userId' => $user->id])
 @endsection
+
+@push('scripts')
+    @livewireScripts()
+    <!-- JQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script>
+        function unfollow(userId, avatar, avatar_google, slug) {
+            var avatarUrl = avatar ? '{{ asset('storage/avatars/') }}/' + avatar : 
+                    (avatar_google ? avatar_google : "https://ui-avatars.com/api/?background=random&name=" + encodeURIComponent(name));
+                
+            $('#unfollow-form').attr('action', "{{ route('unfollow', '') }}" + '/' + userId);
+
+            Swal.fire({
+                title: '<img src="' + avatarUrl + '" class="profile-image" style="width: 90px; height: 90px; border-radius: 50%;">',
+                html: '<p class="my-0 py-0 text-dark">Unfollow @' + slug + '?</p>',
+                showCancelButton: true,
+                confirmButtonText: 'Unfollow',
+                customClass: {
+                    popup: 'sw-popup',
+                    title: 'sw-title',
+                    cancelButton: 'bg-soft-blue text-dark border-0 shadow-none',
+                    confirmButton: 'bg-danger border-0 shadow-none',
+                },
+                reverseButtons: true,
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    document.getElementById('unfollow-form').submit();
+                }
+            });
+        }
+
+        function removeFollower(userId, avatar, avatar_google, slug) {
+            var avatarUrl = avatar ? '{{ asset('storage/avatars/') }}/' + avatar : 
+                    (avatar_google ? avatar_google : "https://ui-avatars.com/api/?background=random&name=" + encodeURIComponent(name));
+                
+            $('#removeFollower-form').attr('action', "{{ route('removeFollower', '') }}" + '/' + userId);
+
+            Swal.fire({
+                title: '<img src="' + avatarUrl + '" class="profile-image" style="width: 90px; height: 90px; border-radius: 50%;">',
+                html: '<p class="my-0 py-0 text-dark">Remove @' + slug + ' from your followers ?</p>',
+                showCancelButton: true,
+                confirmButtonText: 'Remove',
+                customClass: {
+                    popup: 'sw-popup',
+                    title: 'sw-title',
+                    cancelButton: 'bg-soft-blue text-dark border-0 shadow-none',
+                    confirmButton: 'bg-danger border-0 shadow-none',
+                },
+                reverseButtons: true,
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    document.getElementById('removeFollower-form').submit();
+                }
+            });
+        }
+    </script>
+@endpush

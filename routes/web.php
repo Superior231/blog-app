@@ -41,6 +41,7 @@ Route::prefix('/')->middleware('auth')->group(function() {
     //// follows
     Route::post('/follow', [FollowController::class, 'follow'])->name('follow');
     Route::delete('/follow/{id}', [FollowController::class, 'unfollow'])->name('unfollow');
+    Route::delete('/follow/remove/{id}', [FollowController::class, 'removeFollower'])->name('removeFollower');
 });
 
 

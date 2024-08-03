@@ -41,4 +41,20 @@ class FollowController extends Controller
 
         return redirect()->back()->with('error', 'Anda belum mengikuti pengguna ini!');
     }
+
+    public function removeFollower($id)
+    {
+        $followerId = $id; // ID pengikut yang ingin dihapus
+        $userId = Auth::user()->id; // ID pengguna yang ingin menghapus pengikutnya
+
+        // Cek apakah pengguna mengikut pengikut tertentu
+        $follow = Follow::where('follower_id', $followerId)->where('followed_id', $userId)->first();
+
+        if ($follow) {
+            $follow->delete();
+            return redirect()->back()->with('success', 'Follower berhasil dihapus!');
+        }
+
+        return redirect()->back()->with('error', 'Follower tidak ditemukan!');
+    }
 }

@@ -619,6 +619,32 @@ section.thumbnail img {
 /* Comment End */
 
 
+/* Followers and Following Modal */
+#followersModal .username,
+#followingModal .username {
+  margin-left: 45px;
+}
+
+#followersModal .search-box,
+#followingModal .search-box {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 10px 15px;
+  margin: 10px 15px;
+  background-color: var(--soft-blue);
+  border-radius: var(--border-10);
+}
+#followersModal .search-box input,
+#followingModal .search-box input {
+  width: 100%;
+  border: none;
+  outline: none;
+  background-color: transparent;
+}
+/* Followers and Following Modal End */
+
+
 
 /* Back to Top */
 .icon-back-to-top {
