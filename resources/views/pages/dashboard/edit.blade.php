@@ -55,7 +55,7 @@
                 </div>
                 <div class="mb-3">
                     <label for="body">Isi Konten</label>
-                    <textarea name="body" id="body" required>{{ $article->body }}</textarea>
+                    <textarea name="body" id="body">{{ $article->body }}</textarea>
                 </div>
             </div>
         </div>

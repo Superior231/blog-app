@@ -58,7 +58,7 @@
                 </div>
                 <div class="mb-3">
                     <label for="body">Isi Konten</label>
-                    <textarea name="body" id="body" required>{{ old('body') }}</textarea>
+                    <textarea name="body" id="body">{{ old('body') }}</textarea>
                 </div>
             </div>
         </div>
