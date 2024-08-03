@@ -1,7 +1,7 @@
 @extends('layouts.main')
 
 @push('styles')
-    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.ckeditor.com/ckeditor5/42.0.2/ckeditor5.css">
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 @endpush
 
@@ -58,7 +58,7 @@
                 </div>
                 <div class="mb-3">
                     <label for="body">Isi Konten</label>
-                    <textarea name="body" id="body" cols="30" rows="10" required>{{ old('body') }}</textarea>
+                    <textarea name="body" id="body" required>{{ old('body') }}</textarea>
                 </div>
             </div>
         </div>
@@ -70,32 +70,10 @@
 @endsection
 
 @push('scripts')
-    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
-        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous">
-    </script>
-    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
     <script>
-        $(document).ready(function() {
-            $('#body').summernote({
-                height: 400,
-                tabsize: 5,
-                toolbar: [
-                    ['style', ['style']],
-                    ['font', ['bold', 'italic', 'underline', 'clear', 'strikethrough', 'superscript', 'subscript']],
-                    ['fontsize', ['fontsize']],
-                    ['fontname', ['fontname']],
-                    ['color', ['color']],
-                    ['para', ['ul', 'ol', 'paragraph']],
-                    ['height', ['height']],
-                    ['table', ['table']],
-                    ['insert', ['link', 'picture', 'video', 'hr']],
-                    ['view', ['fullscreen', 'codeview', 'help']]
-                ]
-            });
-        });
-
         $('#category-select').select2({
             tags: true,
             placeholder: "Select Categories"
@@ -105,4 +83,14 @@
             $('#category-input').val(selectedValues);
         });
     </script>
+
+    <script type="importmap">
+        {
+            "imports": {
+                "ckeditor5": "https://cdn.ckeditor.com/ckeditor5/42.0.2/ckeditor5.js",
+                "ckeditor5/": "https://cdn.ckeditor.com/ckeditor5/42.0.2/"
+            }
+        }
+    </script>
+    <script type="module" src="{{ url('assets/js/ckeditor.js') }}"></script>
 @endpush

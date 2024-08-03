@@ -168,24 +168,6 @@ td > span {
 /* Text End */
 
 
-/* Summernote */
-.note-toolbar {
-  background-color: var(--soft-blue) !important;
-}
-.note-btn-group > button:hover {
-  background-color: var(--bs-primary) !important;
-  color: var(--soft-blue) !important;
-}
-.note-btn-group > *.active {
-  background-color: var(--bs-primary) !important;
-  color: var(--soft-blue) !important;
-}
-.note-editable {
-  background-color: var(--bg-light) !important;
-}
-/* Summernote End */
-
-
 
 /* Navbar */
 .profile-author {
@@ -241,6 +223,17 @@ section.thumbnail img {
   section.thumbnail {
     aspect-ratio: 16/4 !important;
   }
+}
+
+blockquote {
+  border-left: 4px solid var(--primary-color) !important;
+  margin: 5px;
+  padding: 0.5em 10px;
+  background-color: var(--soft-blue) !important;
+}
+blockquote > * {
+  padding: 0;
+  margin: 0;
 }
 
 /* article interaction */
@@ -349,6 +342,12 @@ section.thumbnail img {
 }
 .actions .share button.copy-link-btn p {
   color: var(--text-color-white);
+}
+
+/* CKeditor */
+.ck-editor__editable {
+  height: 400px;
+  overflow-y: auto !important; /* Aktifkan scrollbar vertikal */
 }
 /* Article End */
 
