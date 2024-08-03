@@ -17,7 +17,7 @@
                 </div>
                 <div class="modal-body">
                     @forelse ($followers as $item)
-                        <div class="profile d-flex align-items-center gap-2 mb-2">
+                        <div class="profile d-flex align-items-center gap-2 mb-3">
                             <a href="{{ route('author.show', ['slug' => $item->slug]) }}" class="profile-image position-absolute">
                                 @if (!empty($item->avatar))
                                     <img class="img img-avatar" src="{{ asset('storage/avatars/' . $item->avatar) }}">
@@ -101,7 +101,7 @@
                 </div>
                 <div class="modal-body">
                     @forelse ($following as $item)
-                        <div class="profile d-flex align-items-center gap-2 mb-2">
+                        <div class="profile d-flex align-items-center gap-2 mb-3">
                             <a href="{{ route('author.show', ['slug' => $item->slug]) }}" class="profile-image position-absolute">
                                 @if (!empty($item->avatar))
                                     <img class="img img-avatar" src="{{ asset('storage/avatars/' . $item->avatar) }}">
