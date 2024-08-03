@@ -71,7 +71,7 @@
             <div class="thumbnail">
                 <img src="{{ url('storage/thumbnails/' . $article->thumbnail) }}" alt="thumbnail" class="rounded-2 mb-5">
             </div>
-            <div class="px-0 mx-0">
+            <div class="px-0 mx-0 text-break">
                 {!! $article->body !!}
             </div>
         </div>
