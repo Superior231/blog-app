@@ -78,12 +78,16 @@ class DashboardController extends Controller
         $article = Article::where('slug', $slug)->first();
         $categories = Category::orderBy('title', 'asc')->get();
 
-        return view('pages.dashboard.edit', [
-            'title' => 'Blog App - Edit Artikel',
-            'active' => 'dashboard',
-            'article' => $article,
-            'categories' => $categories,
-        ]);
+        if (Auth::user()->roles == 'admin' || Auth::user()->id == $article->user_id) {
+            return view('pages.dashboard.edit', [
+                'title' => 'Blog App - Edit Artikel',
+                'active' => 'dashboard',
+                'article' => $article,
+                'categories' => $categories,
+            ]);
+        } else {
+            return redirect()->route('dashboard.index')->with('error', 'Anda tidak memiliki akses untuk mengedit artikel ini!');
+        }
     }
 
     public function update(Request $request, string $id)
