@@ -29,6 +29,10 @@
   --tran-04: all 0.4s ease;
   --tran-05: all 0.5s ease;
   /* Transisi End */
+
+  /* Ckeditor */
+  --ck-image-style-spacing: 1.5em;
+  /* Ckeditor End */
 }
 
 * {
@@ -38,7 +42,7 @@
 }
 
 img {
-    max-width: 100%;
+  max-width: 100%;
 }
 
 a {
@@ -195,6 +199,9 @@ td > span {
 
 
 /* Article */
+.article {
+  position: relative;
+}
 section.home .thumbnail,
 section.article-body .thumbnail {
   width: 100%;
@@ -347,7 +354,45 @@ blockquote > * {
 /* CKeditor */
 .ck-editor__editable {
   height: 400px;
-  overflow-y: auto !important; /* Aktifkan scrollbar vertikal */
+  overflow-y: auto !important;
+}
+figure.image {
+  margin-left: auto;
+	margin-right: auto;
+}
+figure.image img,
+p > img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+figure.image.image-style-align-left,
+p > .image-style-align-left {
+  float: left;
+  margin-right: var(--ck-image-style-spacing);
+}
+figure.image.image-style-align-right,
+p > .image-style-align-right {
+  float: right;
+  margin-left: var(--ck-image-style-spacing);
+}
+
+figure.image.image-style-block-align-left {
+  margin-left: 0;
+	margin-right: auto;
+}
+figure.image.image-style-block-align-right {
+  margin-right: 0;
+  margin-left: auto;
+}
+
+@media (max-width: 768px) {
+  .article-body figure,
+  .article-body p img {
+    width: 100% !important;
+  }
 }
 /* Article End */
 
