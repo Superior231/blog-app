@@ -1,13 +1,22 @@
-const navbar = document.querySelector(".navbar");
+// Navbar
+try {
+    const navbar = document.querySelector(".navbar");
+    const navbar2 = document.querySelector(".navbar-detail");
+    const classList = ["shadow-sm", "border-bottom", "border-secondary"];
 
-window.addEventListener("scroll", () => {
-    if(window.pageYOffset > 0.1) {
-        navbar.classList.add("shadow-sm", "border-bottom", "border-secondary");
+    if (navbar || navbar2) {
+        const handleScroll = () => {
+            const action = window.pageYOffset > 0.1 ? 'add' : 'remove';
+            if (navbar) navbar.classList[action](...classList);
+            if (navbar2) navbar2.classList[action](...classList);
+        };
+
+        window.addEventListener("scroll", handleScroll);
     }
-    else {
-        navbar.classList.remove("shadow-sm", "border-bottom", "border-secondary");
-    }
-});
+} catch (error) {
+    console.log("Fitur navbar tidak ditemukan!");
+}
+// Navbar End
 
 
 // Back to Top
@@ -52,22 +61,6 @@ previews.forEach(item => {
     }
 });
 // Image Preview End
-
-
-// Title Count
-const articleTitle = document.querySelectorAll(".article-title");
-const maxLength = 75;
-
-articleTitle.forEach((articleTitle) => {
-    try {
-        if (articleTitle.textContent.length > maxLength) {
-            articleTitle.textContent = articleTitle.textContent.substring(0, maxLength) + "...";
-        }
-    } catch (error) {
-        console.log('Article count tidak muncul!');
-    }
-});
-// Title Count End
 
 
 // Deskripsi See All

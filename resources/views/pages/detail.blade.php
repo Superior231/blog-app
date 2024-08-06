@@ -2,10 +2,26 @@
 
 @push('styles')
     @livewireStyles()
+
+    <style>
+        nav.navbar {
+            display: none !important;
+        }
+    </style>
 @endpush
 
 @section('content')
+    <nav class="navbar-detail sticky-top">
+        <div class="container d-flex align-items-center gap-2 py-3">
+            <a href="{{ route('home') }}" class="py-0 my-0 text-dark" title="Back">
+                <i class='bx bx-arrow-back fw-semibold py-0 my-0 mt-1'></i>
+            </a>
+            <span class="py-0 my-0 fs-6 fw-semibold article-title-nav">{{ $article->title }}</span>
+        </div>
+    </nav>
+
     @include('components.toast')
+
     <section class="thumbnail py-0 my-0">
         <img src="{{ url('storage/thumbnails/' . $article->thumbnail) }}" alt="thumbnail">
     </section>

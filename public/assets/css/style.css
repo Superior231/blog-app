@@ -123,6 +123,19 @@ section {
 .article:hover h3 {
   color: #4564e5;
 }
+.article-title-nav {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+a > .article-title {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 .link {
   color: #6c757d;
 }
@@ -194,6 +207,12 @@ td > span {
   border-radius: 50%;
   object-fit: cover;
   object-position: center;
+}
+
+.navbar-detail {
+  backdrop-filter: blur(10px);
+  background-color: #f1f5fba2;
+  color: var(--text-color-dark);
 }
 /* Navbar End */
 
