@@ -20,7 +20,13 @@
 
         <div class="mb-3">
             <label for="password" class="mb-1">Password</label>
-            <input type="password" id="password" name="password" class="form-control @error('password') is-invalid @enderror" placeholder="Masukkan password kamu" required>
+            <div class="d-flex align-items-center position-relative">
+                <input type="password" id="password" name="password" class="form-control @error('password') is-invalid @enderror" style="padding-right: 45px;" placeholder="Masukkan password kamu" required>
+                <div class="showPass d-flex align-items-center justify-content-center position-absolute end-0 h-100" id="showPass" style="cursor: pointer; width: 50px; border-radius: 0px 10px 10px 0px;" onclick="showPass()">
+                    <i class="fa-regular fa-eye-slash"></i>
+                </div> 
+            </div>
+                   
 
             @error('password')
                 <span class="invalid-feedback" role="alert">

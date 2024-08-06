@@ -27,10 +27,22 @@
         <div class="mb-3">
             <label for="email" class="mb-1">Alamat Email</label>
             <input type="email" name="email" id="email" class="form-control @error('email') is-invalid @enderror" placeholder="Tulis alamat email kamu" value="{{ old('email') }}" required autocomplete="email">
+
+            @error('email')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+            @enderror
         </div>
+
         <div class="mb-3">
             <label for="password" class="mb-1">Password</label>
-            <input type="password" name="password" id="password" class="form-control @error('password') is-invalid @enderror" placeholder="Masukkan password kamu" required>
+            <div class="d-flex align-items-center position-relative">
+                <input type="password" name="password" id="password" class="form-control @error('password') is-invalid @enderror" style="padding-right: 45px;" placeholder="Masukkan password kamu" required>
+                <div class="showPass d-flex align-items-center justify-content-center position-absolute end-0 h-100" id="showPass" style="cursor: pointer; width: 50px; border-radius: 0px 10px 10px 0px;" onclick="showPass()">
+                    <i class="fa-regular fa-eye-slash"></i>
+                </div> 
+            </div>
 
             @error('password')
                 <span class="invalid-feedback" role="alert">
@@ -41,7 +53,12 @@
 
         <div class="mb-3">
             <label for="password_confirmation" class="mb-1">Konfirmasi Password</label>
-            <input type="password" name="password_confirmation" id="password_confirmation" class="form-control" placeholder="Masukkan ulang password kamu" required>
+            <div class="d-flex align-items-center position-relative">
+                <input type="password" name="password_confirmation" id="password_confirmation" class="form-control" style="padding-right: 45px;" placeholder="Masukkan ulang password kamu" required>
+                <div class="showPass d-flex align-items-center justify-content-center position-absolute end-0 h-100" id="showPass2" style="cursor: pointer; width: 50px; border-radius: 0px 10px 10px 0px;" onclick="showPass2()">
+                    <i class="fa-regular fa-eye-slash"></i>
+                </div> 
+            </div>
         </div>
 
         <button class="btn btn-primary d-block w-100" type="submit">Sign Up</button>
