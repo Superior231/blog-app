@@ -118,3 +118,98 @@ function shareToEmail(url, title) {
     window.location.href = emailShareLink;
 }
 // Copy Link End
+
+
+// Code Block
+const preElements = document.querySelectorAll("pre");
+
+preElements.forEach((pre) => {
+    let languageClass = "";
+    let backgroundColor = "";
+
+    if (pre.querySelector("code.language-php")) {
+        languageClass = "PHP";
+        backgroundColor = "#4e5c95";
+        textColor = "#fff";
+    } else if (pre.querySelector("code.language-html")) {
+        languageClass = "HTML";
+        backgroundColor = "#e34c26";
+        textColor = "#fff";
+    } else if (pre.querySelector("code.language-xml")) {
+        languageClass = "XML";
+        backgroundColor = "#e34c26";
+        textColor = "#fff";
+    } else if (pre.querySelector("code.language-css")) {
+        languageClass = "CSS";
+        backgroundColor = "#563c7d";
+        textColor = "#fff";
+    } else if (pre.querySelector("code.language-javascript")) {
+        languageClass = "JavaScript";
+        backgroundColor = "#ffb100";
+        textColor = "#000";
+    } else if (pre.querySelector("code.language-typescript")) {
+        languageClass = "TypeScript";
+        backgroundColor = "#084a86";
+        textColor = "#fff";
+    } else if (pre.querySelector("code.language-plaintext")) {
+        languageClass = "Plain text";
+        backgroundColor = "#757575";
+        textColor = "#fff";
+    } else if (pre.querySelector("code.language-c")) {
+        languageClass = "C";
+        backgroundColor = "#084a86";
+        textColor = "#fff";
+    } else if (pre.querySelector("code.language-cs")) {
+        languageClass = "C#";
+        backgroundColor = "#084a86";
+        textColor = "#fff";
+    } else if (pre.querySelector("code.language-cpp")) {
+        languageClass = "C++";
+        backgroundColor = "#084a86";
+        textColor = "#fff";
+    } else if (pre.querySelector("code.language-diff")) {
+        languageClass = "Diff";
+        backgroundColor = "#757575";
+        textColor = "#fff";
+    } else if (pre.querySelector("code.language-diff")) {
+        languageClass = "Diff";
+        backgroundColor = "#757575";
+        textColor = "#fff";
+    } else if (pre.querySelector("code.language-java")) {
+        languageClass = "Java";
+        backgroundColor = "#757575";
+        textColor = "#fff";
+    } else if (pre.querySelector("code.language-python")) {
+        languageClass = "Python";
+        backgroundColor = "#757575";
+        textColor = "#fff";
+    } else if (pre.querySelector("code.language-ruby")) {
+        languageClass = "Ruby";
+        backgroundColor = "#757575";
+        textColor = "#fff";
+    }
+
+
+    if (languageClass) {
+        // Create div with class code-block
+        const div = document.createElement("div");
+        div.classList.add("code-block", "position-relative");
+        
+        // Create label with class language-code
+        const label = document.createElement("label");
+        label.textContent = languageClass;
+        label.classList.add("language-code", "fs-8");
+        label.style.backgroundColor = backgroundColor;
+        label.style.color = textColor;
+        
+        // Append label to div
+        div.appendChild(label);
+        
+        // Insert div before pre
+        pre.parentNode.insertBefore(div, pre);
+        
+        // Move pre inside div
+        div.appendChild(pre);
+    }
+});
+// Code Block End

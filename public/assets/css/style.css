@@ -420,6 +420,19 @@ figure.image.image-style-block-align-right {
   margin-left: auto;
 }
 
+pre {
+  background-color: #eeefef;
+  border: 1px solid var(--text-color);
+  padding: 20px;
+  border-radius: var(--border-5);
+}
+label.language-code {
+  padding: 5px 15px;
+  position: absolute;
+  right: 0;
+  border-radius: 0px 5px 0px 0px;
+}
+
 @media (max-width: 768px) {
   .article-body figure,
   .article-body p img {
