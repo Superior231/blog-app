@@ -215,6 +215,19 @@ section.article-body .thumbnail img {
   background-position: center;
 }
 
+section.home .article-interaction {
+  margin-left: auto;
+  background-color: var(--soft-blue) !important;
+  border-radius: var(--border-50);
+  height: 40px;
+  padding: 0px 15px;
+}
+section.home .article-interaction a {
+  padding: 0px 10px;
+  color: var(--text-color);
+  cursor: pointer;
+}
+
 section.thumbnail {
   width: 100%;
   border-radius: 0px;

@@ -4,6 +4,9 @@ namespace App\Livewire;
 
 use App\Models\Article;
 use App\Models\Category;
+use App\Models\Comment;
+use App\Models\LikeArticle;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -22,6 +25,45 @@ class Home extends Component
     // Category
     public $categoryFilters = [];
     public $sortedCategoryFilters = [];
+
+    // Like
+    public $likeCount = 0;
+    public $liked = false;
+    public $article_id;
+
+
+    public function mount($article_id = null)
+    {
+        if ($article_id) {
+            $this->article_id = $article_id;
+            $this->updateCounts();
+        }
+    }
+
+    private function updateCounts()
+    {
+        if ($this->article_id) {
+            $this->likeCount = LikeArticle::where('article_id', $this->article_id)->where('like', true)->count();
+            $this->liked = Auth::check() && LikeArticle::where('article_id', $this->article_id)->where('user_id', Auth::id())->where('like', true)->exists();
+        }
+    }
+
+    public function like($article_id)
+    {
+        $user_id = Auth::user()->id;
+        $like = LikeArticle::where('article_id', $article_id)->where('user_id', $user_id)->first();
+
+        if ($like && $like->like) {
+            $like->delete();
+        } else {
+            LikeArticle::updateOrCreate(
+                ['article_id' => $article_id, 'user_id' => $user_id],
+                ['like' => true]
+            );
+        }
+
+        $this->updateCounts();
+    }
 
 
     public function updatingSearch()

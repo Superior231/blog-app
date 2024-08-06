@@ -11,16 +11,16 @@
         </a>
         <a href="#comment" class="comments d-flex align-items-center gap-1">
             <i class='bx bxs-comment-detail text-primary'></i>
-            <p class="my-0 py-0 text-dark fs-7">{{ $total_comments }}</p>
+            <p class="my-0 py-0 fs-7">{{ $total_comments }}</p>
         </a>
     @else
         <a onclick="login()" class="likes d-flex align-items-center gap-1" role="button">
             <i class='bx bx-heart text-danger'></i>
-            <p class="my-0 py-0 text-dark fs-7">{{ $likeCount }}</p>
+            <p class="my-0 py-0 fs-7">{{ $likeCount }}</p>
         </a>
         <a href="#comment" class="comments d-flex align-items-center gap-1" role="button">
             <i class='bx bxs-comment-detail text-primary'></i>
-            <p class="my-0 py-0 text-dark fs-7">{{ $total_comments }}</p>
+            <p class="my-0 py-0 fs-7">{{ $total_comments }}</p>
         </a>
     @endauth
 </div>
