@@ -802,3 +802,16 @@ label.language-code {
   }
 }
 /* Toasts End */
+
+
+/* Footer */
+footer ul {
+  list-style-type: none;
+}
+footer .link a {
+  color: var(--text-color-dark);
+}
+footer .link a:hover {
+  color: var(--text-color-primary);
+}
+/* Footer End */
