@@ -6,6 +6,7 @@ use App\Models\Article;
 use App\Models\Category;
 use App\Models\Comment;
 use App\Models\LikeArticle;
+use App\Models\Whitelist;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -26,9 +27,10 @@ class Home extends Component
     public $categoryFilters = [];
     public $sortedCategoryFilters = [];
 
-    // Like
+    // Like and Whitelist
     public $likeCount = 0;
     public $liked = false;
+    public $whitelisted = false;
     public $article_id;
 
 
@@ -43,8 +45,19 @@ class Home extends Component
     private function updateCounts()
     {
         if ($this->article_id) {
-            $this->likeCount = LikeArticle::where('article_id', $this->article_id)->where('like', true)->count();
-            $this->liked = Auth::check() && LikeArticle::where('article_id', $this->article_id)->where('user_id', Auth::id())->where('like', true)->exists();
+            $this->likeCount = LikeArticle::where('article_id', $this->article_id)
+                        ->where('like', true)
+                        ->count();
+
+            $this->liked = Auth::check() && LikeArticle::where('article_id', $this->article_id)
+                        ->where('user_id', Auth::id())
+                        ->where('like', true)
+                        ->exists();
+
+            $this->whitelisted = Auth::check() && Whitelist::where('article_id', $this->article_id)
+                        ->where('user_id', Auth::id())
+                        ->where('whitelist', true)
+                        ->exists();
         }
     }
 
@@ -59,6 +72,24 @@ class Home extends Component
             LikeArticle::updateOrCreate(
                 ['article_id' => $article_id, 'user_id' => $user_id],
                 ['like' => true]
+            );
+        }
+
+        $this->updateCounts();
+    }
+
+
+    public function whitelist($article_id)
+    {
+        $user_id = Auth::user()->id;
+        $whitelist = Whitelist::where('article_id', $article_id)->where('user_id', $user_id)->first();
+
+        if ($whitelist && $whitelist->whitelist) {
+            $whitelist->delete();
+        } else {
+            Whitelist::updateOrCreate(
+                ['article_id' => $article_id, 'user_id' => $user_id],
+                ['whitelist' => true]
             );
         }
 

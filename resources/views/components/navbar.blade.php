@@ -18,6 +18,9 @@
                     <li class="nav-item">
                         <a href="{{ route('dashboard.index') }}" class="nav-link text-center {{ $active == 'dashboard' ? 'text-primary fw-semibold' : '' }}">Dashboard</a>
                     </li>
+                    <li class="nav-item">
+                        <a href="{{ route('whitelist') }}" class="nav-link text-center {{ $active == 'whitelist' ? 'text-primary fw-semibold' : '' }}">Whitelists</a>
+                    </li>
                     @if (Auth::user()->roles == 'admin')
                         <li class="nav-item">
                             <a href="{{ route('category.index') }}" class="nav-link text-center {{ $active == 'category' ? 'text-primary fw-semibold' : '' }}">Categories</a>

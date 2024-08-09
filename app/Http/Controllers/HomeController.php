@@ -3,13 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Article;
-use App\Models\Comment;
 use App\Models\LikeArticle;
-use App\Models\LikeComment;
-use App\Models\User;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Livewire\Livewire;
 
 class HomeController extends Controller
 {   
@@ -41,6 +36,14 @@ class HomeController extends Controller
             'likeCount' => $likeCount,
             'liked' => $liked,
             'author' => $author
+        ]);
+    }
+
+    public function whitelist()
+    {
+        return view('pages.whitelist', [
+            'title' => 'Blog App - Whitelists',
+            'active' => 'whitelist',
         ]);
     }
 }

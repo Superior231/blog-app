@@ -54,7 +54,7 @@
                                 <div class="thumbnail">
                                     <img src="{{ url('storage/thumbnails/' . $item->thumbnail) }}" alt="thumbnail" class="rounded-3 mb-3">
                                 </div>
-                                <div class="category d-flex flex-wrap mb-3 gap-2">
+                                <div class="category mb-3 gap-2">
                                     @foreach (explode(',', $item->category) as $categories)
                                         <p class="badge p-1 m-0 text-primary">{{ $categories }}</p>
                                     @endforeach
@@ -62,34 +62,55 @@
                                 <h3 class="article-title mb-3">{{ $item->title }}</h3>
                             </a>
 
-                            <div class="article-interaction d-flex align-items-center">
-                                @auth
-                                    <a wire:click.prevent="like({{ $item->id }})" class="likes d-flex align-items-center gap-1">
-                                        @php
-                                            $liked = $item->like_articles->where('user_id', auth()->id())->where('like', true)->first();
-                                        @endphp
-                                        @if ($liked)
-                                            <i class='bx bxs-heart bx-tada text-danger fs-5'></i>
-                                            <p class="my-0 py-0 fs-7 fw-semibold text-danger">{{ $item->like_articles->where('like', true)->count() }}</p>
-                                        @else
+                            <div class="actions d-flex align-items-center justify-content-between gap-2 mt-2 mt-md-3">
+                                <div class="article-interaction d-flex align-items-center">
+                                    @auth
+                                        <a wire:click.prevent="like({{ $item->id }})" class="likes d-flex align-items-center gap-1">
+                                            @php
+                                                $liked = $item->like_articles->where('user_id', auth()->id())->where('like', true)->first();
+                                            @endphp
+                                            @if ($liked)
+                                                <i class='bx bxs-heart bx-tada text-danger fs-5'></i>
+                                                <p class="my-0 py-0 fs-7 fw-semibold text-danger">{{ $item->like_articles->where('like', true)->count() }}</p>
+                                            @else
+                                                <i class='bx bx-heart text-danger'></i>
+                                                <p class="my-0 py-0 fs-7">{{ $item->like_articles->where('like', true)->count() }}</p>
+                                            @endif
+                                        </a>
+                                        <a href="{{ route('detail', $item->slug) }}#comment" class="comments d-flex align-items-center gap-1">
+                                            <i class='bx bxs-comment-detail text-primary'></i>
+                                            <p class="my-0 py-0 fs-7">{{ $item->comments->where('article_id', $item->id)->count() }}</p>
+                                        </a>
+                                    @else
+                                        <a onclick="login()" class="likes d-flex align-items-center gap-1">
                                             <i class='bx bx-heart text-danger'></i>
-                                            <p class="my-0 py-0 fs-7">{{ $item->like_articles->where('like', true)->count() }}</p>
-                                        @endif
-                                    </a>
-                                    <a href="{{ route('detail', $item->slug) }}#comment" class="comments d-flex align-items-center gap-1">
-                                        <i class='bx bxs-comment-detail text-primary'></i>
-                                        <p class="my-0 py-0 fs-7">{{ $item->comments->where('article_id', $item->id)->count() }}</p>
-                                    </a>
-                                @else
-                                    <a onclick="login()" class="likes d-flex align-items-center gap-1">
-                                        <i class='bx bx-heart text-danger'></i>
-                                        <p class="my-0 py-0 text-dark fs-7">{{ $item->like_articles->where('like', true)->count() }}</p>
-                                    </a>
-                                    <a href="{{ route('detail', $item->slug) }}#comment" class="comments d-flex align-items-center gap-1">
-                                        <i class='bx bxs-comment-detail text-primary'></i>
-                                        <p class="my-0 py-0 text-dark fs-7">{{ $item->comments->where('article_id', $item->id)->count() }}</p>
-                                    </a>
-                                @endauth
+                                            <p class="my-0 py-0 text-dark fs-7">{{ $item->like_articles->where('like', true)->count() }}</p>
+                                        </a>
+                                        <a href="{{ route('detail', $item->slug) }}#comment" class="comments d-flex align-items-center gap-1">
+                                            <i class='bx bxs-comment-detail text-primary'></i>
+                                            <p class="my-0 py-0 text-dark fs-7">{{ $item->comments->where('article_id', $item->id)->count() }}</p>
+                                        </a>
+                                    @endauth
+                                </div>
+    
+                                <div class="whitelist">
+                                    @auth
+                                        <a wire:click.prevent="whitelist({{ $item->id }})">
+                                            @php
+                                                $whitelisted = $item->whitelists->where('user_id', auth()->id())->where('whitelist', true)->first();
+                                            @endphp
+                                            @if ($whitelisted)
+                                                <i class='bx bxs-bookmark-star text-primary fs-4'></i>
+                                            @else
+                                                <i class='bx bx-bookmark fs-4'></i>
+                                            @endif
+                                        </a>
+                                    @else
+                                        <a onclick="login()">
+                                            <i class='bx bx-bookmark fs-4'></i>
+                                        </a>
+                                    @endauth
+                                </div>
                             </div>
 
                             <hr class="bg-secondary">

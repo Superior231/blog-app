@@ -59,7 +59,7 @@
                 </div>
             </div>
             
-            <div class="actions d-flex align-items-center justify-content-between">
+            <div class="actions d-flex align-items-center justify-content-between gap-2">
                 <div class="share">
                     <button onclick="shareToFacebook('{{ url('/detail/' . $article->slug) }}')" class="facebook" title="Share to Facebook">
                         <i class="fa-brands fa-facebook-f"></i>

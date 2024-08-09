@@ -33,4 +33,9 @@ class Article extends Model
     {
         return $this->hasMany(Comment::class);
     }
+
+    public function whitelists()
+    {
+        return $this->hasMany(Whitelist::class);
+    }
 }

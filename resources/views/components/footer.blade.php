@@ -18,10 +18,10 @@
                             <a href="{{ route('home') }}" class="fs-7">Beranda</a>
                             @auth
                                 <a href="{{ route('dashboard.index') }}" class="fs-7">Dashboard</a>
-                                <a href="" class="fs-7">Kritik dan Saran</a>
+                                <a href="{{ route('whitelist') }}" class="fs-7">Whitelists</a>
                             @else
-                                <a href="{{ route('login') }}" class="fs-7">Register</a>
-                                <a href="#" onclick="login()" class="fs-7">Kritik dan Saran</a>
+                                <a href="{{ route('login') }}" class="fs-7">Masuk</a>
+                                <a href="{{ route('register') }}" class="fs-7">Daftar</a>
                             @endauth
                         </div>
                     </div>
@@ -44,6 +44,7 @@
                         <div class="link d-flex flex-column gap-2">
                             <a href="" class="fs-7">Tentang Kami</a>
                             <a href="" class="fs-7">Kebijakan Privasi</a>
+                            <a href="" class="fs-7">Kritik dan Saran</a>
                         </div>
                     </div>
                 </div>
