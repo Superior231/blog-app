@@ -47,8 +47,18 @@ class ProfileController extends Controller
             'name.max' => 'Nama tidak boleh lebih dari 20 karakter.',
             'avatar.max' => 'Ukuran avatar tidak boleh lebih dari 5MB.',
         ]);
-        
+
+        // Cek apakah pengguna yang terautentikasi adalah pemilik dari data yang ingin diperbarui
+        if (Auth::id() !== (int) $id) {
+            return redirect()->route('profile.index')->with('error', 'Anda tidak memiliki izin untuk mengedit profile ini!');
+        }
+    
         $user = User::find($id);
+        if (!$user) {
+            return redirect()->route('profile.index')->with('error', 'Pengguna tidak ditemukan!');
+        }
+
+
         $user->name = $request->input('name', $user->name);
         $user->gender = $request->input('gender', $user->gender);
         $user->description = $request->input('description', $user->description);
@@ -95,7 +105,15 @@ class ProfileController extends Controller
 
     public function deleteAvatar($id)
     {
+        // Cek apakah pengguna yang terautentikasi adalah pemilik dari data yang ingin diperbarui
+        if (Auth::id() !== (int) $id) {
+            return redirect()->route('profile.index')->with('error', 'Anda tidak memiliki izin untuk mengedit profile ini!');
+        }
+    
         $user = User::find($id);
+        if (!$user) {
+            return redirect()->route('profile.index')->with('error', 'Pengguna tidak ditemukan!');
+        }
 
         // Hapus file avatar jika ada
         if (!empty($user->avatar)) {
@@ -114,7 +132,15 @@ class ProfileController extends Controller
 
     public function deleteBanner($id)
     {
+        // Cek apakah pengguna yang terautentikasi adalah pemilik dari data yang ingin diperbarui
+        if (Auth::id() !== (int) $id) {
+            return redirect()->route('profile.index')->with('error', 'Anda tidak memiliki izin untuk mengedit profile ini!');
+        }
+    
         $user = User::find($id);
+        if (!$user) {
+            return redirect()->route('profile.index')->with('error', 'Pengguna tidak ditemukan!');
+        }
 
         // Hapus file banner jika ada
         if (!empty($user->banner)) {
