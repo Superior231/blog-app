@@ -50,7 +50,7 @@ class ProfileController extends Controller
 
         // Cek apakah pengguna yang terautentikasi adalah pemilik dari data yang ingin diperbarui
         if (Auth::id() !== (int) $id) {
-            return redirect()->route('profile.index')->with('error', 'Anda tidak memiliki izin untuk mengedit profile ini!');
+            return redirect()->route('profile.index')->with('error', 'Oops... Terjadi kesalahan!');
         }
     
         $user = User::find($id);
@@ -76,7 +76,7 @@ class ProfileController extends Controller
             // Upload and update avatar
             $file = $request->file('avatar');
             $fileName = time() . '_' . $file->getClientOriginalName();
-            $file->storeAs('public/avatars', $fileName); // Menyimpan file ke folder 'storage/avatars'
+            $file->storeAs('public/avatars', $fileName);
             $user->avatar = $fileName;
         }
 
@@ -90,7 +90,7 @@ class ProfileController extends Controller
             // Upload and update banner
             $file = $request->file('banner');
             $fileName = time() . '_' . $file->getClientOriginalName();
-            $file->storeAs('public/banners', $fileName); // Menyimpan file ke folder 'storage/banners'
+            $file->storeAs('public/banners', $fileName);
             $user->banner = $fileName;
         }
         
@@ -107,7 +107,7 @@ class ProfileController extends Controller
     {
         // Cek apakah pengguna yang terautentikasi adalah pemilik dari data yang ingin diperbarui
         if (Auth::id() !== (int) $id) {
-            return redirect()->route('profile.index')->with('error', 'Anda tidak memiliki izin untuk mengedit profile ini!');
+            return redirect()->route('profile.index')->with('error', 'Oops... Terjadi kesalahan!');
         }
     
         $user = User::find($id);
@@ -134,7 +134,7 @@ class ProfileController extends Controller
     {
         // Cek apakah pengguna yang terautentikasi adalah pemilik dari data yang ingin diperbarui
         if (Auth::id() !== (int) $id) {
-            return redirect()->route('profile.index')->with('error', 'Anda tidak memiliki izin untuk mengedit profile ini!');
+            return redirect()->route('profile.index')->with('error', 'Oops... Terjadi kesalahan!');
         }
     
         $user = User::find($id);
