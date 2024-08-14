@@ -86,8 +86,8 @@
     <script>
         function whitelist(article_id) {
             Swal.fire({
-                icon: 'info',
-                title: 'Information',
+                icon: 'question',
+                title: 'Anda yakin?',
                 text: 'Anda yakin ingin menghapus artikel ini di whitelist Anda?',
                 showCancelButton: true,
                 confirmButtonText: 'Ya',
