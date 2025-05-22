@@ -147,6 +147,10 @@ preElements.forEach((pre) => {
         languageClass = "JavaScript";
         backgroundColor = "#ffb100";
         textColor = "#000";
+    } else if (pre.querySelector("code.language-json")) {
+        languageClass = "JSON";
+        backgroundColor = "#ffb100";
+        textColor = "#000";
     } else if (pre.querySelector("code.language-typescript")) {
         languageClass = "TypeScript";
         backgroundColor = "#084a86";

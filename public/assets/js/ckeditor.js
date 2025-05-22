@@ -246,6 +246,26 @@ const editorConfig = {
             'Poppins, sans-serif',
         ]
     },
+	codeBlock: {
+		languages: [
+			{ language: 'plaintext', label: 'Plain text' },
+			{ language: 'c', label: 'C' },
+			{ language: 'cs', label: 'C#' },
+			{ language: 'cpp', label: 'C++' },
+			{ language: 'css', label: 'CSS' },
+			{ language: 'diff', label: 'Diff' },
+			{ language: 'go', label: 'Go' },
+			{ language: 'html', label: 'HTML' },
+			{ language: 'java', label: 'Java' },
+			{ language: 'javascript', label: 'JavaScript' },
+			{ language: 'json', label: 'JSON' },
+			{ language: 'php', label: 'PHP' },
+			{ language: 'python', label: 'Python' },
+			{ language: 'ruby', label: 'Ruby' },
+			{ language: 'typescript', label: 'TypeScript' },
+			{ language: 'xml', label: 'XML' }
+		]
+	},
     placeholder: 'Tulis artikelmu disini!',
 };
 
