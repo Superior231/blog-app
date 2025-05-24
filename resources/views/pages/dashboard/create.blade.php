@@ -57,8 +57,16 @@
                     @enderror
                 </div>
                 <div class="mb-3">
-                    <label for="body">Isi Konten</label>
-                    <textarea name="body" id="body">{{ old('body') }}</textarea>
+                    <div id="editor-container">
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <label for="body" class="text-dark">Isi Konten</label>
+                            <button onclick="toggleFullScreen()" type="button" class="bg-transparent border-0 d-flex align-items-center gap-1">
+                                <i class="bx bx-fullscreen py-0 my-0 text-dark" id="fullscreen-icon"></i>
+                                <span class="text-dark" id="fullscreen-text">Fullscreen</span>
+                            </button>
+                        </div>
+                        <textarea name="body" id="body">{{ old('body') }}</textarea>
+                    </div>
                 </div>
             </div>
         </div>
@@ -93,4 +101,28 @@
         }
     </script>
     <script type="module" src="{{ url('assets/js/ckeditor.js') }}"></script>
+    
+    <script>
+        let isFullscreen = false;
+    
+        function toggleFullScreen() {
+            const container = document.getElementById('editor-container');
+            const icon = document.getElementById('fullscreen-icon');
+            const text = document.getElementById('fullscreen-text');
+    
+            isFullscreen = !isFullscreen;
+    
+            if (isFullscreen) {
+                container.classList.add('editor-fullscreen');
+                icon.classList.remove('bx-fullscreen');
+                icon.classList.add('bx-x');
+                text.textContent = 'Close';
+            } else {
+                container.classList.remove('editor-fullscreen');
+                icon.classList.remove('bx-x');
+                icon.classList.add('bx-fullscreen');
+                text.textContent = 'Fullscreen';
+            }
+        }
+    </script>
 @endpush
