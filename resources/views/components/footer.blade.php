@@ -50,6 +50,6 @@
                 </div>
             </div>
         </div>
-        <p class="text-center fs-7 mt-3">Copyright &copy;2024. All rights reserved.</p>
+        <p class="text-center fs-7 mt-3">Copyright &copy; {{ date('Y') }}. All rights reserved.</p>
     </div>
 </footer>

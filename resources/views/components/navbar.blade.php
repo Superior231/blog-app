@@ -1,7 +1,7 @@
 <nav class="navbar sticky-top navbar-expand-lg py-3 bg-soft-blue">
     <div class="container">
         <a href="{{ route('home') }}" class="logo">
-            <img src="{{ url('assets/images/logo.png') }}" alt="Blog App">
+            <img src="{{ url('assets/images/logo.png') }}" alt="Blog App Logo">
             <span>Blog App</span>
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"

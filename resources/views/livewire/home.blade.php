@@ -26,14 +26,14 @@
                     <i class='bx bx-search'></i>
                     <input class="ms-0 ps-1" type="search" id="search" placeholder="Cari artikel..." autocomplete="off"  wire:model.live="search" style="outline: none !important; border: none;">
                     <div class="dropdown dropup">
-                        <a class="d-flex align-items-center justify-content-center text-decoration-none p-0 m-0" style="cursor: pointer;" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false" title="Filter">
+                        <a href="#" class="d-flex align-items-center justify-content-center text-decoration-none p-0 m-0" style="cursor: pointer;" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false" title="Filter">
                             <i class='bx bx-slider p-0 m-0'></i>
                         </a>
 
                         <ul class="dropdown-menu dropdown-menu-light" aria-labelledby="dropdownMenuLink">
-                            <li><a class="dropdown-item {{ $currentFilter == 'Terbaru' ? 'bg-primary text-light' : '' }}" wire:click="sortBy('terbaru')" style="cursor: pointer;">Terbaru</a></li>
-                            <li><a class="dropdown-item {{ $currentFilter == 'Terlama' ? 'bg-primary text-light' : '' }}" wire:click="sortBy('terlama')" style="cursor: pointer;">Terlama</a></li>
-                            <li><a class="dropdown-item {{ $currentFilter == 'A - Z' ? 'bg-primary text-light' : '' }}" wire:click="sortBy('az')" style="cursor: pointer;">A - Z</a></li>
+                            <li><a href="#" class="dropdown-item {{ $currentFilter == 'Terbaru' ? 'bg-primary text-light' : '' }}" wire:click.prevent="sortBy('terbaru')" style="cursor: pointer;">Terbaru</a></li>
+                            <li><a href="#" class="dropdown-item {{ $currentFilter == 'Terlama' ? 'bg-primary text-light' : '' }}" wire:click.prevent="sortBy('terlama')" style="cursor: pointer;">Terlama</a></li>
+                            <li><a href="#" class="dropdown-item {{ $currentFilter == 'A - Z' ? 'bg-primary text-light' : '' }}" wire:click.prevent="sortBy('az')" style="cursor: pointer;">A - Z</a></li>
                         </ul>
                     </div>
                 </div>
@@ -65,7 +65,7 @@
                             <div class="actions d-flex align-items-center justify-content-between gap-2 mt-2 mt-md-3">
                                 <div class="article-interaction d-flex align-items-center">
                                     @auth
-                                        <a wire:click.prevent="like({{ $item->id }})" class="likes d-flex align-items-center gap-1">
+                                        <a href="#" wire:click.prevent="like({{ $item->id }})" class="likes d-flex align-items-center gap-1">
                                             @php
                                                 $liked = $item->like_articles->where('user_id', auth()->id())->where('like', true)->first();
                                             @endphp
@@ -82,7 +82,7 @@
                                             <p class="my-0 py-0 fs-7">{{ $item->comments->where('article_id', $item->id)->count() }}</p>
                                         </a>
                                     @else
-                                        <a onclick="login()" class="likes d-flex align-items-center gap-1">
+                                        <a href="#" onclick="login()" class="likes d-flex align-items-center gap-1">
                                             <i class='bx bx-heart text-danger'></i>
                                             <p class="my-0 py-0 text-dark fs-7">{{ $item->like_articles->where('like', true)->count() }}</p>
                                         </a>
@@ -95,7 +95,7 @@
     
                                 <div class="whitelist">
                                     @auth
-                                        <a wire:click.prevent="whitelist({{ $item->id }})">
+                                        <a href="#" wire:click.prevent="whitelist({{ $item->id }})">
                                             @php
                                                 $whitelisted = $item->whitelists->where('user_id', auth()->id())->where('whitelist', true)->first();
                                             @endphp
@@ -106,7 +106,7 @@
                                             @endif
                                         </a>
                                     @else
-                                        <a onclick="login()">
+                                        <a href="#" onclick="login()">
                                             <i class='bx bx-bookmark fs-4'></i>
                                         </a>
                                     @endauth
@@ -118,11 +118,11 @@
                                 <a href="{{ route('author.show', ['slug' => $item->user->slug]) }}" class="author d-flex align-items-center gap-1">
                                     <div class="profile-author">
                                         @if (!empty($item->user->avatar))
-                                            <img class="img" src="{{ asset('storage/avatars/' . $item->user->avatar) }}">
+                                            <img class="img" src="{{ asset('storage/avatars/' . $item->user->avatar) }}" alt="avatar">
                                         @elseif (!empty($item->user->avatar_google))
-                                            <img class="img" src="{{ $item->user->avatar_google }}">
+                                            <img class="img" src="{{ $item->user->avatar_google }}" alt="avatar">
                                         @else
-                                            <img class="img" src="https://ui-avatars.com/api/?background=random&name={{ urlencode($item->user->name) }}">
+                                            <img class="img" src="https://ui-avatars.com/api/?background=random&name={{ urlencode($item->user->name) }}" alt="avatar">
                                         @endif
                                     </div>
                                     <p class="my-0 py-0 text-dark fs-7">{{ $item->author ? $item->author : $item->user->name }}</p>
