@@ -439,6 +439,12 @@ figure.image.image-style-block-align-right {
   margin-left: auto;
 }
 
+figure.table table {
+  all: revert;
+  border-collapse: collapse;
+  width: 100%;
+}
+
 pre {
   background-color: #eeefef;
   border: 1px solid var(--text-color);
