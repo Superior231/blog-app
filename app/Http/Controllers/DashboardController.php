@@ -103,6 +103,12 @@ class DashboardController extends Controller
         ]);
 
         $article = Article::find($id);
+
+        // Cek apakah pengguna yang terautentikasi adalah pemilik dari data yang ingin diperbarui
+        if (Auth::id() !== (int) $article->user_id && Auth::user()->roles !== 'admin') {
+            return redirect()->route('dashboard.index')->with('error', 'Oops... Terjadi kesalahan!');
+        }
+
         $article->category = $request->input('category', $article->category);
         $article->title = $request->input('title', $article->title);
         $article->body = $request->input('body', $article->body);
@@ -133,6 +139,11 @@ class DashboardController extends Controller
     public function destroy($id)
     {
         $article = Article::find($id);
+
+        // Cek apakah pengguna yang terautentikasi adalah pemilik dari data yang ingin diperbarui
+        if (Auth::id() !== (int) $article->user_id && Auth::user()->roles !== 'admin') {
+            return redirect()->route('dashboard.index')->with('error', 'Oops... Terjadi kesalahan!');
+        }
 
         if ($article->thumbnail) {
             Storage::disk('public')->delete('thumbnails/' . $article->thumbnail);
