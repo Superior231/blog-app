@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="icon" href="/assets/images/logo.png" type="image/x-icon">
+    <link rel="stylesheet" href="/assets/vendors/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="/assets/vendors/boxicons/css/boxicons.min.css">
+    <style>
+        body {
+            background-color: #f1f5f8 !important;
+        }
+
+        .error-img {
+            width: 200px;
+        }
+
+        .back:hover span {
+            text-decoration: underline !important;
+        }
+
+        @media (max-width: 460px) {
+            .error-img {
+                width: 150px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="container-fluid py-3 px-2 px-md-5">
+        <a href="/" class="back d-flex align-items-center text-decoration-none text-dark fw-bold gap-1">
+            <img class="fw-bold fs-3" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAZRJREFUSEuVlkFOxDAMRZ8PUWnYA5ozoEpzCyTWSFwHsUbiLgwSd+iG/Ui9g6FpSpLGbjpdtFUUO9/f/7sVnEsATbe4Kyx4Ica6MEXsu6rc+UL5LmiEYR1gJCoDlmATcCjbOcBDlLMT9+SPHWHX87tJV1lZ0YOqp43ubLY8q9JMsxF8AJ6A1xDYUFpWQd4cN25KfgbuQF5A32d0BpylAhup2cUp+RdwC/wADwKXxRVexdKWd9jRAd8x+YBwQrnk3NrGnGv7r9BBMSWfaDn+cT8I9CqM0eZNBRY9MMZAB3IW9KgwAL3AONNSwvF9vdZQqYqEXhhQ6UHHWnZuB/bMIulAI0UygPbAWFbgi9qlaBVSNhl6kDGnNO2vqXPGrK77eECjTANdnJJMWxR5M6KOm7zwCdwDz8DHhsdmKeT6DWM2P6x6D8zfKDwCb56J8xFS98CvNs36SpPlmFkbsDRaRJ2qMby0aX93XPsoKrcbrrJVtHwyG4g2Was0WE9lk6KkcXOytn8UlrBr0YWD8zMjf+lDX3r8F3eCuyAYiq4qAAAAAElFTkSuQmCC" />
+            <span>Back to Home</span>
+        </a>
+    </nav>
+    <div class="position-absolute top-50 start-50 translate-middle d-flex flex-column align-items-center justify-content-center gap-1 px-3 w-100">
+        <img src="/assets/images/no_connection.png" class="error-img" alt="Error gif">
+        <h3 class="fw-bold text-center">Whoops!</h3>
+        <p class="text-center">No internet connection. Please check your connection and try again.</p>
+    </div>
+
+    <script src="/assets/vendors/bootstrap/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
