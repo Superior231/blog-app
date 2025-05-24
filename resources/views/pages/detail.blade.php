@@ -26,8 +26,8 @@
         <img src="{{ url('storage/thumbnails/' . $article->thumbnail) }}" alt="thumbnail">
     </section>
 
-    <section class="bg-soft-blue">
-        <div class="container px-3 px-md-5">
+    <section class="bg-soft-blue article-container">
+        <div class="container px-3 px-md-5 py-5">
             <h1 class="text-dark fw-bold">
                 {{ $article->title }}
             </h1>
@@ -82,8 +82,8 @@
         </div>
     </section>
 
-    <div class="row row-cols-1 g-0">
-        <section class="col article-body">
+    <div class="row row-cols-1 article-container g-0">
+        <section class="col article-body py-4 py-lg-5">
             <div class="container px-3 px-md-5">
                 <div class="thumbnail">
                     <img src="{{ url('storage/thumbnails/' . $article->thumbnail) }}" alt="thumbnail" class="rounded-2 mb-5">
@@ -94,12 +94,13 @@
             </div>
         </section>
     
-        <section class="col bg-soft-blue py-2">
-            <div class="container px-3 px-md-5">
-                @livewire('comment', ['id' => $article->id])
-            </div>
-        </section>
     </div>
+
+    <section class="bg-soft-blue article-container py-2">
+        <div class="container px-3 px-md-5">
+            @livewire('comment', ['id' => $article->id])
+        </div>
+    </section>
 
     <!-- Report Comment -->
     @auth

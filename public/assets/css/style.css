@@ -221,6 +221,14 @@ td > span {
 .article {
   position: relative;
 }
+.article-container {
+  padding: 0px 200px !important;
+}
+@media (max-width: 993px) {
+  .article-container {
+    padding: 0px !important;
+  }
+}
 section.home .thumbnail,
 section.article-body .thumbnail {
   width: 100%;
