@@ -176,7 +176,7 @@ h6 {
 }
 
 td > span {
-  font-size: clamp(10px, 3vw, 15px) !important;
+  font-size: clamp(10px, 3vw, 15px);
 }
 
 .text-color {
