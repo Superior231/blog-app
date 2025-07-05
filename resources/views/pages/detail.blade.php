@@ -27,7 +27,7 @@
     </section>
 
     <section class="bg-soft-blue article-container">
-        <div class="container px-3 px-md-5 py-5">
+        <div class="container px-3 px-md-5 pt-5 pb-4">
             <h1 class="text-dark fw-bold">
                 {{ $article->title }}
             </h1>
@@ -79,6 +79,15 @@
                 </div>                                            
                 @livewire('like-article', ['article_id' => $article->id])
             </div>
+
+            <div class="read-time d-flex align-items-center justify-content-end mt-4 text-secondary">
+                <div class="d-flex align-items-center justify-content-center gap-1 bg-primary text-light rounded-pill py-2 px-4">
+                    <i class='bx bx-stopwatch fs-5'></i>
+                    <p class="my-0 py-0 fs-7">
+                        {{ $readTime }}
+                    </p>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -93,7 +102,6 @@
                 </div>
             </div>
         </section>
-    
     </div>
 
     <section class="bg-soft-blue article-container py-2">

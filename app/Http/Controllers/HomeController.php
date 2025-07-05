@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\ReadTimeHelper;
 use App\Models\Article;
 use App\Models\LikeArticle;
 use Illuminate\Support\Facades\Auth;
@@ -25,6 +26,7 @@ class HomeController extends Controller
         $author_name = $author->name;
         $description = Str::limit(strip_tags($article->body), 150);
         $thumbnail = $article->thumbnail;
+        $readTime = ReadTimeHelper::estimate($article->body);
 
         $likeCount = LikeArticle::where('article_id', $article->id)->where('like', true)->count();
         $liked = LikeArticle::where('article_id', $article->id)
@@ -44,6 +46,7 @@ class HomeController extends Controller
             'description' => $description,
             'keywords' => $article->category,
             'thumbnail' => $thumbnail,
+            'readTime' => $readTime
         ]);
     }
 
