@@ -5,7 +5,7 @@ import {
 	AutoImage,
 	AutoLink,
 	Autosave,
-    Alignment,
+	Alignment,
 	BalloonToolbar,
 	Base64UploadAdapter,
 	BlockQuote,
@@ -14,10 +14,10 @@ import {
 	CodeBlock,
 	Essentials,
 	FindAndReplace,
-    FontSize,
-    FontColor,
-    FontBackgroundColor,
-    FontFamily,
+	FontSize,
+	FontColor,
+	FontBackgroundColor,
+	FontFamily,
 	Heading,
 	Highlight,
 	HorizontalLine,
@@ -50,8 +50,8 @@ import {
 	SpecialCharactersMathematical,
 	SpecialCharactersText,
 	Strikethrough,
-    Subscript,
-    Superscript,
+	Subscript,
+	Superscript,
 	Table,
 	TableCaption,
 	TableCellProperties,
@@ -71,10 +71,13 @@ const editorConfig = {
 			'heading', 'fontFamily', 'fontSize', 'fontColor', 'fontBackgroundColor', 'highlight', '|',
 			'bold', 'italic', 'underline', 'blockQuote', 'subscript', 'superscript', 'specialCharacters', '|',
 			'bulletedList', 'numberedList', 'todoList', 'outdent', 'indent', '|',
-            'alignment', '|',
+			'alignment', '|',
 			'link', 'insertImage', 'MediaEmbed', 'insertTable', 'codeBlock',
 		],
 		shouldNotGroupWhenFull: false,
+	},
+	mediaEmbed: {
+		previewsInData: true
 	},
 	plugins: [
 		AccessibilityHelp,
@@ -82,7 +85,7 @@ const editorConfig = {
 		AutoImage,
 		AutoLink,
 		Autosave,
-        Alignment,
+		Alignment,
 		BalloonToolbar,
 		Base64UploadAdapter,
 		BlockQuote,
@@ -91,10 +94,10 @@ const editorConfig = {
 		CodeBlock,
 		Essentials,
 		FindAndReplace,
-        FontSize,
-        FontColor,
-        FontBackgroundColor,
-        FontFamily,
+		FontSize,
+		FontColor,
+		FontBackgroundColor,
+		FontFamily,
 		Heading,
 		Highlight,
 		HorizontalLine,
@@ -127,8 +130,8 @@ const editorConfig = {
 		SpecialCharactersMathematical,
 		SpecialCharactersText,
 		Strikethrough,
-        Subscript,
-        Superscript,
+		Subscript,
+		Superscript,
 		Table,
 		TableCaption,
 		TableCellProperties,
@@ -141,11 +144,11 @@ const editorConfig = {
 		Undo
 	],
 	balloonToolbar: [
-        'bold', 'italic', 'underline', 'blockQuote', '|',
-        'fontFamily', 'fontSize', 'fontColor', 'fontBackgroundColor', 'highlight', '|',
-        'link', '|',
-        'bulletedList', 'numberedList', 'todoList', '|'
-    ],
+		'bold', 'italic', 'underline', 'blockQuote', '|',
+		'fontFamily', 'fontSize', 'fontColor', 'fontBackgroundColor', 'highlight', '|',
+		'link', '|',
+		'bulletedList', 'numberedList', 'todoList', '|'
+	],
 	heading: {
 		options: [
 			{
@@ -229,25 +232,25 @@ const editorConfig = {
 	table: {
 		contentToolbar: ['tableColumn', 'tableRow', 'mergeTableCells', 'tableProperties', 'tableCellProperties'],
 	},
-    fontSize: {
-        options: [
-            9, 11, 12, 13, 'default', 17, 19, 21
-        ]
-    },
-    fontFamily: {
-        options: [
-            'default',
-            'Arial, Helvetica, sans-serif',
-            'Courier New, Courier, monospace',
-            'Georgia, serif',
-            'Lucida Sans Unicode, Lucida Grande, sans-serif',
-            'Tahoma, Geneva, sans-serif',
-            'Times New Roman, Times, serif',
-            'Trebuchet MS, Helvetica, sans-serif',
-            'Verdana, Geneva, sans-serif',
-            'Poppins, sans-serif',
-        ]
-    },
+	fontSize: {
+		options: [
+			9, 11, 12, 13, 'default', 17, 19, 21
+		]
+	},
+	fontFamily: {
+		options: [
+			'default',
+			'Arial, Helvetica, sans-serif',
+			'Courier New, Courier, monospace',
+			'Georgia, serif',
+			'Lucida Sans Unicode, Lucida Grande, sans-serif',
+			'Tahoma, Geneva, sans-serif',
+			'Times New Roman, Times, serif',
+			'Trebuchet MS, Helvetica, sans-serif',
+			'Verdana, Geneva, sans-serif',
+			'Poppins, sans-serif',
+		]
+	},
 	codeBlock: {
 		languages: [
 			{ language: 'plaintext', label: 'Plain text' },
@@ -268,7 +271,7 @@ const editorConfig = {
 			{ language: 'xml', label: 'XML' }
 		]
 	},
-    placeholder: 'Tulis artikelmu disini!',
+	placeholder: "let's write something...",
 };
 
 ClassicEditor.create(document.querySelector('#body'), editorConfig);
