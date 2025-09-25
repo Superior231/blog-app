@@ -1,9 +1,12 @@
 @php
+    $title = $article->title ?? 'Blog App';
     $author_name = $author_name ?? 'Blog App';
     $description = $description ?? "The best platform to share stories, inspirations, and knowledge. Find a variety of interesting articles in various categories ranging from technology, entertainment, to lifestyle. Join us and start sharing your experiences!";
     $keywords = $keywords ?? 'blog, article, story, inspiration, technology, entertainment, lifestyle, education, personal, experience, sharing, knowledge, community';
     $thumbnail = $thumbnail ?? null;
     $thumbnail = $thumbnail ? asset('storage/thumbnails/' . $thumbnail) : url('assets/images/logo.png');
+    $datePublished = $article->created_at ?? '';
+    $dateModified = $article->updated_at ?? '';
 @endphp
 
 <meta name="description" content="{{ $description }}">
@@ -27,3 +30,32 @@
 
 <link rel="canonical" href="{{ url()->current() }}">
 <link rel="alternate" href="{{ url()->current() }}" hreflang="x-default">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "{{ $title }}",
+  "description": "{{ $description }}",
+  "image": "{{ $thumbnail }}",
+  "author": {
+    "@type": "Person",
+    "name": "{{ $author_name }}"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Blog App - Hikmal Falah",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "{{ url('assets/images/logo.png') }}"
+    }
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "{{ url()->current() }}"
+  },
+  "datePublished": "{{ $datePublished }}",
+  "dateModified": "{{ $dateModified }}",
+  "keywords": "{{ $keywords }}"
+}
+</script>
