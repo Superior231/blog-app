@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
+use Intervention\Image\Facades\Image;
 
 class DashboardController extends Controller
 {
@@ -62,9 +63,13 @@ class DashboardController extends Controller
 
         if ($request->hasFile('thumbnail')) {
             $file = $request->file('thumbnail');
-            $fileName = time() . '_' . $file->getClientOriginalName();
-            $path = $file->storeAs('public/thumbnails', $fileName);
+            $fileName = time() . '_' . pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME) . '.webp';
+            $image = Image::make($file)->resize(1200, 1200, function ($constraint) {
+                $constraint->aspectRatio();
+                $constraint->upsize();
+            })->encode('webp', 80);
 
+            Storage::disk('public')->put('thumbnails/' . $fileName, (string) $image);
             $data['thumbnail'] = $fileName;
         }
         
@@ -120,15 +125,18 @@ class DashboardController extends Controller
         $article['slug'] = Str::slug($request->title);
 
         if ($request->hasFile('thumbnail')) {
-            // Hapus file lama jika ada
-            if ($article->thumbnail) {
+            if ($article->thumbnail && Storage::disk('public')->exists('thumbnails/' . $article->thumbnail)) {
                 Storage::disk('public')->delete('thumbnails/' . $article->thumbnail);
             }
-
+        
             $file = $request->file('thumbnail');
-            $fileName = time() . '_' . $file->getClientOriginalName();
-            $path = $file->storeAs('public/thumbnails', $fileName);
-
+            $fileName = time() . '_' . pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME) . '.webp';
+            $image = Image::make($file)->resize(1200, 1200, function ($constraint) {
+                $constraint->aspectRatio();
+                $constraint->upsize();
+            })->encode('webp', 80);
+            
+            Storage::disk('public')->put('thumbnails/' . $fileName, (string) $image);
             $article->thumbnail = $fileName;
         }
         

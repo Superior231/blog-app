@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Hash;
+use Intervention\Image\Facades\Image;
 
 class ProfileController extends Controller
 {
@@ -96,29 +97,35 @@ class ProfileController extends Controller
         
         // Avatar
         if ($request->hasFile('avatar')) {
-            // Hapus file avatar lama jika ada
-            if ($user->avatar) {
+            if ($user->avatar && Storage::disk('public')->exists('avatars/' . $user->avatar)) {
                 Storage::disk('public')->delete('avatars/' . $user->avatar);
             }
-
-            // Upload and update avatar
+        
             $file = $request->file('avatar');
-            $fileName = time() . '_' . $file->getClientOriginalName();
-            $file->storeAs('public/avatars', $fileName);
+            $fileName = time() . '_' . pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME) . '.webp';
+            $image = Image::make($file)->resize(1200, 1200, function ($constraint) {
+                $constraint->aspectRatio();
+                $constraint->upsize();
+            })->encode('webp', 80);
+            
+            Storage::disk('public')->put('avatars/' . $fileName, (string) $image);
             $user->avatar = $fileName;
         }
 
         // Banner
         if ($request->hasFile('banner')) {
-            // Hapus file banner lama jika ada
-            if ($user->banner) {
+            if ($user->banner && Storage::disk('public')->exists('banners/' . $user->banner)) {
                 Storage::disk('public')->delete('banners/' . $user->banner);
             }
-
-            // Upload and update banner
+        
             $file = $request->file('banner');
-            $fileName = time() . '_' . $file->getClientOriginalName();
-            $file->storeAs('public/banners', $fileName);
+            $fileName = time() . '_' . pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME) . '.webp';
+            $image = Image::make($file)->resize(1200, 1200, function ($constraint) {
+                $constraint->aspectRatio();
+                $constraint->upsize();
+            })->encode('webp', 80);
+            
+            Storage::disk('public')->put('banners/' . $fileName, (string) $image);
             $user->banner = $fileName;
         }
         
