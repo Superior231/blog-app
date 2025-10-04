@@ -111,7 +111,7 @@
                             </a>
                         </div>
                         <p class="mb-0 mt-2 text-secondary text-center">
-                            Already Have an Account?
+                            Already have an account?
                             <a href="{{ route('login') }}" class="text-decoration-underline text-primary">Login</a>
                         </p>
                     </form>

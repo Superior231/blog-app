@@ -13,7 +13,8 @@
     --soft-blue: #f1f5fb;
     --secondary-color: #f1f5fb;
     --background-color: #FEFEFF;
-    --background-input: #F0F0F0;
+    /* --background-input: #F0F0F0; */
+    --background-input: var(--soft-blue);
     --text-color: #202429;
     --input-color: #ACACAC;
 
@@ -154,6 +155,7 @@ small {
     padding: 15px 10px 15px 45px;
     outline: none;
     background: var(--background-input);
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
 }
 
 .content input::placeholder {

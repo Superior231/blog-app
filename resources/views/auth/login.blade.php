@@ -66,7 +66,7 @@
                         <div class="d-grid gap-1 mt-4">
                             <button class="btn btn-primary d-block w-100 fw-semibold" type="submit">Login</button>
                             <span class="text-secondary mx-auto d-block my-0 py-0">or</span>
-                            <a href="{{ route('google.redirect') }}" class="btn btn-light border-dark color-dark text-dark rounded-3 w-100 fw-semibold">
+                            <a href="{{ route('google.redirect') }}" class="btn google-btn btn-light border-dark color-dark text-dark rounded-3 w-100 fw-semibold">
                                 <img src="{{ url('assets/images/google-icon.png') }}" style="width: 20px;" alt="Google Icon">
                                 Login with Google
                             </a>
