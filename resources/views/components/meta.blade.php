@@ -1,5 +1,5 @@
 @php
-    $title = $article->title ?? 'Blog App';
+    $title = $article->title ?? $title ?? 'Blog App';
     $author_name = $author_name ?? 'Blog App';
     $description = $description ?? "The best platform to share stories, inspirations, and knowledge. Find a variety of interesting articles in various categories ranging from technology, entertainment, to lifestyle. Join us and start sharing your experiences!";
     $keywords = $keywords ?? 'blog, article, story, inspiration, technology, entertainment, lifestyle, education, personal, experience, sharing, knowledge, community';
@@ -17,13 +17,13 @@
 <meta property="og:description" content="{{ $description }}">
 <meta property="og:type" content="website">
 <meta property="og:url" content="{{ url()->current() }}">
-<meta property="og:image" content="{{ $thumbnail }}">
+<meta property="og:image" content="{{ $avatar ?? $thumbnail }}">
 <meta property="og:site_name" content="Blog App">
 
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="{{ $title }}">
 <meta name="twitter:description" content="{{ $description }}">
-<meta name="twitter:image" content="{{ $thumbnail }}">
+<meta name="twitter:image" content="{{ $avatar ?? $thumbnail }}">
 
 <meta name="robots" content="index, follow, max-image-preview:large">
 <meta name="googlebot" content="index, follow">
@@ -37,14 +37,14 @@
   "@type": "BlogPosting",
   "headline": "{{ $title }}",
   "description": "{{ $description }}",
-  "image": "{{ $thumbnail }}",
+  "image": "{{ $avatar ?? $thumbnail }}",
   "author": {
     "@type": "Person",
     "name": "{{ $author_name }}"
   },
   "publisher": {
     "@type": "Organization",
-    "name": "Blog App - Hikmal Falah",
+    "name": "Blog App",
     "logo": {
       "@type": "ImageObject",
       "url": "{{ url('assets/images/logo.png') }}"

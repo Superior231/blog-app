@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Hash;
 use Intervention\Image\Facades\Image;
+use Illuminate\Support\Str;
 
 class ProfileController extends Controller
 {
@@ -209,6 +210,11 @@ class ProfileController extends Controller
     public function author($slug)
     {
         $user = User::where('slug', $slug)->firstOrFail();
+        $author_name = $user->name;
+        $description = Str::limit(strip_tags($user->description ?? 'No description yet.'), 150);
+        $avatar = $user->avatar_google
+                        ?? asset('storage/avatars/' . $user->avatar)
+                        ?? "https://ui-avatars.com/api/?background=random&name=" . urlencode($user->name);
 
         // Cek apakah user sudah login atau belum
         $isFollowing = null;
@@ -223,19 +229,30 @@ class ProfileController extends Controller
             'active' => 'author',
             'nav_tab_active' => 'profile',
             'user' => $user,
-            'isFollowing' => $isFollowing
+            'isFollowing' => $isFollowing,
+            'description' => $description,
+            'author_name' => $author_name,
+            'avatar' => $avatar
         ]);
     }
 
     public function authorArticle($slug)
     {
         $user = User::where('slug', $slug)->firstOrFail();
+        $author_name = $user->name;
+        $description = Str::limit(strip_tags($user->description ?? 'No description yet.'), 150);
+        $avatar = $user->avatar_google
+                        ?? asset('storage/avatars/' . $user->avatar)
+                        ?? "https://ui-avatars.com/api/?background=random&name=" . urlencode($user->name);
 
         return view('pages.profile.article', [
             'title' => $user->name . ' (@' . $user->slug . ') - Article',
             'active' => 'author',
             'nav_tab_active' => 'article',
-            'user' => $user
+            'user' => $user,
+            'description' => $description,
+            'author_name' => $author_name,
+            'avatar' => $avatar
         ]);
     }
 }
