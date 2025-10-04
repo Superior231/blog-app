@@ -53,12 +53,16 @@
                 </div>
                 <div class="article-info d-flex justify-content-between gap-2 mt-0">
                     <div class="article-body d-flex flex-column">
-                        <div class="category mb-2 gap-2">
-                            @foreach (explode(',', $item->category) as $categories)
-                                <p class="badge p-1 m-0 text-primary">{{ $categories }}</p>
+                        <div class="categories mb-2 ellipsis-1">
+                            @php
+                                $categories = explode(',', $item->category);
+                            @endphp
+                            @foreach ($categories as $category)
+                                <span class="badge bg-primary">{{ $category }}</span>
                             @endforeach
                         </div>
-                        <h3 class="article-title fw-semibold">{{ $item->title }}</h3>
+                        <h3 class="article-title fw-semibold ellipsis-2">{{ $item->title }}</h3>
+                        <p class="mb-0 text-secondary fs-7">{{ Carbon\Carbon::parse($item->created_at)->translatedFormat('d F Y') }}</p>
                     </div>
                     <div class="action d-flex align-items-center">
                         <a onclick="whitelist('{{ $item->id }}')" style="cursor: pointer;">

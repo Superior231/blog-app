@@ -203,6 +203,23 @@ a.instagram {
 }
 
 
+/* Ellipsis */
+.ellipsis-1 {
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.ellipsis-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+
 /* Input */
 input[readonly] {
   background-color: #e8edee !important;
@@ -899,6 +916,12 @@ section.whitelist .whitelist-content .article-info .article-title {
 }
 .icon-back-to-top i {
   color: var(--text-color-light);
+}
+
+@media (max-width: 768px) {
+  .icon-back-to-top{
+    line-height: 60px;
+  }
 }
 /* Back to Top End */
 

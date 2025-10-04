@@ -6,7 +6,7 @@
                 <div class="container-filters d-flex position-relative gap-2">
                     <div class="btn-group">
                         <button type="button" class="dropdown-toggle" data-bs-toggle="dropdown" data-bs-display="static"
-                            aria-expanded="false">Kategori</button>
+                            aria-expanded="false">Categories</button>
                         <ul class="dropdown-menu dropdown-menu-lg-start">
                             <div class="categories" style="max-height: 300px; overflow-y: scroll;">
                                 @foreach ($categories as $category)
@@ -26,7 +26,7 @@
                 <!-- Search -->
                 <div class="search-box">
                     <i class='bx bx-search'></i>
-                    <input class="ms-0 ps-1" type="search" id="search" placeholder="Cari artikel..."
+                    <input class="ms-0 ps-1" type="search" id="search" placeholder="Search..."
                         autocomplete="off" wire:model.live="search" style="outline: none !important; border: none;">
                     <div class="dropdown dropup">
                         <a class="d-flex align-items-center justify-content-center text-decoration-none p-0 m-0"
@@ -58,17 +58,23 @@
                 @forelse ($articles as $item)
                     <div class="card bg-transparent">
                         <a href="{{ route('detail', $item->slug) }}" class="article">
-                            <div class="row g-0">
-                                <div class="col-3 col-md-2">
+                            <div class="row g-1 d-flex flex-column flex-md-row gap-2">
+                                <div class="col-12 col-md-3">
                                     <div class="thumbnail">
                                         <img src="{{ url('storage/thumbnails/' . $item->thumbnail) }}" alt="thumbnail" class="rounded-3">
                                     </div>
                                 </div>
-                                <div class="col-9 col-md-10">
-                                    <div class="card-body ps-3 py-0 my-0">
-                                        <h3 class="article-title">{{ $item->title }}</h3>
-                                        <p class="mb-0 text-secondary fs-7">{{ Carbon\Carbon::parse($item->created_at)->translatedFormat('d F Y') }}</p>
+                                <div class="col-12 col-md-8">
+                                    <div class="categories mb-2 ellipsis-1">
+                                        @php
+                                            $categories = explode(',', $item->category);
+                                        @endphp
+                                        @foreach ($categories as $category)
+                                            <span class="badge bg-primary">{{ $category }}</span>
+                                        @endforeach
                                     </div>
+                                    <h3 class="article-title ellipsis-2">{{ $item->title }}</h3>
+                                    <p class="mb-0 text-secondary fs-7">{{ Carbon\Carbon::parse($item->created_at)->translatedFormat('d F Y') }}</p>
                                 </div>
                             </div>
                         </a>
@@ -77,7 +83,7 @@
 
                 @empty
                     <div class="d-flex justify-content-center align-items-center">
-                        <p class="fs-4 text-dark">Artikel tidak ada.</p>
+                        <p class="fs-4 text-dark">No articles found.</p>
                     </div>
                 @endforelse
             </div>
