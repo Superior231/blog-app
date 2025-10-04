@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->foreignId('comment_id')->constrained('comments')->onDelete('cascade');
-            $table->enum('report', ['Spam', 'Promosi', 'Rasis', 'Berkata Kasar', 'Ujaran Kebencian', 'Pembulian', 'Pornografi']);
+            $table->enum('report', ['Spam', 'Promotion', 'Racism', 'Dirty', 'Hate Speech', 'Bullying', 'Pornography']);
             $table->timestamps();
         });
     }

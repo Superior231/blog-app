@@ -20,7 +20,7 @@
                                 style="width: 80px; height: auto;">
                         </a>
                         <h3 class="fw-bold">Register</h3>
-                        <p>Daftar Aplikasi Blog</p>
+                        <p>Register Blog App</p>
                     </div>
 
                     <form method="POST" action="{{ route('register') }}" class="auth mt-4">
@@ -111,8 +111,8 @@
                             </a>
                         </div>
                         <p class="mb-0 mt-2 text-secondary text-center">
-                            Sudah Memiliki Akun?
-                            <a href="{{ route('login') }}" class="text-decoration-underline text-primary">Masuk</a>
+                            Already Have an Account?
+                            <a href="{{ route('login') }}" class="text-decoration-underline text-primary">Login</a>
                         </p>
                     </form>
                 </div>

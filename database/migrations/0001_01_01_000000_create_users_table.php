@@ -14,13 +14,14 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('slug');
+            $table->string('slug')->unique();
+            $table->boolean('slug_changed')->default(false);
             $table->string('email')->unique();
             $table->string('avatar')->nullable();
             $table->string('avatar_google')->nullable();
             $table->string('banner')->nullable();
             $table->enum('roles', ['user', 'admin'])->default('user');
-            $table->enum('gender', ['Pria', 'Wanita'])->default('Pria');
+            $table->enum('gender', ['Male', 'Female'])->default('Male');
             $table->text('description')->nullable();
             $table->string('facebook')->nullable();
             $table->string('twitter')->nullable();

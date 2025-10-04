@@ -20,10 +20,10 @@ class FollowController extends Controller
                 'follower_id' => $followerId,
                 'followed_id' => $followingId,
             ]);
-            return redirect()->back()->with('success', 'Anda berhasil follow!');
+            return redirect()->back()->with('success', 'You have successfully followed this user!');
         }
 
-        return redirect()->back()->with('error', 'Anda sudah mengikuti pengguna ini!');
+        return redirect()->back()->with('error', 'You have already followed this user!');
     }
 
     public function unfollow($id)
@@ -36,10 +36,10 @@ class FollowController extends Controller
 
         if ($follow) {
             $follow->delete();
-            return redirect()->back()->with('success', 'Anda berhasil unfollow!');
+            return redirect()->back()->with('success', 'You have successfully unfollowed this user!');
         }
 
-        return redirect()->back()->with('error', 'Anda belum mengikuti pengguna ini!');
+        return redirect()->back()->with('error', 'You have not followed this user!');
     }
 
     public function removeFollower($id)
@@ -52,9 +52,9 @@ class FollowController extends Controller
 
         if ($follow) {
             $follow->delete();
-            return redirect()->back()->with('success', 'Follower berhasil dihapus!');
+            return redirect()->back()->with('success', 'You have successfully removed this follower!');
         }
 
-        return redirect()->back()->with('error', 'Follower tidak ditemukan!');
+        return redirect()->back()->with('error', 'You have not followed this user!');
     }
 }

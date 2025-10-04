@@ -13,7 +13,7 @@ class Comment extends Component
     public $body, $replyBodies = [];
     public $article, $comment_id;
     public $filter = 'latest';
-    public $filterText = 'Terbaru';
+    public $filterText = 'Latest';
 
     public $likeCommentCount = 0;
     public $dislikeCommentCount = 0;
@@ -35,9 +35,9 @@ class Comment extends Component
     {
         $this->filter = $filter;
         $this->filterText = match($filter) {
-            'popular' => 'Komentar terpopuler',
-            'latest' => 'Terbaru',
-            default => 'Semua komentar',
+            'popular' => 'Popular',
+            'latest' => 'Latest',
+            default => 'All',
         };
     }
 
@@ -56,9 +56,9 @@ class Comment extends Component
         $this->body = '';
 
         if ($comment) {
-            return redirect()->with('success', 'Komentar berhasil dibuat!');
+            return redirect()->with('success', 'Comment created successfully!');
         } else {
-            return redirect()->with('error', 'Komentar gagal dibuat!');
+            return redirect()->with('error', 'Failed to create comment!');
         }
     }
 
@@ -86,12 +86,12 @@ class Comment extends Component
     
             if ($comment) {
                 $this->replyBodies[$id] = ''; // Reset balasan setelah berhasil
-                return redirect()->back()->with('success', 'Balasan komentar berhasil dibuat!');
+                return redirect()->back()->with('success', 'Reply created successfully!');
             } else {
-                return redirect()->back()->with('error', 'Balasan komentar gagal dibuat!');
+                return redirect()->back()->with('error', 'Failed to create reply!');
             }
         } else {
-            return redirect()->back()->with('error', 'Balasan komentar tidak boleh kosong!');
+            return redirect()->back()->with('error', 'Reply body cannot be empty!');
         }
     }
 

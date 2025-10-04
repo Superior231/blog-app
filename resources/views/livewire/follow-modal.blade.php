@@ -54,7 +54,7 @@
                                         <form action="{{ route('removeFollower', $item->id) }}" id="removeFollower-form"
                                             method="POST" class="w-100">
                                             @csrf @method('DELETE')
-                                            <button onclick="removeFollower('{{ $item->id }}', '{{ $item->avatar }}', '{{ $item->avatar_google }}', '{{ $item->slug }}')" class="removeFollower-btn bg-soft-blue border-none border-0 py-2 px-3 rounded-3 fs-7" type="button">Hapus</button>
+                                            <button onclick="removeFollower('{{ $item->id }}', '{{ $item->avatar }}', '{{ $item->avatar_google }}', '{{ $item->slug }}', '{{ $item->name }}')" class="removeFollower-btn bg-soft-blue border-none border-0 py-2 px-3 rounded-3 fs-7" type="button">Remove</button>
                                         </form>
                                     @elseif (Auth::user()->id != $item->id)
                                         @if (!$item->followers->contains(Auth::user()->id))
@@ -67,7 +67,7 @@
                                             <form action="{{ route('unfollow', $item->id) }}" id="unfollow-form"
                                                 method="POST" class="w-100">
                                                 @csrf @method('DELETE')
-                                                <button onclick="unfollow('{{ $item->id }}', '{{ $item->avatar }}', '{{ $item->avatar_google }}', '{{ $item->slug }}')" class="unfollow-btn bg-soft-blue text-dark border-none border-0 py-2 px-3 rounded-3 fs-7" type="button">Following</button>
+                                                <button onclick="unfollow('{{ $item->id }}', '{{ $item->avatar }}', '{{ $item->avatar_google }}', '{{ $item->slug }}', '{{ $item->name }}')" class="unfollow-btn bg-soft-blue text-dark border-none border-0 py-2 px-3 rounded-3 fs-7" type="button">Following</button>
                                             </form>
                                         @endif
                                     @endif
@@ -76,7 +76,7 @@
                         </div>
                     @empty
                         <div class="error-message d-flex justify-content-center align-items-center py-4">
-                            <span class="py-0 my-0 fs-7">Tidak ada followers.</span>
+                            <span class="py-0 my-0 fs-7">User not found.</span>
                         </div>
                     @endforelse
                 </div>
@@ -129,7 +129,7 @@
                                                 method="POST" class="w-100">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button onclick="unfollow('{{ $item->id }}', '{{ $item->avatar }}', '{{ $item->avatar_google }}', '{{ $item->slug }}')" class="unfollow-btn bg-soft-blue text-dark border-none border-0 py-2 px-3 rounded-3 fs-7" type="button">Following</button>
+                                                <button onclick="unfollow('{{ $item->id }}', '{{ $item->avatar }}', '{{ $item->avatar_google }}', '{{ $item->slug }}', '{{ $item->name }}')" class="unfollow-btn bg-soft-blue text-dark border-none border-0 py-2 px-3 rounded-3 fs-7" type="button">Following</button>
                                             </form>
                                         @endif
                                     @endif
@@ -138,7 +138,7 @@
                         </div>
                     @empty
                         <div class="error-message d-flex justify-content-center align-items-center py-4">
-                            <span class="py-0 my-0 fs-7">Tidak ada following.</span>
+                            <span class="py-0 my-0 fs-7">User not found.</span>
                         </div>
                     @endforelse
                 </div>

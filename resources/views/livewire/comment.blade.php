@@ -1,6 +1,6 @@
 <div>
     <div class="comment py-3 py-md-5" id="comment">
-        <h3 class="py-3">{{ $total_comments }} Komentar</h3>
+        <h3 class="py-3">{{ $total_comments }} Comments</h3>
 
         {{-- Your Comment --}}
         @auth()
@@ -16,16 +16,16 @@
                 </div>
 
                 <div class="input-comment d-flex align-items-center gap-2 w-100">
-                    <textarea wire:model.defer="body" placeholder="Tulis komentarmu..." oninput="commentBox(this, 'commentBtn')"></textarea>
-                    <button type="submit" id="commentBtn" title="Kirim Komentar">
+                    <textarea wire:model.defer="body" placeholder="Text your comment..." oninput="commentBox(this, 'commentBtn')"></textarea>
+                    <button type="submit" id="commentBtn" title="Submit comment">
                         <i class='bx bxs-send'></i>
                     </button>
                 </div>
             </form>
         @else
             <div class="header d-flex align-items-center justify-content-center gap-2">
-                <span>Login dulu untuk berkomentar </span>
-                <a href="{{ route('login') }}" class="text-decoration-underline">klik disini!</a>
+                <span>Login first to comment</span>
+                <a href="{{ route('login') }}" class="text-decoration-underline">click here!</a>
             </div>
         @endauth
         {{-- Your Comment End --}}
@@ -37,13 +37,13 @@
 
             <ul class="dropdown-menu dropdown-menu-end">
                 <li>
-                    <a class="dropdown-item {{ $filter == 'popular' ? 'bg-primary text-light' : '' }}" href="#" wire:click.prevent="setFilter('popular')">Komentar terpopuler</a>
+                    <a class="dropdown-item {{ $filter == 'popular' ? 'bg-primary text-light' : '' }}" href="#" wire:click.prevent="setFilter('popular')">Popular</a>
                 </li>
                 <li>
-                    <a class="dropdown-item {{ $filter == 'latest' ? 'bg-primary text-light' : '' }}" href="#" wire:click.prevent="setFilter('latest')">Terbaru</a>
+                    <a class="dropdown-item {{ $filter == 'latest' ? 'bg-primary text-light' : '' }}" href="#" wire:click.prevent="setFilter('latest')">Latest</a>
                 </li>
                 <li>
-                    <a class="dropdown-item {{ $filter == 'all' ? 'bg-primary text-light' : '' }}" href="#" wire:click.prevent="setFilter('all')">Semua komentar</a>
+                    <a class="dropdown-item {{ $filter == 'all' ? 'bg-primary text-light' : '' }}" href="#" wire:click.prevent="setFilter('all')">All</a>
                 </li>
             </ul>
         </div>
@@ -76,7 +76,7 @@
                                 @auth()
                                     @if (Auth::user()->roles == 'admin')
                                         <div class="hapus">
-                                            <a class="text-danger text-decoration-none" href="#" onclick="confirmDeleteComment({{ $item->id }})" title="Hapus Komentar">
+                                            <a class="text-danger text-decoration-none" href="#" onclick="confirmDeleteComment({{ $item->id }})" title="Delete comment">
                                                 <i class='bx bx-trash-alt fs-5'></i>
                                             </a>
                                         </div>
@@ -84,7 +84,7 @@
                                     @else
                                         @if ($item->user_id == Auth::user()->id)
                                             <div class="hapus">
-                                                <a class="text-danger text-decoration-none" href="#" title="Hapus Komentar" onclick="confirmDeleteComment({{ $item->id }})" title="Hapus Komentar">
+                                                <a class="text-danger text-decoration-none" href="javascript:void(0)" title="Delete comment" onclick="confirmDeleteComment({{ $item->id }})">
                                                     <i class='bx bx-trash-alt fs-5'></i>
                                                 </a>
                                             </div>
@@ -160,7 +160,7 @@
                                 @endauth
                             </div>
                             <div class="reply text-decoration-none" style="cursor: pointer;" onclick="reply({{ $item->id }})">
-                                <span class="text-dark fs-7">{{ $item->childrens->count() > 0 ? "{$item->childrens->count()} Balasan" : 'Balas' }}</span>
+                                <span class="text-dark fs-7">{{ $item->childrens->count() > 0 ? "{$item->childrens->count()} Replies" : 'Reply' }}</span>
                             </div>
                         </div>
                     </div>
@@ -182,8 +182,8 @@
                                 </div>
 
                                 <div class="input-comment d-flex align-items-center gap-2 w-100">
-                                    <textarea wire:model.defer="replyBodies.{{ $item->id }}" placeholder="Balas komentar..." oninput="commentBox(this, '{{ $item->id }}')"></textarea>
-                                    <button type="submit" id="{{ $item->id }}" title="Kirim Balasan">
+                                    <textarea wire:model.defer="replyBodies.{{ $item->id }}" placeholder="Reply to comment..." oninput="commentBox(this, '{{ $item->id }}')"></textarea>
+                                    <button type="submit" id="{{ $item->id }}" title="Submit comment">
                                         <i class='bx bxs-send'></i>
                                     </button>
                                 </div>
@@ -217,14 +217,14 @@
                                                 @auth
                                                     @if (Auth::user()->roles == 'admin')
                                                         <div class="hapus">
-                                                            <a class="text-danger text-decoration-none" href="#" title="Hapus Komentar" onclick="confirmDeleteComment({{ $item2->id }})">
+                                                            <a class="text-danger text-decoration-none" href="javascript:void(0)" title="Delete comment" onclick="confirmDeleteComment({{ $item2->id }})">
                                                                 <i class='bx bx-trash-alt fs-5'></i>
                                                             </a>
                                                         </div>
                                                     @else
                                                         @if ($item2->user_id == Auth::user()->id)
                                                             <div class="hapus">
-                                                                <a class="text-danger text-decoration-none" href="#" title="Hapus Komentar" onclick="confirmDeleteReplay({{ $item2->id }})">
+                                                                <a class="text-danger text-decoration-none" href="javascript:void(0)" title="Delete comment" onclick="confirmDeleteReplay({{ $item2->id }})">
                                                                     <i class='bx bx-trash-alt fs-5'></i>
                                                                 </a>
                                                             </div>
@@ -300,7 +300,6 @@
                                 @endforeach
                             @endif
 
-
                             {{-- user reply end --}}
                         </div>
                     </div>
@@ -310,7 +309,7 @@
 
             @empty
                 <div class="error-message d-flex justify-content-center align-items-center">
-                    <span>Tidak ada komentar.</span>
+                    <span>No comments available.</span>
                 </div>
             @endforelse
         </div>

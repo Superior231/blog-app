@@ -19,8 +19,8 @@
                         <a href="{{ route('home') }}" class="mb-4 d-flex flex-column align-items-center d-none text-decoration-none" id="logo-mobile">
                             <img src="{{ url('assets/images/logo.png') }}" alt="Logo" style="width: 80px; height: auto;">
                         </a>
-                        <h3 class="fw-bold">Sign in</h3>
-                        <p>Masuk Aplikasi Blog</p>
+                        <h3 class="fw-bold">Login</h3>
+                        <p>Login Blog App</p>
                     </div>
     
                     <form method="POST" action="{{ route('login') }}" class="auth mt-4">
@@ -64,7 +64,7 @@
                         </div>
 
                         <div class="d-grid gap-1 mt-4">
-                            <button class="btn btn-primary d-block w-100 fw-semibold" type="submit">Sign In</button>
+                            <button class="btn btn-primary d-block w-100 fw-semibold" type="submit">Login</button>
                             <span class="text-secondary mx-auto d-block my-0 py-0">or</span>
                             <a href="{{ route('google.redirect') }}" class="btn btn-light border-dark color-dark text-dark rounded-3 w-100 fw-semibold">
                                 <img src="{{ url('assets/images/google-icon.png') }}" style="width: 20px;" alt="Google Icon">
@@ -72,8 +72,8 @@
                             </a>
                         </div>
                         <p class="mb-0 mt-2 text-secondary text-center">
-                            Belum Memiliki Akun?
-                            <a href="{{ route('register') }}" class="text-decoration-underline text-primary">Daftar</a>
+                            Don't have an account yet?
+                            <a href="{{ route('register') }}" class="text-decoration-underline text-primary">Register</a>
                         </p>
                     </form>
                 </div>

@@ -35,34 +35,52 @@ class UserController extends Controller
         ]);
     }
 
+    /**
+     * Generate unique slug user{random_string}
+     */
+    private function generateUniqueSlug()
+    {
+        do {
+            $randomString = Str::lower(Str::random(10));
+            $slug = 'user' . $randomString;
+        } while (User::where('slug', $slug)->exists());
+        
+        return $slug;
+    }
+
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'name' => 'required|string|max:20',
+            'name' => 'required|string|max:30',
             'email' => 'required|email|unique:users,email',
             'password' => 'required|string|min:8',
             'avatar' => 'image|mimes:jpg,jpeg,png,webp|max:5048',
             'roles' => 'required|string|in:admin,user',
         ], [
-            'email.unique' => 'Email sudah digunakan!',
-            'name.max' => 'Nama tidak boleh lebih dari 20 karakter.',
-            'avatar.max' => 'Ukuran avatar tidak boleh lebih dari 5MB.',
+            'email.unique' => 'Email already exists!',
+            'name.max' => 'Name cannot be more than 30 characters.',
+            'avatar.max' => 'Avatar size cannot be more than 5MB.',
         ]);
 
         $validatedData['password'] = Hash::make($validatedData['password']);
-        $validatedData['slug'] = Str::slug(explode('@', $validatedData['email'])[0]);
+
+        // Generate username random (unique)
+        $slug = $this->generateUniqueSlug();
+        $validatedData['slug'] = $slug;
 
         $user = User::create($validatedData);
 
         if ($user) {
-            return redirect()->route('users.index')->with('success', 'User berhasil dibuat!');
+            return redirect()->route('users.index')->with('success', 'User created successfully!');
         } else {
-            return redirect()->route('users.index')->with('error', 'User gagal dibuat!');
+            return redirect()->route('users.index')->with('error', 'Failed to create user!');
         }
     }
 
     public function update(Request $request, string $id)
     {
+        $user = User::find($id);
+
         $request->validate([
             'email' => [
                 'required',
@@ -70,16 +88,39 @@ class UserController extends Controller
             ],
             'name' => [
                 'required',
-                'max:20',
+                'max:30',
             ],
             'avatar' => 'image|mimes:jpg,jpeg,png,webp|max:5048',
+            'slug' => [
+                'required',
+                'string',
+                'min:5',
+                'max:30',
+                'regex:/^[a-z0-9_-]+$/', // lowercase, number, underscore, and dash
+                Rule::unique('users')->ignore($id),
+            ],
+            'password' => 'nullable|min:8|max:255',
         ], [
-            'email.unique' => 'Email sudah digunakan!',
-            'name.max' => 'Nama tidak boleh lebih dari 20 karakter.',
-            'avatar.max' => 'Ukuran avatar tidak boleh lebih dari 5MB.',
+            'email.unique' => 'Email salready exists.',
+            'name.max' => 'Name cannot be more than 30 characters.',
+            'avatar.max' => 'Avatar size cannot be more than 5MB.',
+            'slug.min' => 'Username must be at least 5 characters.',
+            'slug.max' => 'Username cannot be more than 30 characters.',
+            'slug.regex' => 'Username can only contain lowercase letters, numbers, underscores, and dashes.',
+            'slug.unique' => 'Username already exists.',
+            'password.min' => 'Password must be at least 8 characters.',
+            'password.max' => 'Password cannot be more than 255 characters.',
         ]);
+
+
+        if ($request->input('slug') !== $user->slug) {
+            if ($user->slug_changed == true) {
+                return redirect()->route('users.index')->with('error', 'You can only change your username once!');
+            }
+            $user->slug = $request->input('slug');
+            $user->slug_changed = true;
+        }
         
-        $user = User::find($id);
         $user->name = $request->input('name', $user->name);
         $user->email = $request->input('email', $user->email);
         $user->roles = $request->input('roles', $user->roles);
@@ -91,8 +132,9 @@ class UserController extends Controller
         $user->instagram = $request->input('instagram', $user->instagram);
         $user->status = $request->input('status', $user->status);
 
-        $user->slug = Str::slug(explode('@', $user->email)[0]);
-        
+        if ($request->filled('password')) {
+            $user->password = Hash::make($request->input('password'));
+        }
 
         if ($request->hasFile('avatar')) {
             // Hapus file avatar lama jika ada
@@ -110,9 +152,9 @@ class UserController extends Controller
         $user->save();
 
         if ($user) {
-            return redirect()->route('users.index')->with('success', 'User berhasil diedit!');
+            return redirect()->route('users.index')->with('success', 'User updated successfully!');
         } else {
-            return redirect()->route('users.index')->with('error', 'User gagal diedit!');
+            return redirect()->route('users.index')->with('error', 'Failed to updated user!');
         }
     }
 
@@ -128,9 +170,9 @@ class UserController extends Controller
         $user->delete();
 
         if ($user) {
-            return redirect()->route('users.index')->with('success', 'User berhasil dihapus!');
+            return redirect()->route('users.index')->with('success', 'User deleted successfully!');
         } else {
-            return redirect()->route('users.index')->with('error', 'User gagal dihapus!');
+            return redirect()->route('users.index')->with('error', 'Failed to delete user!');
         }
     }
 }

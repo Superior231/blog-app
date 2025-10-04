@@ -143,7 +143,7 @@
                         <div class="action position-relative">
                             <form id="delete-avatar-form-{{ Auth::user()->id }}" action="{{ route('delete-avatar', Auth::user()->id) }}" method="POST">
                                 @csrf @method('DELETE') 
-                                <button class="px-3 py-2 bg-danger text-light border-none border-0 position-absolute top-0 end-0" type="button" onclick="deleteAvatar({{ Auth::user()->id }})" style="margin-top: 80px; z-index: 99999;">Hapus</button>
+                                <button class="px-3 py-2 bg-danger text-light border-none border-0 position-absolute top-0 end-0" type="button" onclick="deleteAvatar({{ Auth::user()->id }})" style="margin-top: 80px; z-index: 99999;">Delete</button>
                             </form>
                         </div>
 
@@ -168,11 +168,13 @@
                                 <div class="mb-3 w-100">
                                     <label for="edit-avatar-input">Avatar</label>
                                     <input type="file" name="avatar" id="edit-avatar-input" class="form-control" accept=".jpg, .jpeg, .png, .webp">
+                                    <small class="form-text"><i>Avatar must be in .jpg, .jpeg, .png, or .webp format</i></small>
                                 </div>
                                 <input type="hidden" name="name" value="{{ Auth::user()->name }}">
+                                <input type="hidden" name="slug" value="{{ Auth::user()->slug }}">
                             </div>
                             <div class="modal-footer">
-                                <button type="submit" class="btn btn-primary">Simpan</button>
+                                <button type="submit" class="btn btn-primary">Save</button>
                             </div>
                         </form>
                     </div>

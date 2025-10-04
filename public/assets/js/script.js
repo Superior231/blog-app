@@ -14,9 +14,8 @@ try {
         window.addEventListener("scroll", handleScroll);
     }
 } catch (error) {
-    console.log("Fitur navbar tidak ditemukan!");
+    console.log("Navbar not found!");
 }
-// Navbar End
 
 
 // Back to Top
@@ -34,10 +33,8 @@ try {
         });
     }
 } catch (error) {
-    console.log('Fitur back to top tidak ditemukan!');
+    console.log('Back to Top not found!');
 }
-// Back to Top End
-
 
 
 // Image Preview
@@ -57,13 +54,31 @@ previews.forEach(item => {
             }
         };
     } catch (error) {
-        console.log('Fitur preview gambar tidak ditemukan!');
+        console.log('Image preview not found!');
     }
 });
-// Image Preview End
 
 
-// Deskripsi See All
+// Thumbnail
+const previewImage = document.getElementById('image-preview');
+const inputImage = document.getElementById('image-input');
+
+try {
+    inputImage.onchange = (e) => {
+        if (inputImage.files && inputImage.files[0]) {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                previewImage.src = e.target.result;
+            };
+            reader.readAsDataURL(inputImage.files[0]);
+        }
+    };
+} catch (error) {
+    console.log('Image preview not found!');
+}
+
+
+// Description See All
 function viewDetails(id) {
     var detailsElement = document.getElementById("view-details-" + id);
     var detailsIconDown = document.getElementById("icon-down-" + id);
@@ -79,7 +94,6 @@ function viewDetails(id) {
         detailsIconUp.style.display = "none";
     }
 }
-// Deskripsi See All End
 
 
 // Copy Link
@@ -117,7 +131,6 @@ function shareToEmail(url, title) {
     const emailShareLink = `mailto:?subject=${encodeURIComponent(title)}&body=${encodeURIComponent(url)}`;
     window.location.href = emailShareLink;
 }
-// Copy Link End
 
 
 // Code Block
@@ -216,4 +229,3 @@ preElements.forEach((pre) => {
         div.appendChild(pre);
     }
 });
-// Code Block End

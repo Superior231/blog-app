@@ -12,7 +12,7 @@ class CategoryController extends Controller
         $categories = Category::all();
 
         return view('pages.category.index', [
-            'title' => 'Blog App - Kategori',
+            'title' => 'Blog App - Categories',
             'active' => 'category',
             'categories' => $categories
         ]);
@@ -23,7 +23,7 @@ class CategoryController extends Controller
         $request->validate([
             'title' => 'required|unique:categories|max:255',
         ], [
-            'title.unique' => 'Kategori sudah ada.',
+            'title.unique' => 'Category already exists.',
         ]);
 
         $data = $request->all();
@@ -31,9 +31,9 @@ class CategoryController extends Controller
         $category = Category::create($data);
 
         if ($category) {
-            return redirect()->route('category.index')->with('success', 'Kategori berhasil dibuat!');
+            return redirect()->route('category.index')->with('success', 'Category created successfully!');
         } else {
-            return redirect()->route('category.index')->with('error', 'Kategori gagal dibuat!');
+            return redirect()->route('category.index')->with('error', 'Category failed to create!');
         }
     }
 
@@ -42,7 +42,7 @@ class CategoryController extends Controller
         $request->validate([
             'title' => 'required|unique:categories|max:255',
         ], [
-            'title.unique' => 'Kategori sudah ada.',
+            'title.unique' => 'Category already exists.',
         ]);
         
         $data = $request->all();
@@ -51,9 +51,9 @@ class CategoryController extends Controller
         $category->update($data);
 
         if ($category) {
-            return redirect()->route('category.index')->with('success', 'Kategori berhasil diupdate!');
+            return redirect()->route('category.index')->with('success', 'Category updated successfully!');
         } else {
-            return redirect()->route('category.index')->with('error', 'Kategori gagal diupdate!');
+            return redirect()->route('category.index')->with('error', 'Category failed to update!');
         }
     }
 
@@ -64,9 +64,9 @@ class CategoryController extends Controller
         $category->delete();
 
         if ($category) {
-            return redirect()->route('category.index')->with('success', 'Kategori berhasil dihapus!');
+            return redirect()->route('category.index')->with('success', 'Category deleted successfully!');
         } else {
-            return redirect()->route('category.index')->with('error', 'Kategori gagal dihapus!');
+            return redirect()->route('category.index')->with('error', 'Category failed to delete!');
         }
     }
 }

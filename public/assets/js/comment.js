@@ -13,35 +13,32 @@ function commentBox(textarea, buttonId) {
             button.classList.remove('text-primary');
         }
     } catch (error) {
-        console.error('Fitur comment box tidak ditemukan!', error);
+        console.error('Comment box feature not found!', error);
     }
 }
-// Comment Box End
-
 
 
 function confirmDeleteComment(commentId) {
     Swal.fire({
         icon: 'question',
-        title: 'Anda Yakin?',
-        text: 'Apakah Anda yakin ingin menghapus komentar ini?',
+        title: 'Are You Sure?',
+        text: 'Do you want to delete this comment?',
         showCancelButton: true,
-        confirmButtonText: 'Ya',
-        cancelButtonText: 'Tidak',
+        confirmButtonText: 'Delete',
         customClass: {
             popup: 'sw-popup',
             title: 'sw-title',
             htmlContainer: 'sw-text',
-            closeButton: 'sw-close',
-            icon: 'text-primary',
-            confirmButton: 'sw-confirm',
+            icon: 'border-primary text-primary',
+            closeButton: 'bg-secondary border-0 shadow-none',
+            confirmButton: 'bg-danger border-0 shadow-none',
         },
         reverseButtons: true,
     }).then((result) => {
         if (result.isConfirmed) {
             Swal.fire({
                 title: "Deleted!",
-                text: "Komentar berhasil dihapus!",
+                text: "Comment deleted successfully!",
                 icon: "success",
                 customClass: {
                     popup: 'sw-popup',
@@ -60,24 +57,24 @@ function confirmDeleteComment(commentId) {
 function confirmDeleteReplay(commentId) {
     Swal.fire({
         icon: 'question',
-        title: 'Anda Yakin?',
-        text: 'Apakah Anda yakin ingin menghapus komentar ini?',
+        title: 'Are You Sure?',
+        text: 'Do you want to delete this reply?',
         showCancelButton: true,
-        confirmButtonText: 'Ya',
+        confirmButtonText: 'Delete',
         customClass: {
             popup: 'sw-popup',
             title: 'sw-title',
             htmlContainer: 'sw-text',
-            closeButton: 'sw-close',
-            icon: 'sw-icon',
-            confirmButton: 'sw-confirm',
+            icon: 'border-primary text-primary',
+            closeButton: 'bg-secondary border-0 shadow-none',
+            confirmButton: 'bg-danger border-0 shadow-none',
         },
         reverseButtons: true,
     }).then((result) => {
         if (result.isConfirmed) {
             Swal.fire({
                 title: "Deleted!",
-                text: "Komentar berhasil dihapus!",
+                text: "Reply deleted successfully!",
                 icon: "success",
                 customClass: {
                     popup: 'sw-popup',

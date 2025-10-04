@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
-use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Hash;
 
 class ProfileController extends Controller
 {
@@ -40,31 +40,59 @@ class ProfileController extends Controller
 
     public function update(Request $request, string $id)
     {
+        $user = User::find($id);
+        
         $request->validate([
-            'name' => 'required|max:20',
+            'name' => 'required|max:30',
             'avatar' => 'image|mimes:jpg,jpeg,png,webp|max:5048',
+            'slug' => [
+                'required',
+                'string',
+                'min:5',
+                'max:30',
+                'regex:/^[a-z0-9_-]+$/', // lowercase, number, underscore, and dash
+                Rule::unique('users')->ignore($id),
+            ],
+            'password' => 'nullable|min:8|max:255',
         ], [
-            'name.max' => 'Nama tidak boleh lebih dari 20 karakter.',
-            'avatar.max' => 'Ukuran avatar tidak boleh lebih dari 5MB.',
+            'name.max' => 'Name cannot be more than 30 characters.',
+            'avatar.max' => 'Avatar size cannot be more than 5MB.',
+            'slug.min' => 'Username must be at least 5 characters.',
+            'slug.max' => 'Username cannot be more than 30 characters.',
+            'slug.regex' => 'Username can only contain lowercase letters, numbers, underscores, and dashes.',
+            'slug.unique' => 'Username already exists.',
+            'password.min' => 'Password must be at least 8 characters.',
+            'password.max' => 'Password cannot be more than 255 characters.',
         ]);
 
         // Cek apakah pengguna yang terautentikasi adalah pemilik dari data yang ingin diperbarui
         if (Auth::id() !== (int) $id) {
-            return redirect()->route('profile.index')->with('error', 'Oops... Terjadi kesalahan!');
+            return redirect()->route('profile.index')->with('error', 'Oops... Something went wrong!');
         }
     
-        $user = User::find($id);
         if (!$user) {
-            return redirect()->route('profile.index')->with('error', 'Pengguna tidak ditemukan!');
+            return redirect()->route('profile.index')->with('error', 'User not found!');
         }
 
 
+        if ($request->input('slug') !== $user->slug) {
+            if ($user->slug_changed == true) {
+                return redirect()->route('profile.index')->with('error', 'You can only change your username once!');
+            }
+            $user->slug = $request->input('slug');
+            $user->slug_changed = true;
+        }
+        
         $user->name = $request->input('name', $user->name);
         $user->gender = $request->input('gender', $user->gender);
         $user->description = $request->input('description', $user->description);
         $user->facebook = $request->input('facebook', $user->facebook);
         $user->twitter = $request->input('twitter', $user->twitter);
         $user->instagram = $request->input('instagram', $user->instagram);
+
+        if ($request->filled('password')) {
+            $user->password = Hash::make($request->input('password'));
+        }
         
         // Avatar
         if ($request->hasFile('avatar')) {
@@ -97,9 +125,9 @@ class ProfileController extends Controller
         $user->save();
 
         if ($user) {
-            return redirect()->route('profile.index')->with('success', 'Akun berhasil diedit!');
+            return redirect()->route('profile.index')->with('success', 'Profile updated successfully!');
         } else {
-            return redirect()->route('profile.index')->with('error', 'Akun gagal diedit!');
+            return redirect()->route('profile.index')->with('error', 'Failed to update profile!');
         }
     }
 
@@ -107,12 +135,12 @@ class ProfileController extends Controller
     {
         // Cek apakah pengguna yang terautentikasi adalah pemilik dari data yang ingin diperbarui
         if (Auth::id() !== (int) $id) {
-            return redirect()->route('profile.index')->with('error', 'Oops... Terjadi kesalahan!');
+            return redirect()->route('profile.index')->with('error', 'Oops... Something went wrong!');
         }
     
         $user = User::find($id);
         if (!$user) {
-            return redirect()->route('profile.index')->with('error', 'Pengguna tidak ditemukan!');
+            return redirect()->route('profile.index')->with('error', 'User not found!');
         }
 
         // Hapus file avatar jika ada
@@ -124,9 +152,9 @@ class ProfileController extends Controller
         $user->save();
 
         if ($user) {
-            return redirect()->route('profile.index')->with('success', 'Avatar berhasil dihapus!');
+            return redirect()->route('profile.index')->with('success', 'Avatar deleted successfully!');
         } else {
-            return redirect()->route('profile.index')->with('error', 'Avatar gagal dihapus!');
+            return redirect()->route('profile.index')->with('error', 'Failed to delete avatar!');
         }
     }
 
@@ -134,12 +162,12 @@ class ProfileController extends Controller
     {
         // Cek apakah pengguna yang terautentikasi adalah pemilik dari data yang ingin diperbarui
         if (Auth::id() !== (int) $id) {
-            return redirect()->route('profile.index')->with('error', 'Oops... Terjadi kesalahan!');
+            return redirect()->route('profile.index')->with('error', 'Oops... Something went wrong!');
         }
     
         $user = User::find($id);
         if (!$user) {
-            return redirect()->route('profile.index')->with('error', 'Pengguna tidak ditemukan!');
+            return redirect()->route('profile.index')->with('error', 'User not found!');
         }
 
         // Hapus file banner jika ada
@@ -151,9 +179,9 @@ class ProfileController extends Controller
         $user->save();
 
         if ($user) {
-            return redirect()->route('profile.index')->with('success', 'Banner berhasil dihapus!');
+            return redirect()->route('profile.index')->with('success', 'Banner deleted successfully!');
         } else {
-            return redirect()->route('profile.index')->with('error', 'Banner gagal dihapus!');
+            return redirect()->route('profile.index')->with('error', 'Failed to delete banner!');
         }
     }
 

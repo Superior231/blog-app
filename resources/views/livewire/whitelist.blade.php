@@ -3,7 +3,7 @@
         <!-- Filters -->
         <div class="container-filters d-flex position-relative gap-2">
             <div class="btn-group">
-                <button type="button" class="dropdown-toggle" data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false">Kategori</button>
+                <button type="button" class="dropdown-toggle" data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false">Categories</button>
                 <ul class="dropdown-menu dropdown-menu-lg-start">
                     <div class="categories" style="max-height: 300px; overflow-y: scroll;">
                         @foreach ($categories as $category)
@@ -22,16 +22,16 @@
         <!-- Search -->
         <div class="search-box">
             <i class='bx bx-search'></i>
-            <input class="ms-0 ps-1" type="search" id="search" placeholder="Cari artikel..." autocomplete="off"  wire:model.live="search" style="outline: none !important; border: none;">
+            <input class="ms-0 ps-1" type="search" id="search" placeholder="Search..." autocomplete="off"  wire:model.live="search" style="outline: none !important; border: none;">
             <div class="dropdown">
                 <a class="d-flex align-items-center justify-content-center text-decoration-none p-0 m-0" style="cursor: pointer;" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false" title="Filter">
                     <i class='bx bx-slider p-0 m-0'></i>
                 </a>
 
                 <ul class="dropdown-menu dropdown-menu-light dropdown-menu-end" aria-labelledby="dropdownMenuLink">
-                    <li><a class="dropdown-item {{ $currentFilter == 'Terbaru' ? 'bg-primary text-light' : '' }}" wire:click="sortBy('terbaru')" style="cursor: pointer;">Terbaru</a></li>
-                    <li><a class="dropdown-item {{ $currentFilter == 'Terlama' ? 'bg-primary text-light' : '' }}" wire:click="sortBy('terlama')" style="cursor: pointer;">Terlama</a></li>
-                    <li><a class="dropdown-item {{ $currentFilter == 'A - Z' ? 'bg-primary text-light' : '' }}" wire:click="sortBy('az')" style="cursor: pointer;">A - Z</a></li>
+                    <li><a class="dropdown-item {{ $currentFilter == 'Terbaru' ? 'bg-primary text-light' : '' }}" wire:click="sortBy('terbaru')" style="cursor: pointer;">Latest</a></li>
+                    <li><a class="dropdown-item {{ $currentFilter == 'Terlama' ? 'bg-primary text-light' : '' }}" wire:click="sortBy('terlama')" style="cursor: pointer;">Oldest</a></li>
+                    <li><a class="dropdown-item {{ $currentFilter == 'A - Z' ? 'bg-primary text-light' : '' }}" wire:click="sortBy('az')" style="cursor: pointer;">A-Z</a></li>
                 </ul>
             </div>
         </div>
@@ -72,7 +72,7 @@
 
         @empty
             <div class="d-flex justify-content-center align-items-center">
-                <p class="fs-4 text-dark">Artikel tidak ada.</p>
+                <p class="fs-4 text-dark">No articles found.</p>
             </div>
         @endforelse
     </div>
@@ -87,17 +87,17 @@
         function whitelist(article_id) {
             Swal.fire({
                 icon: 'question',
-                title: 'Anda yakin?',
-                text: 'Anda yakin ingin menghapus artikel ini di whitelist Anda?',
+                title: 'Are you sure?',
+                text: 'Are you sure you want to remove this article from your whitelist?',
                 showCancelButton: true,
-                confirmButtonText: 'Ya',
+                confirmButtonText: 'Remove',
                 customClass: {
                     popup: 'sw-popup',
                     title: 'sw-title',
                     htmlContainer: 'sw-text',
-                    closeButton: 'sw-close',
                     icon: 'border-primary text-primary',
-                    confirmButton: 'btn-primary',
+                    closeButton: 'bg-secondary border-0 shadow-none',
+                    confirmButton: 'bg-danger border-0 shadow-none',
                 },
                 reverseButtons: true,
             }).then((result) => {

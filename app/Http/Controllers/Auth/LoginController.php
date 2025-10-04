@@ -44,7 +44,7 @@ class LoginController extends Controller
     {
         if ($user->status === 'Banned') {
             Auth::logout();
-            return redirect()->route('login')->with('error', 'Akunmu talah dibanned!');
+            return redirect()->route('login')->with('error', 'Your account has been banned!');
         }
     }
 }

@@ -2,13 +2,13 @@
     <div class="user-reports-container">
         <div class="comment-reports">
             <div class="title d-flex align-items-center mx-0 px-0 pb-3 mt-5">
-                <h3 class="mb-0 text-dark fw-bold">Laporan Komentar</h3>
+                <h3 class="mb-0 text-dark fw-bold">Comment Reports</h3>
             </div>
     
             <div class="actions mb-4">
                 <div class="search-box">
                     <i class='bx bx-search'></i>
-                    <input class="ms-0 ps-1" type="search" id="search" placeholder="Cari laporan..." autocomplete="off"  wire:model.live="search" style="outline: none !important; border: none;">
+                    <input class="ms-0 ps-1" type="search" id="search" placeholder="Search..." autocomplete="off"  wire:model.live="search" style="outline: none !important; border: none;">
                     <button wire:click="filterCommentRepors" class="border-none border-0 p-0 m-0 bg-transparent" title="Filter">
                         <i class='bx bx-menu-alt-left {{ $filter === "asc" ? "bx-rotate-180" : "" }} fs-5 p-0 m-0 mt-1'></i>
                     </button>
@@ -32,7 +32,7 @@
                                                             @csrf
                                                             @method('DELETE')
                                                             <button type="button" class="bg-transparent border-0 text-secondary" onclick="confirmDeleteComment({{ $item->id }}, {{ $item->comment->id }})">
-                                                                Hapus komentar
+                                                                Delete comment
                                                             </button>
                                                         </form>
                                                     </a>
@@ -43,7 +43,7 @@
                                                             @csrf
                                                             @method('DELETE')
                                                             <button type="button" class="bg-transparent border-0 text-secondary" onclick="confirmDeleteReport({{ $item->id }})">
-                                                                Hapus laporan
+                                                                Delete report
                                                             </button>
                                                         </form>
                                                     </a>
@@ -123,7 +123,7 @@
                     </div>
                 @empty
                     <div class="error-message-container d-flex justify-content-center align-items-center py-5 w-100">
-                        <h4 class="text-color">Tidak ada laporan.</h4>
+                        <h4 class="text-color">No report found.</h4>
                     </div>
                 @endforelse
             </div>

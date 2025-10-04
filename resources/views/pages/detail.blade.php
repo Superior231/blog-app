@@ -31,7 +31,7 @@
             <h1 class="text-dark fw-bold">
                 {{ $article->title }}
             </h1>
-            <p class="mb-0 text-secondary fs-7">Kategori : {{ str_replace(',', ', ', $article->category) }}</p>
+            <p class="mb-0 text-secondary fs-7">Categories : {{ str_replace(',', ', ', $article->category) }}</p>
             <hr class="bg-secondary">
             <div class="author d-flex gap-2">
                 <a href="{{ route('author.show', ['slug' => $author->slug]) }}" class="profile-image">
@@ -49,12 +49,12 @@
                         <p class="my-0 py-0 text-secondary fs-7">&#64;{{ $author->slug }}</p>
                     </a>                                     
                     <a class="d-flex align-items-center gap-1 p-0 m-0" onclick="viewDetails('{{ $article->id }}')">
-                        <p class="mb-0 text-secondary fs-7">Diperbarui pada {{ Carbon\Carbon::parse($article->updated_at)->translatedFormat('d F Y, H:i') }} WIB</p>
+                        <p class="mb-0 text-secondary fs-7">Updated at {{ Carbon\Carbon::parse($article->updated_at)->translatedFormat('d F Y, H:i') }} WIB</p>
                         <i class='bx bx-chevron-down text-secondary' id="icon-down-{{ $article->id }}"></i>
                         <i class='bx bx-chevron-up text-secondary' id="icon-up-{{ $article->id }}"></i>
                     </a>
                     <div class="view-details" id="view-details-{{ $article->id }}">
-                        <p class="mb-0 text-secondary fs-7">Diterbitkan pada {{ Carbon\Carbon::parse($article->created_at)->translatedFormat('d F Y, H:i') }} WIB</p>
+                        <p class="mb-0 text-secondary fs-7">Created at {{ Carbon\Carbon::parse($article->created_at)->translatedFormat('d F Y, H:i') }} WIB</p>
                     </div>
                 </div>
             </div>
@@ -116,9 +116,10 @@
             <div class="modal-dialog modal-dialog-scrollable">
                 <div class="modal-content">
                     <div class="modal-header border-0">
-                        <h3 class="modal-title">Report Comment</h3>
+                        <h4 class="modal-title">Report Comment</h4>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
+                    <hr class="py-0 mt-0 mb-2">
                     <div class="modal-body pt-0 pb-2">
                         <div class="comment-content text-decoration-none d-flex flex-column bg-soft-blue px-3 pt-0 pb-3">
                             <div class="sticky-top d-flex align-items-center bg-soft-blue pt-3">
@@ -148,15 +149,15 @@
                             <input type="hidden" name="comment_id" id="comment_id" value="">
                             <select class="form-select" id="report" name="report" required>
                                 <option value="Spam">Spam</option>
-                                <option value="Promosi">Promosi</option>
-                                <option value="Rasis">Rasis</option>
-                                <option value="Berkata Kasar">Berkata Kasar</option>
-                                <option value="Ujaran Kebencian">Ujaran Kebencian</option>
-                                <option value="Pembulian">Pembulian</option>
-                                <option value="Pornografi">Pornografi</option>
+                                <option value="Promotion">Promotion</option>
+                                <option value="Racism">Racism</option>
+                                <option value="Dirty">Dirty</option>
+                                <option value="Hate Speech">Hate Speech</option>
+                                <option value="Bullying">Bullying</option>
+                                <option value="Pornography">Pornography</option>
                             </select>
                             <div class="d-flex align-items-center justify-content-end gap-2 mt-3 w-100">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
                                 <button type="submit" class="btn btn-primary" id="report-button">Report</button>
                             </div>
                         </form>

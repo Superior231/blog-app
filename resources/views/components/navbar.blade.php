@@ -1,4 +1,4 @@
-<nav class="navbar sticky-top navbar-expand-lg py-3 bg-soft-blue">
+<nav class="navbar sticky-top navbar-expand-lg {{ Auth::user() ? 'py-1' : 'py-3' }} bg-soft-blue">
     <div class="container">
         <a href="{{ route('home') }}" class="logo">
             <img src="{{ url('assets/images/logo.png') }}" alt="Blog App Logo">
@@ -43,19 +43,23 @@
                                     <img class="img" src="https://ui-avatars.com/api/?background=random&name={{ urlencode(Auth::user()->name) }}">
                                 @endif
                             </div>
-                            <span class="nav-text text-dark username-count">&nbsp;{{ Auth::user()->name }}</span>
+                            <span class="nav-text text-dark nav-username">&nbsp;{{ Auth::user()->name }}</span>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-light dropdown-menu-end"
                             aria-labelledby="navbarDropdownMenuLink">
                             <li>
-                                <a class="dropdown-item {{ $active == 'my profile' ? 'active' : '' }}" href="{{ route('profile.index') }}">My Profile</a>
+                                <a class="dropdown-item gap-2 d-flex align-items-center {{ $active == 'my profile' ? 'active' : '' }}" href="{{ route('profile.index') }}">
+                                    <i class='bx bx-user fs-6'></i>
+                                    <span class="py-0 my-0">My profile</span>
+                                </a>
                             </li>
                             <li>
                                 <hr class="dropdown-divider-dark py-0 my-1">
                             </li>
                             <li>
-                                <a id="logout-confirmaton" class="dropdown-item" href="{{ route('logout') }}"
+                                <a id="logout-confirmaton" class="gap-2 dropdown-item d-flex align-items-center" href="{{ route('logout') }}"
                                 onclick="event.preventDefault(); logout();">
+                                    <i class='bx bx-log-in fs-6'></i>
                                     {{ __('Logout') }}
                                 </a>
     
@@ -69,10 +73,10 @@
             @else
                 <ul class="navbar-nav ms-auto mx-0 gap-2">
                     <li class="nav-item">
-                        <a href="{{ route('login') }}" class="nav-link text-center border border-secondary px-3 py-2 rounded-3">Masuk</a>
+                        <a href="{{ route('login') }}" class="nav-link text-center border border-secondary px-3 py-2 rounded-3">Login</a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ route('register') }}" class="nav-link text-center text-light border border-primary bg-primary px-3 py-2 rounded-3">Daftar</a>
+                        <a href="{{ route('register') }}" class="nav-link text-center text-light border border-primary bg-primary px-3 py-2 rounded-3">Register</a>
                     </li>
                 </ul>
             @endauth
@@ -87,7 +91,7 @@
             Swal.fire({
                 icon: 'info',
                 title: 'Information',
-                text: 'Untuk melanjutkan, harap login terlebih dahulu!',
+                text: 'To continue, please log in first!',
                 showCancelButton: true,
                 confirmButtonText: 'Login',
                 customClass: {
@@ -109,8 +113,8 @@
         function logout() {
             Swal.fire({
                 icon: 'question',
-                title: 'Anda Yakin?',
-                text: 'Apakah Anda yakin ingin logout?',
+                title: 'Are You Sure?',
+                text: 'Are you sure you want to logout?',
                 showCancelButton: true,
                 confirmButtonText: 'Logout',
                 customClass: {

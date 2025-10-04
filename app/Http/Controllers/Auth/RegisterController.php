@@ -50,7 +50,7 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => ['required', 'string', 'max:20'],
+            'name' => ['required', 'string', 'max:30'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
@@ -64,11 +64,27 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        // Generate username random (unique)
+        $slug = $this->generateUniqueSlug();
+
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
-            'slug' => Str::slug(explode('@', $data['email'])[0]),
+            'slug' => $slug,
             'password' => Hash::make($data['password']),
         ]);
+    }
+
+    /**
+     * Generate unique slug user{random_string}
+     */
+    private function generateUniqueSlug()
+    {
+        do {
+            $randomString = Str::lower(Str::random(10));
+            $slug = 'user' . $randomString;
+        } while (User::where('slug', $slug)->exists());
+        
+        return $slug;
     }
 }

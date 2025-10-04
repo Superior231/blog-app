@@ -1,10 +1,10 @@
 function deleteAvatar(userId) {
     Swal.fire({
         icon: 'question',
-        title: 'Anda Yakin?',
-        text: 'Apakah Anda yakin ingin menghapus avatar ini?',
+        title: 'Are You Sure?',
+        text: 'Are you sure you want to delete this avatar?',
         showCancelButton: true,
-        confirmButtonText: 'Hapus',
+        confirmButtonText: 'Delete',
         customClass: {
             popup: 'sw-popup',
             title: 'sw-title',
@@ -24,10 +24,10 @@ function deleteAvatar(userId) {
 function deleteBanner(userId) {
     Swal.fire({
         icon: 'question',
-        title: 'Anda Yakin?',
-        text: 'Apakah Anda yakin ingin menghapus banner ini?',
+        title: 'Are You Sure?',
+        text: 'Are you sure you want to delete this banner?',
         showCancelButton: true,
-        confirmButtonText: 'Hapus',
+        confirmButtonText: 'Delete',
         customClass: {
             popup: 'sw-popup',
             title: 'sw-title',

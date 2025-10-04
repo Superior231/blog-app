@@ -14,7 +14,7 @@ class CommentReportController extends Controller
 
         CommentReport::create($data);
 
-        return redirect()->back()->with('success', 'Laporan berhasil dibuat!');
+        return redirect()->back()->with('success', 'Comment report created successfully!');
     }
 
     public function deleteComment($id)
@@ -22,7 +22,7 @@ class CommentReportController extends Controller
         $data = Comment::find($id);
         $data->delete();
 
-        return redirect()->back()->with('success', 'Komentar berhasil dihapus!');
+        return redirect()->back()->with('success', 'Comment deleted successfully!');
     }
 
     public function deleteCommentReport($id)
@@ -30,6 +30,6 @@ class CommentReportController extends Controller
         $data = CommentReport::find($id);
         $data->delete();
 
-        return redirect()->back()->with('success', 'Laporan berhasil dihapus!');
+        return redirect()->back()->with('success', 'Comment report deleted successfully!');
     }
 }

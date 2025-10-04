@@ -177,14 +177,14 @@ return [
             'rule-name' => 'custom-message',
         ],
         'name' => [
-            'max' => 'Nama terlalu panjang, maksimal 20 karakter.',
+            'max' => 'Name must not exceed 30 characters.',
         ],
         'email' => [
-            'unique' => 'Email sudah digunakan.',
+            'unique' => 'Email has already been used.',
         ],
         'password' => [
-            'confirmed' => 'Password tidak cocok.',
-            'min' => 'Password minimal 8 karakter.',
+            'confirmed' => 'Passwords do not match.',
+            'min' => 'Password must be at least 8 characters.',
         ],
     ],
 

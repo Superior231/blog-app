@@ -19,6 +19,7 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'slug',
+        'slug_changed',
         'email',
         'avatar',
         'avatar_google',
@@ -31,6 +32,10 @@ class User extends Authenticatable
         'instagram',
         'password',
         'status',
+    ];
+
+    protected $casts = [
+        'slug_changed' => 'boolean',
     ];
 
     /**

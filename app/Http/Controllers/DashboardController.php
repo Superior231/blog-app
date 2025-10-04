@@ -16,12 +16,14 @@ class DashboardController extends Controller
     {
         if (Auth::user()->roles == 'admin') {
             $articles = Article::orderBy('id', 'desc')->get();
-            $myArticles = Article::where('user_id', Auth::user()->id)->count();
-            $categories = Category::count();
+            $myArticles = Article::where('user_id', Auth::user()->id)->orderBy('id', 'desc')->get();
+            $myArticlesCount = Article::where('user_id', Auth::user()->id)->count();
+            $categoriesCount = Category::count();
         } else {
             $articles = Article::where('user_id', Auth::user()->id)->orderBy('id', 'desc')->get();
-            $myArticles = Article::where('user_id', Auth::user()->id)->count();
-            $categories = Category::count();
+            $myArticles = $articles;
+            $myArticlesCount = Article::where('user_id', Auth::user()->id)->count();
+            $categoriesCount = Category::count();
         }
 
         return view('pages.dashboard.index', [
@@ -29,7 +31,8 @@ class DashboardController extends Controller
             'active' => 'dashboard',
             'articles' => $articles,
             'myArticles' => $myArticles,
-            'categories' => $categories
+            'myArticlesCount' => $myArticlesCount,
+            'categoriesCount' => $categoriesCount
         ]);
     }
 
@@ -38,7 +41,8 @@ class DashboardController extends Controller
         $categories = Category::orderBy('title', 'asc')->get();
 
         return view('pages.dashboard.create', [
-            'title' => 'Blog App - Buat Artikel',
+            'title' => 'Blog App - Create Article',
+            'navTitle' => 'Create Article',
             'active' => 'dashboard',
             'categories' => $categories
         ]);
@@ -49,7 +53,7 @@ class DashboardController extends Controller
         $request->validate([
             'title' => 'required|unique:articles|max:255',
         ], [
-            'title.unique' => 'Judul sudah ada.',
+            'title.unique' => 'Title already exists.',
         ]);
 
         $data = $request->all();
@@ -67,9 +71,9 @@ class DashboardController extends Controller
         $article = Article::create($data);
 
         if ($article) {
-            return redirect()->route('dashboard.index')->with('success', 'Artikel berhasil dibuat!');
+            return redirect()->route('dashboard.index')->with('success', 'Article created successfully!');
         } else {
-            return redirect()->route('dashboard.index')->with('error', 'Artikel gagal dibuat!');
+            return redirect()->route('dashboard.index')->with('error', 'Failed to create article!');
         }
     }
 
@@ -80,13 +84,14 @@ class DashboardController extends Controller
 
         if (Auth::user()->roles == 'admin' || Auth::user()->id == $article->user_id) {
             return view('pages.dashboard.edit', [
-                'title' => 'Blog App - Edit Artikel',
+                'title' => 'Blog App - Edit Article',
+                'navTitle' => 'Edit Article',
                 'active' => 'dashboard',
                 'article' => $article,
                 'categories' => $categories,
             ]);
         } else {
-            return redirect()->route('dashboard.index')->with('error', 'Anda tidak memiliki akses untuk mengedit artikel ini!');
+            return redirect()->route('dashboard.index')->with('error', 'You do not have access to edit this article!');
         }
     }
 
@@ -99,14 +104,14 @@ class DashboardController extends Controller
                 'max:255',
             ],
         ], [
-            'title.unique' => 'Judul sudah ada.',
+            'title.unique' => 'Title already exists.',
         ]);
 
         $article = Article::find($id);
 
         // Cek apakah pengguna yang terautentikasi adalah pemilik dari data yang ingin diperbarui
         if (Auth::id() !== (int) $article->user_id && Auth::user()->roles !== 'admin') {
-            return redirect()->route('dashboard.index')->with('error', 'Oops... Terjadi kesalahan!');
+            return redirect()->route('dashboard.index')->with('error', 'Oops... Something went wrong!');
         }
 
         $article->category = $request->input('category', $article->category);
@@ -130,9 +135,9 @@ class DashboardController extends Controller
         $article->save();
 
         if ($article) {
-            return redirect()->route('dashboard.index')->with('success', 'Artikel berhasil diedit!');
+            return redirect()->route('dashboard.index')->with('success', 'Article edited successfully!');
         } else {
-            return redirect()->route('dashboard.index')->with('error', 'Artikel gagal diedit!');
+            return redirect()->route('dashboard.index')->with('error', 'Failed to edit article!');
         }
     }
 
@@ -142,7 +147,7 @@ class DashboardController extends Controller
 
         // Cek apakah pengguna yang terautentikasi adalah pemilik dari data yang ingin diperbarui
         if (Auth::id() !== (int) $article->user_id && Auth::user()->roles !== 'admin') {
-            return redirect()->route('dashboard.index')->with('error', 'Oops... Terjadi kesalahan!');
+            return redirect()->route('dashboard.index')->with('error', 'Oops... Something went wrong!');
         }
 
         if ($article->thumbnail) {
@@ -152,9 +157,9 @@ class DashboardController extends Controller
         $article->delete();
 
         if ($article) {
-            return redirect()->route('dashboard.index')->with('success', 'Artikel berhasil dihapus!');
+            return redirect()->route('dashboard.index')->with('success', 'Article deleted successfully!');
         } else {
-            return redirect()->route('dashboard.index')->with('error', 'Artikel gagal dihapus!');
+            return redirect()->route('dashboard.index')->with('error', 'Failed to delete article!');
         }
     }
 }
