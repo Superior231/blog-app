@@ -27,9 +27,9 @@
     </style>
 </head>
 <body style="background-color: #f0f5f9 !important;">
-    <div class="position-absolute top-50 start-50 translate-middle d-flex flex-column align-items-center justify-content-center gap-1">
+    <div class="position-absolute top-50 start-50 translate-middle d-flex flex-column align-items-center justify-content-center gap-1 w-100">
         <img src="{{ url('assets/images/503.gif') }}" class="error-img" alt="Error gif">
-        <div class="message d-flex flex-column">
+        <div class="message d-flex flex-column container">
             <h3 class="fw-bold text-center">Oopss..</h3>
             <span class="text-center">This website is currently under maintenance. We will be back soon!</span>
         </div>

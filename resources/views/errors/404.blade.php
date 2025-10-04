@@ -7,7 +7,7 @@
     <link rel="icon" href="{{ url('/assets/images/logo.png') }}" type="image/x-icon">
     @include('components.style', ['title' => 'Error 404: Page Not Found'])
     <style>
-        .error-image {
+        .error-img {
             width: 400px;
         }
         .back:hover span {
@@ -27,7 +27,7 @@
             <span>Back to Home</span>
         </a>
     </nav>
-    <div class="position-absolute top-50 start-50 translate-middle d-flex flex-column align-items-center justify-content-center gap-1">
+    <div class="position-absolute top-50 start-50 translate-middle d-flex flex-column align-items-center justify-content-center gap-1 w-100">
         <img src="{{ url('assets/images/404.gif') }}" class="error-img" alt="Error gif">
         <h3 class="fw-bold text-center">Page Not Found</h3>
     </div>
