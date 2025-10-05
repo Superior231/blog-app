@@ -9,199 +9,202 @@
 @section('content')
     @include('components.toast')
 
-    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-2 mb-5" id="admin-article-info">
-        <div class="col text-decoration-none">
-            <div class="card">
-                <div class="card-body d-flex align-items-center justify-content-between">
-                    <div class="info d-flex align-items-center gap-3">
-                        <i class='bx bxs-user-detail fs-1 text-primary py-0 my-0'></i>
-                        <div class="card-info d-flex flex-column justify-content-center gap-2">
-                            <h4 class="py-0 my-0 fw-semibold">Total User</h4>
-                            <h5 class="fs-6 py-0 my-0">{{ $users->count() }}</h5>
+    <div class="py-3">
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-2 mb-5" id="admin-article-info">
+            <div class="col text-decoration-none">
+                <div class="card">
+                    <div class="card-body d-flex align-items-center justify-content-between">
+                        <div class="info d-flex align-items-center gap-3">
+                            <i class='bx bxs-user-detail fs-1 text-primary py-0 my-0'></i>
+                            <div class="card-info d-flex flex-column justify-content-center gap-2">
+                                <h4 class="py-0 my-0 fw-semibold">Total User</h4>
+                                <h5 class="fs-6 py-0 my-0">{{ $users->count() }}</h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    
+            <div class="col text-decoration-none">
+                <div class="card">
+                    <div class="card-body d-flex align-items-center justify-content-between">
+                        <div class="info d-flex align-items-center gap-3">
+                            <i class='bx bxs-user-circle fs-1 text-primary py-0 my-0'></i>
+                            <div class="card-info d-flex flex-column justify-content-center gap-2">
+                                <h4 class="py-0 my-0 fw-semibold">Admin</h4>
+                                <h5 class="fs-6 py-0 my-0">{{ $admin_total }}</h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    
+            <div class="col text-decoration-none">
+                <div class="card">
+                    <div class="card-body d-flex align-items-center justify-content-between">
+                        <div class="info d-flex align-items-center gap-3">
+                            <i class='bx bxs-user fs-1 text-primary py-0 my-0'></i>
+                            <div class="card-info d-flex flex-column justify-content-center gap-2">
+                                <h4 class="py-0 my-0 fw-semibold">Users</h4>
+                                <h5 class="fs-6 py-0 my-0">{{ $user_total }}</h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    
+            <div class="col text-decoration-none">
+                <div class="card">
+                    <div class="card-body d-flex align-items-center justify-content-between">
+                        <div class="info d-flex align-items-center gap-3">
+                            <i class='bx bxs-check-circle fs-1 text-success py-0 my-0'></i>
+                            <div class="card-info d-flex flex-column justify-content-center gap-2">
+                                <h4 class="py-0 my-0 fw-semibold">Approved</h4>
+                                <h5 class="fs-6 py-0 my-0">{{ $user_approved }}</h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    
+            <div class="col text-decoration-none">
+                <div class="card">
+                    <div class="card-body d-flex align-items-center justify-content-between">
+                        <div class="info d-flex align-items-center gap-3">
+                            <i class='bx bxs-x-circle fs-1 text-danger py-0 my-0'></i>
+                            <div class="card-info d-flex flex-column justify-content-center gap-2">
+                                <h4 class="py-0 my-0 fw-semibold">Banned</h4>
+                                <h5 class="fs-6 py-0 my-0">{{ $user_banned }}</h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    
+            <div class="col text-decoration-none">
+                <div class="card">
+                    <div class="card-body d-flex align-items-center justify-content-between">
+                        <div class="info d-flex align-items-center gap-3">
+                            <i class='bx bxs-info-circle fs-1 text-primary py-0 my-0'></i>
+                            <div class="card-info d-flex flex-column justify-content-center gap-2">
+                                <h4 class="py-0 my-0 fw-semibold">Reports</h4>
+                                <h5 class="fs-6 py-0 my-0">{{ $report_count }}</h5>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-
-        <div class="col text-decoration-none">
-            <div class="card">
-                <div class="card-body d-flex align-items-center justify-content-between">
-                    <div class="info d-flex align-items-center gap-3">
-                        <i class='bx bxs-user-circle fs-1 text-primary py-0 my-0'></i>
-                        <div class="card-info d-flex flex-column justify-content-center gap-2">
-                            <h4 class="py-0 my-0 fw-semibold">Admin</h4>
-                            <h5 class="fs-6 py-0 my-0">{{ $admin_total }}</h5>
-                        </div>
-                    </div>
+    
+        <div class="card">
+            <div class="card-body p-3 p-lg-4">
+                <div class="actions d-flex justify-content-between align-items-center">
+                    <h4 class="py-0 my-0 fw-bold">Users</h4>
+                    <a class="btn btn-primary d-flex align-items-center gap-1 px-4 py-2 rounded-pill" data-bs-toggle="modal" data-bs-target="#tambah-user-modal">
+                        <i class='bx bx-plus fs-5'></i>
+                        Create
+                    </a>
                 </div>
-            </div>
-        </div>
-
-        <div class="col text-decoration-none">
-            <div class="card">
-                <div class="card-body d-flex align-items-center justify-content-between">
-                    <div class="info d-flex align-items-center gap-3">
-                        <i class='bx bxs-user fs-1 text-primary py-0 my-0'></i>
-                        <div class="card-info d-flex flex-column justify-content-center gap-2">
-                            <h4 class="py-0 my-0 fw-semibold">Users</h4>
-                            <h5 class="fs-6 py-0 my-0">{{ $user_total }}</h5>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="col text-decoration-none">
-            <div class="card">
-                <div class="card-body d-flex align-items-center justify-content-between">
-                    <div class="info d-flex align-items-center gap-3">
-                        <i class='bx bxs-check-circle fs-1 text-success py-0 my-0'></i>
-                        <div class="card-info d-flex flex-column justify-content-center gap-2">
-                            <h4 class="py-0 my-0 fw-semibold">Approved</h4>
-                            <h5 class="fs-6 py-0 my-0">{{ $user_approved }}</h5>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="col text-decoration-none">
-            <div class="card">
-                <div class="card-body d-flex align-items-center justify-content-between">
-                    <div class="info d-flex align-items-center gap-3">
-                        <i class='bx bxs-x-circle fs-1 text-danger py-0 my-0'></i>
-                        <div class="card-info d-flex flex-column justify-content-center gap-2">
-                            <h4 class="py-0 my-0 fw-semibold">Banned</h4>
-                            <h5 class="fs-6 py-0 my-0">{{ $user_banned }}</h5>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="col text-decoration-none">
-            <div class="card">
-                <div class="card-body d-flex align-items-center justify-content-between">
-                    <div class="info d-flex align-items-center gap-3">
-                        <i class='bx bxs-info-circle fs-1 text-primary py-0 my-0'></i>
-                        <div class="card-info d-flex flex-column justify-content-center gap-2">
-                            <h4 class="py-0 my-0 fw-semibold">Reports</h4>
-                            <h5 class="fs-6 py-0 my-0">{{ $report_count }}</h5>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="card">
-        <div class="card-body p-3 p-lg-4">
-            <div class="actions d-flex justify-content-between align-items-center">
-                <h4 class="py-0 my-0 fw-bold">Users</h4>
-                <a class="btn btn-primary d-flex align-items-center gap-1 px-4 py-2 rounded-pill" data-bs-toggle="modal" data-bs-target="#tambah-user-modal">
-                    <i class='bx bx-plus fs-5'></i>
-                    Create
-                </a>
-            </div>
-            <hr>
-            <div class="table-responsive pb-5">
-                <table class="table table-striped table-hover align-middle" id="myDataTable" style="width:100%">
-                    <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Role</th>
-                            <th>Email</th>
-                            <th class="text-center">Articles</th>
-                            <th class="text-center">Status</th>
-                            <th class="text-center">Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($users as $item)
-                        <tr>
-                            <td>
-                                <a href="{{ route('author.show', $item->slug) }}" class="username d-flex justify-content-start" style="width: max-content;">
-                                    <div class="username-info d-flex justify-content-center align-items-center gap-2">
-                                        <div class="profile-image">
-                                            @if (!empty($item->avatar))
-                                                <img class="img" src="{{ asset('storage/avatars/' . $item->avatar) }}">
-                                            @elseif (!empty($item->avatar_google))
-                                                <img class="img" src="{{ $item->avatar_google }}">
-                                            @else
-                                                <img class="img" src="https://ui-avatars.com/api/?background=random&name={{ urlencode($item->name) }}">
-                                            @endif
+                <hr>
+                <div class="table-responsive pb-5">
+                    <table class="table table-striped table-hover align-middle" id="myDataTable" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Role</th>
+                                <th>Email</th>
+                                <th class="text-center">Articles</th>
+                                <th class="text-center">Status</th>
+                                <th class="text-center">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($users as $item)
+                            <tr>
+                                <td>
+                                    <a href="{{ route('author.show', $item->slug) }}" class="username d-flex justify-content-start" style="width: max-content;">
+                                        <div class="username-info d-flex justify-content-center align-items-center gap-2">
+                                            <div class="profile-image">
+                                                @if (!empty($item->avatar))
+                                                    <img class="img" src="{{ asset('storage/avatars/' . $item->avatar) }}">
+                                                @elseif (!empty($item->avatar_google))
+                                                    <img class="img" src="{{ $item->avatar_google }}">
+                                                @else
+                                                    <img class="img" src="https://ui-avatars.com/api/?background=random&name={{ urlencode($item->name) }}">
+                                                @endif
+                                            </div>
+                                            <div class="d-flex flex-column justify-content-center">
+                                                <span class="fw-normal py-0 my-0">{{ $item->name }}</span>
+                                                <small class="fs-7 py-0 my-0 text-color">{{ '@' . $item->slug }}</small>
+                                            </div>
                                         </div>
-                                        <div class="d-flex flex-column justify-content-center">
-                                            <span class="fw-normal py-0 my-0">{{ $item->name }}</span>
-                                            <small class="fs-7 py-0 my-0 text-color">{{ '@' . $item->slug }}</small>
-                                        </div>
-                                    </div>
-                                </a>
-                            </td>
-                            <td>
-                                <div class="roles-info">
-                                    <span class="fw-normal py-0 my-0">
-                                        {{ $item->roles }}
-                                    </span>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="email-info">
-                                    <span class="fw-normal py-0 my-0">{{ $item->email }}</span>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="articles-info text-center pe-3">
-                                    <span class="fw-normal py-0 my-0">{{ $item->articles->count() }}</span>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="status-info d-flex align-items-center justify-content-center pe-3">
-                                    @if ($item->status == 'Approved')
-                                        <i class='bx bxs-check-circle text-success fs-3'></i>
-                                    @else
-                                        <i class='bx bxs-x-circle text-danger fs-3'></i>
-                                    @endif
-                                </div>
-                            </td>
-                            <td>
-                                <div class="gap-2 actions d-flex align-items-center justify-content-center pe-3">
-                                    <a href="#" class="p-2 rounded btn btn-primary d-flex align-items-center justify-content-center"
-                                    onclick="editUsers(
-                                        @js($item->id),
-                                        @js($item->avatar),
-                                        @js($item->avatar_google),
-                                        @js($item->roles),
-                                        @js($item->slug),
-                                        @js($item->name),
-                                        @js($item->email),
-                                        @js($item->status),
-                                        @js($item->password)
-                                    )"
-                                    data-bs-toggle="modal" data-bs-target="#edit-user-modal" title="Edit">
-                                        <i class='p-0 m-0 bx bxs-pencil'></i>
                                     </a>
-
-                                    <form id="delete-user-form-{{ $item->id }}" action="{{ route('users.destroy', $item->id) }}" method="post" class="d-inline">
-                                        @csrf
-                                        @method('DELETE')
-
-                                        <button type="button" class="p-2 rounded btn btn-danger d-flex align-items-center justify-content-center" onclick="confirmDeleteUser({{ $item->id }})">
-                                            <i class='p-0 m-0 bx bxs-trash'></i>
-                                        </button>
-                                    </form>
-                                </div>
-                            </td>
-                        </tr>
-                        @endforeach
-                    </tbody>
-                </table>
+                                </td>
+                                <td>
+                                    <div class="roles-info">
+                                        <span class="fw-normal py-0 my-0">
+                                            {{ $item->roles }}
+                                        </span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="email-info">
+                                        <span class="fw-normal py-0 my-0">{{ $item->email }}</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="articles-info text-center pe-3">
+                                        <span class="fw-normal py-0 my-0">{{ $item->articles->count() }}</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="status-info d-flex align-items-center justify-content-center pe-3">
+                                        @if ($item->status == 'Approved')
+                                            <i class='bx bxs-check-circle text-success fs-3'></i>
+                                        @else
+                                            <i class='bx bxs-x-circle text-danger fs-3'></i>
+                                        @endif
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="gap-2 actions d-flex align-items-center justify-content-center pe-3">
+                                        <a href="#" class="p-2 rounded btn btn-primary d-flex align-items-center justify-content-center"
+                                        onclick="editUsers(
+                                            @js($item->id),
+                                            @js($item->avatar),
+                                            @js($item->avatar_google),
+                                            @js($item->roles),
+                                            @js($item->slug),
+                                            @js($item->name),
+                                            @js($item->email),
+                                            @js($item->status),
+                                            @js($item->password)
+                                        )"
+                                        data-bs-toggle="modal" data-bs-target="#edit-user-modal" title="Edit">
+                                            <i class='p-0 m-0 bx bxs-pencil'></i>
+                                        </a>
+    
+                                        <form id="delete-user-form-{{ $item->id }}" action="{{ route('users.destroy', $item->id) }}" method="post" class="d-inline">
+                                            @csrf
+                                            @method('DELETE')
+    
+                                            <button type="button" class="p-2 rounded btn btn-danger d-flex align-items-center justify-content-center" onclick="confirmDeleteUser({{ $item->id }})">
+                                                <i class='p-0 m-0 bx bxs-trash'></i>
+                                            </button>
+                                        </form>
+                                    </div>
+                                </td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
+    
+        @livewire('admin-comment-report')
     </div>
 
-    @livewire('admin-comment-report')
 
     <!-- Modal -->
         <!-- Modal Tambah User -->

@@ -137,7 +137,7 @@
 
                 @empty
                     <div class="d-flex justify-content-center align-items-center">
-                        <p class="fs-4 text-dark">No articles found.</p>
+                        <h5 class="text-color">No articles found.</h5>
                     </div>
                 @endforelse
             </div>

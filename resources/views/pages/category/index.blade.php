@@ -9,55 +9,56 @@
 @section('content')
     @include('components.toast')
 
-    <div class="card">
-        <div class="card-body p-3 p-lg-4">
-            <div class="actions d-flex justify-content-between align-items-center">
-                <h4 class="py-0 my-0 fw-bold">Categories</h4>
-                <a class="btn btn-primary d-flex align-items-center gap-1 px-4 py-2 rounded-pill" data-bs-toggle="modal" data-bs-target="#tambah-kategori-modal">
-                    <i class='bx bx-plus fs-5'></i>
-                    Create
-                </a>
-            </div>
-            <hr>
-
-            <div class="table-responsive pb-5">
-                <table class="table table-striped table-hover" id="myDataTable">
-                    <thead>
-                        <tr>
-                            <th>Category</th>
-                            <th>Updated at</th>
-                            <th>Created at</th>
-                            <th class="text-center">Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($categories as $item)
-                            <tr class="align-middle">
-                                <td>{{ $item->title }}</td>
-                                <td>{{ Carbon\Carbon::parse($item->updated_at)->translatedFormat('d F Y, H:i') }} WIB</td>
-                                <td>{{ Carbon\Carbon::parse($item->created_at)->translatedFormat('d F Y, H:i') }} WIB</td>
-                                <td>
-                                    <div class="gap-2 actions d-flex align-items-center justify-content-center pe-3">
-                                        <a href="#" class="p-2 rounded btn btn-primary d-flex align-items-center justify-content-center" onclick="editCategory('{{ $item->id }}', '{{ $item->title }}')" data-bs-toggle="modal" data-bs-target="#edit-kategori-modal">
-                                            <i class='p-0 m-0 bx bxs-pencil'></i>
-                                        </a>
-                                        <form id="delete-category-form-{{ $item->id }}" action="{{ route('category.destroy', $item->id) }}" method="POST">
-                                            @csrf @method('DELETE')
-        
-                                            <button type="button" class="p-2 rounded btn btn-danger d-flex align-items-center justify-content-center" onclick="confirmDeleteCategory({{ $item->id }})">
-                                                <i class='p-0 m-0 bx bxs-trash'></i>
-                                            </button>
-                                        </form>
-                                    </div>
-                                </td>
+    <div class="py-3">
+        <div class="card">
+            <div class="card-body p-3 p-lg-4">
+                <div class="actions d-flex justify-content-between align-items-center">
+                    <h4 class="py-0 my-0 fw-bold">Categories</h4>
+                    <a class="btn btn-primary d-flex align-items-center gap-1 px-4 py-2 rounded-pill" data-bs-toggle="modal" data-bs-target="#tambah-kategori-modal">
+                        <i class='bx bx-plus fs-5'></i>
+                        Create
+                    </a>
+                </div>
+                <hr>
+    
+                <div class="table-responsive pb-5">
+                    <table class="table table-striped table-hover" id="myDataTable">
+                        <thead>
+                            <tr>
+                                <th>Category</th>
+                                <th>Updated at</th>
+                                <th>Created at</th>
+                                <th class="text-center">Actions</th>
                             </tr>
-                        @endforeach
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            @foreach ($categories as $item)
+                                <tr class="align-middle">
+                                    <td>{{ $item->title }}</td>
+                                    <td>{{ Carbon\Carbon::parse($item->updated_at)->translatedFormat('d F Y, H:i') }} WIB</td>
+                                    <td>{{ Carbon\Carbon::parse($item->created_at)->translatedFormat('d F Y, H:i') }} WIB</td>
+                                    <td>
+                                        <div class="gap-2 actions d-flex align-items-center justify-content-center pe-3">
+                                            <a href="#" class="p-2 rounded btn btn-primary d-flex align-items-center justify-content-center" onclick="editCategory('{{ $item->id }}', '{{ $item->title }}')" data-bs-toggle="modal" data-bs-target="#edit-kategori-modal">
+                                                <i class='p-0 m-0 bx bxs-pencil'></i>
+                                            </a>
+                                            <form id="delete-category-form-{{ $item->id }}" action="{{ route('category.destroy', $item->id) }}" method="POST">
+                                                @csrf @method('DELETE')
+            
+                                                <button type="button" class="p-2 rounded btn btn-danger d-flex align-items-center justify-content-center" onclick="confirmDeleteCategory({{ $item->id }})">
+                                                    <i class='p-0 m-0 bx bxs-trash'></i>
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
-
 
     <!-- Modal -->
         <!-- Modal Tambah Kategori -->

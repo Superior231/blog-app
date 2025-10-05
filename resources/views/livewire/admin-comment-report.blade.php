@@ -123,7 +123,7 @@
                     </div>
                 @empty
                     <div class="error-message-container d-flex justify-content-center align-items-center py-5 w-100">
-                        <h4 class="text-color">No report found.</h4>
+                        <h5 class="text-color">No report found.</h5>
                     </div>
                 @endforelse
             </div>
