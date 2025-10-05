@@ -18,7 +18,9 @@ class ProfileController extends Controller
     public function index()
     {
         $user = Auth::user();
-        $articles = Article::where('user_id', $user->id)->paginate(10);
+        $articles = Article::where('user_id', $user->id)
+            ->orderBy('created_at', 'desc')
+            ->paginate(10);
 
         return view('pages.profile.index', [
             'title' => 'Blog App - My Profile',
@@ -198,7 +200,9 @@ class ProfileController extends Controller
     public function profileArticle()
     {
         $user = Auth::user();
-        $articles = Article::where('user_id', $user->id)->paginate(9);
+        $articles = Article::where('user_id', $user->id)
+            ->orderBy('created_at', 'desc')
+            ->paginate(10);
 
         return view('pages.profile.article', [
             'title' => 'Blog App - My Profile Articles',
@@ -217,7 +221,9 @@ class ProfileController extends Controller
                         ?? asset('storage/avatars/' . $user->avatar)
                         ?? "https://ui-avatars.com/api/?background=random&name=" . urlencode($user->name);
 
-        $articles = Article::where('user_id', $user->id)->paginate(10);
+        $articles = Article::where('user_id', $user->id)
+            ->orderBy('created_at', 'desc')
+            ->paginate(10);
 
         // Cek apakah user sudah login atau belum
         $isFollowing = null;
