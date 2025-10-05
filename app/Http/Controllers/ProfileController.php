@@ -90,6 +90,9 @@ class ProfileController extends Controller
         $user->facebook = $request->input('facebook', $user->facebook);
         $user->twitter = $request->input('twitter', $user->twitter);
         $user->instagram = $request->input('instagram', $user->instagram);
+        $user->youtube = $request->input('youtube', $user->youtube);
+        $user->linkedin = $request->input('linkedin', $user->linkedin);
+        $user->github = $request->input('github', $user->github);
 
         if ($request->filled('password')) {
             $user->password = Hash::make($request->input('password'));

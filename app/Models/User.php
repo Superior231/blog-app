@@ -30,6 +30,9 @@ class User extends Authenticatable
         'facebook',
         'twitter',
         'instagram',
+        'youtube',
+        'linkedin',
+        'github',
         'password',
         'status',
     ];

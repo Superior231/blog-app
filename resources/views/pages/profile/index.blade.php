@@ -156,6 +156,21 @@
                                     <i class="fa-brands fa-x-twitter"></i>
                                 </a>
                             </li>
+                            <li class="list-inline-item">
+                                <a href="{{ $user->youtube ? $user->youtube : '#' }}" target="_blank" rel="noopener noreferrer" title="YouTube">
+                                    <i class="fa-brands fa-youtube"></i>
+                                </a>
+                            </li>
+                            <li class="list-inline-item">
+                                <a href="{{ $user->linkedin ? $user->linkedin : '#' }}" target="_blank" rel="noopener noreferrer" title="LinkedIn">
+                                    <i class="fa-brands fa-linkedin"></i>
+                                </a>
+                            </li>
+                            <li class="list-inline-item">
+                                <a href="{{ $user->github ? $user->github : '#' }}" target="_blank" rel="noopener noreferrer" title="GitHub">
+                                    <i class="fa-brands fa-github"></i>
+                                </a>
+                            </li>
                         </ul>
                     </div>
                 </div>
