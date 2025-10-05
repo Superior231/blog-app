@@ -9,11 +9,11 @@
 </head>
 
 <body>
-    
     @include('components.navbar')
+    @include('components.toast')
 
-    <section class="bg-soft-blue py-4">
-        <div class="container">
+    <section class="bg-soft-blue py-0 my-0">
+        <div class="container py-0 my-0">
             @yield('content')
         </div>
     </section>

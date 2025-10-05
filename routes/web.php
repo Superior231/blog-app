@@ -20,7 +20,7 @@ Route::get('/detail/{slug}', [HomeController::class, 'detail'])->name('detail');
 
 // Author
 Route::get('/@{slug}', [ProfileController::class, 'author'])->name('author.show');
-Route::get('/@{slug}/article', [ProfileController::class, 'authorArticle'])->name('author.article');
+Route::get('/@{slug}/articles', [ProfileController::class, 'authorArticle'])->name('author.article');
 
 // Users
 Route::prefix('/')->middleware('auth')->group(function() {

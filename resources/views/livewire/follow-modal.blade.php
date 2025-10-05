@@ -30,7 +30,7 @@
                             <div class="username d-flex flex-column justify-content-center gap-0 w-100">
                                 <div class="name d-flex align-items-center gap-2">
                                     <a href="{{ route('author.show', ['slug' => $item->slug]) }}" class="text-dark">
-                                        <h5 class="py-0 my-0">{{ $item->name }}</h5>
+                                        <h6 class="py-0 my-0 fs-7">{{ $item->name }}</h6>
                                     </a>
                                     @auth()
                                         @if (!$item->followers->contains(Auth::user()->id))
@@ -112,7 +112,7 @@
                                 @endif
                             </a>
                             <a href="{{ route('author.show', ['slug' => $item->slug]) }}" class="username text-dark d-flex flex-column justify-content-center gap-0 w-100">
-                                <h5 class="py-0 my-0">{{ $item->name }}</h5>
+                                <h6 class="py-0 my-0 fs-7">{{ $item->name }}</h6>
                                 <p class="fs-7 py-0 my-0 text-color">@<small>{{ $item->slug }}</small></p>
                             </a>
                             @auth()

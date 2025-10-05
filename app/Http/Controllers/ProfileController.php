@@ -18,14 +18,13 @@ class ProfileController extends Controller
     public function index()
     {
         $user = Auth::user();
-        $myArticles = Article::where('user_id', Auth::user()->id)->count();
+        $articles = Article::where('user_id', $user->id)->paginate(10);
 
-        return view('pages.profile.profile', [
+        return view('pages.profile.index', [
             'title' => 'Blog App - My Profile',
             'active' => 'my profile',
-            'nav_tab_active' => 'profile',
             'user' => $user,
-            'myArticles' => $myArticles
+            'articles' => $articles
         ]);
     }
 
@@ -201,7 +200,6 @@ class ProfileController extends Controller
         return view('pages.profile.article', [
             'title' => 'Blog App - My Profile Articles',
             'active' => 'my profile',
-            'nav_tab_active' => 'article',
             'articles' => $articles,
             'user' => $user
         ]);
@@ -216,6 +214,8 @@ class ProfileController extends Controller
                         ?? asset('storage/avatars/' . $user->avatar)
                         ?? "https://ui-avatars.com/api/?background=random&name=" . urlencode($user->name);
 
+        $articles = Article::where('user_id', $user->id)->paginate(10);
+
         // Cek apakah user sudah login atau belum
         $isFollowing = null;
         if (Auth::check()) {
@@ -224,15 +224,15 @@ class ProfileController extends Controller
                                 ->exists();
         }
 
-        return view('pages.profile.profile', [
+        return view('pages.profile.index', [
             'title' => $user->name . ' (@' . $user->slug . ') - Profile',
             'active' => 'author',
-            'nav_tab_active' => 'profile',
             'user' => $user,
             'isFollowing' => $isFollowing,
             'description' => $description,
             'author_name' => $author_name,
-            'avatar' => $avatar
+            'avatar' => $avatar,
+            'articles' => $articles
         ]);
     }
 
@@ -246,9 +246,8 @@ class ProfileController extends Controller
                         ?? "https://ui-avatars.com/api/?background=random&name=" . urlencode($user->name);
 
         return view('pages.profile.article', [
-            'title' => $user->name . ' (@' . $user->slug . ') - Article',
+            'title' => $user->name . ' (@' . $user->slug . ') - Articles',
             'active' => 'author',
-            'nav_tab_active' => 'article',
             'user' => $user,
             'description' => $description,
             'author_name' => $author_name,
