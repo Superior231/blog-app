@@ -479,8 +479,8 @@ button.copy-link-btn p {
   border-radius: var(--radius-100);
   overflow: hidden;
   margin-right: 10px;
-  background-color: var(--card-hover);
-  border: 3px solid var(--body-color);
+  background-color: var(--bg-light);
+  border: 3px solid var(--bg-light);
 }
 
 #profile .header .avatar img {
@@ -614,8 +614,8 @@ button.copy-link-btn p {
   }
 
   #profile .avatar {
-    width: 80px !important;
-    height: 80px !important;
+    width: 100px !important;
+    height: 100px !important;
     margin-right: 0px !important;
   }
 
