@@ -60,7 +60,7 @@
                                 @endif
                             @endauth
                         </div>
-                        <div class="d-flex d-md-none flex-column align-items-center gap-0">
+                        <div class="d-flex d-md-none flex-column align-items-center gap-0 mb-2">
                             <small class="text-color fs-7 py-0 my-0">{{ '@' . $user->slug }}</small>
                             <h5 class="fw-bold text-center text-dark py-0 my-0">{{ $user->name }}</h5>
                         </div>
