@@ -73,10 +73,10 @@
             @else
                 <ul class="navbar-nav ms-auto mx-0 gap-2">
                     <li class="nav-item">
-                        <a href="{{ route('login') }}" class="nav-link text-center border border-secondary px-3 py-2 rounded-3">Login</a>
+                        <a href="{{ route('login') }}" class="nav-link text-center border border-secondary px-3 py-2 rounded-circle">Login</a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ route('register') }}" class="nav-link text-center text-light border border-primary bg-primary px-3 py-2 rounded-3">Register</a>
+                        <a href="{{ route('register') }}" class="nav-link text-center text-light border border-primary bg-primary px-3 py-2 rounded-circle">Register</a>
                     </li>
                 </ul>
             @endauth
