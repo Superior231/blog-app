@@ -1,6 +1,7 @@
 @extends('layouts.main')
 
 @push('styles')
+    <link rel="stylesheet" href="https://cdn.ckeditor.com/ckeditor5/42.0.2/ckeditor5.css">
     <style>
         .navbar {
             display: none;
@@ -87,9 +88,15 @@
                         </select>
                     </div>
                     <div class="mb-3">
-                        <div class="form-floating">
-                            <textarea class="form-control" name="description" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px">{{ Auth::user()->description }}</textarea>
-                            <label for="floatingTextarea2">Description</label>
+                        <div id="editor-container">
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <label for="body" class="text-dark">Description</label>
+                                <button onclick="toggleFullScreen()" type="button" class="bg-transparent border-0 d-flex align-items-center gap-1">
+                                    <i class="bx bx-fullscreen py-0 my-0 text-dark" id="fullscreen-icon"></i>
+                                    <span class="text-dark" id="fullscreen-text">Fullscreen</span>
+                                </button>
+                            </div>
+                            <textarea name="description" id="body">{{ Auth::user()->description }}</textarea>
                         </div>
                     </div>
                 </div>
@@ -187,6 +194,40 @@
             } else {
                 passwordInput.type = "password";
                 document.getElementById("showPass").innerHTML = '<i class="fa-regular fa-eye-slash"></i>';
+            }
+        }
+    </script>
+
+    <script type="importmap">
+        {
+            "imports": {
+                "ckeditor5": "https://cdn.ckeditor.com/ckeditor5/42.0.2/ckeditor5.js",
+                "ckeditor5/": "https://cdn.ckeditor.com/ckeditor5/42.0.2/"
+            }
+        }
+    </script>
+    <script type="module" src="{{ url('assets/js/ckeditor.js') }}"></script>
+
+    <script>
+        let isFullscreen = false;
+    
+        function toggleFullScreen() {
+            const container = document.getElementById('editor-container');
+            const icon = document.getElementById('fullscreen-icon');
+            const text = document.getElementById('fullscreen-text');
+    
+            isFullscreen = !isFullscreen;
+    
+            if (isFullscreen) {
+                container.classList.add('editor-fullscreen');
+                icon.classList.remove('bx-fullscreen');
+                icon.classList.add('bx-x');
+                text.textContent = 'Close';
+            } else {
+                container.classList.remove('editor-fullscreen');
+                icon.classList.remove('bx-x');
+                icon.classList.add('bx-fullscreen');
+                text.textContent = 'Fullscreen';
             }
         }
     </script>

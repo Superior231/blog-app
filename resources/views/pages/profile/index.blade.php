@@ -122,18 +122,18 @@
                         <div class="card-text mt-3">
                             @auth()
                                 @if ($user->id == Auth::user()->id && !empty(Auth::user()->description))
-                                    {{ Auth::user()->description }}
+                                    {!! Auth::user()->description !!}
                                 @elseif (!empty($user->description))
-                                    {{ $user->description }}
+                                    {!! $user->description !!}
                                 @else
-                                    No description yet.
+                                    <p class="text-center pt-5 fs-7 text-color">No description yet.</p>
                                 @endif
 
                             @else
                                 @if (!empty($user->description))
-                                    {{ $user->description }}
+                                    {!! $user->description !!}
                                 @else
-                                    No description yet.
+                                    <p class="text-center pt-5 fs-7 text-color">No description yet.</p>
                                 @endif
                             @endauth
                         </div>
@@ -224,7 +224,7 @@
                                 </div>
                             </a>
                         @empty
-                            <p class="py-2 my-0 text-muted">No articles found.</p>
+                            <p class="py-2 my-0 fs-7 text-color text-center">No articles found.</p>
                         @endforelse
                     </div>
                     <div class="card-footer"></div>
