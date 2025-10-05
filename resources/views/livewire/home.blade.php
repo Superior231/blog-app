@@ -54,9 +54,12 @@
                                 <div class="thumbnail">
                                     <img src="{{ url('storage/thumbnails/' . $item->thumbnail) }}" alt="thumbnail" class="rounded-3 mb-3">
                                 </div>
-                                <div class="category mb-3 gap-2">
-                                    @foreach (explode(',', $item->category) as $categories)
-                                        <p class="badge p-1 m-0 text-primary">{{ $categories }}</p>
+                                <div class="categories mb-2 ellipsis-1">
+                                    @php
+                                        $categories = explode(',', $item->category);
+                                    @endphp
+                                    @foreach ($categories as $category)
+                                        <span class="badge bg-primary">{{ $category }}</span>
                                     @endforeach
                                 </div>
                                 <h3 class="article-title mb-3">{{ $item->title }}</h3>

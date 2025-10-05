@@ -183,7 +183,7 @@
                                         </a>
                                     </td>
                                     <td>
-                                        <div class="categories">
+                                        <div class="categories ellipsis-2">
                                             @php
                                                 $categories = explode(',', $item->category);
                                             @endphp
