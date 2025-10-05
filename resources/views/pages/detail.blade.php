@@ -45,7 +45,7 @@
                 </a>
                 <div class="info d-flex flex-column">
                     <a href="{{ route('author.show', ['slug' => $author->slug]) }}" class="author-name">
-                        <p class="my-0 py-0 text-primary fw-semibold">{{ $author->name }}</p>
+                        <p class="my-0 py-0 text-primary fw-semibold ellipsis-1">{{ $author->name }}</p>
                         <p class="my-0 py-0 text-secondary fs-7">&#64;{{ $author->slug }}</p>
                     </a>                                     
                     <a class="d-flex align-items-center gap-1 p-0 m-0" onclick="viewDetails('{{ $article->id }}')">

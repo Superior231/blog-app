@@ -114,7 +114,7 @@
                         </div>
                     </div>
 
-                    <div class="card-body">
+                    <div class="card-body pb-0 mb-0">
                         <div class="d-none d-md-flex flex-column juctify-content-center gap-0 mt-3">
                             <h5 class="fw-bold text-dark my-0 py-0">{{ $user->name }}</h5>
                             <small class="text-color fs-7 py-0 my-0">{{ '@' . $user->slug }}</small>
@@ -139,7 +139,7 @@
                         </div>
                     </div>
                     
-                    <div class="card-footer" id="social-media">
+                    <div class="card-footer mt-0" id="social-media">
                         <ul class="mb-0 list-inline">
                             <li class="list-inline-item">
                                 <a href="{{ $user->facebook ? $user->facebook : '#' }}" target="_blank" rel="noopener noreferrer" title="Facebook">
