@@ -1,4 +1,4 @@
-<nav class="navbar sticky-top navbar-expand-lg {{ Auth::user() ? 'py-1' : 'py-3' }} bg-soft-blue">
+<nav class="navbar sticky-top navbar-expand-lg {{ Auth::user() ? 'py-1' : 'py-2' }} bg-soft-blue">
     <div class="container">
         <a href="{{ route('home') }}" class="logo">
             <img src="{{ url('assets/images/logo.png') }}" alt="Blog App Logo">
