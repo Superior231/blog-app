@@ -88,7 +88,7 @@
                                     </a>
                                 @else         
                                     @if ($isFollowing)
-                                        <form action="{{ route('unfollow', $user->id) }}" method="POST">
+                                        <form action="{{ route('unfollow', $user->id) }}" method="POST" class="d-grid">
                                             @csrf
                                             @method('DELETE')
                                             <button class="btn btn-outline-primary unfollow-btn text-center py-2 px-3 rounded-pill" type="submit">
@@ -96,7 +96,7 @@
                                             </button>
                                         </form>
                                     @else
-                                        <form action="{{ route('follow') }}" method="POST">
+                                        <form action="{{ route('follow') }}" method="POST" class="d-grid">
                                             @csrf
                                             <input type="hidden" name="followed_id" value="{{ $user->id }}">
                                             <button class="follow-btn border-transparent border-0 text-center text-light bg-primary py-2 px-3 rounded-pill" type="submit">
@@ -316,6 +316,8 @@
 
     <!-- JQuery -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script src="{{ url('assets/js/profile.js') }}"></script>
 
     <script>
         document.getElementById('download-qr-btn').addEventListener('click', function () {
