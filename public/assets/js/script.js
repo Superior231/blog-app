@@ -122,6 +122,11 @@ function shareToFacebook(url) {
     window.open(facebookShareLink, '_blank');
 }
 
+function shareToWhatsApp(url, title) {
+    const whatsappShareLink = `https://wa.me/?text=${encodeURIComponent(`${title}\n\n${url}`)}`;
+    window.open(whatsappShareLink, '_blank');
+}
+
 function shareToX(url, title) {
     const XShareLink = `https://x.com/intent/post?url=${encodeURIComponent(url)}&text=${encodeURIComponent(title)}`;
     window.open(XShareLink, '_blank');

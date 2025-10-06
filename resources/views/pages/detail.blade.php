@@ -64,6 +64,9 @@
                     <button onclick="shareToFacebook('{{ url('/detail/' . $article->slug) }}')" class="facebook" title="Share to Facebook">
                         <i class="fa-brands fa-facebook-f"></i>
                     </button>
+                    <button onclick="shareToWhatsApp('{{ url('/detail/' . $article->slug) }}', '{{ $article->title }}')" class="whatsapp bg-success" title="Share to WhatsApp">
+                        <i class="fa-brands fa-whatsapp"></i>
+                    </button>
                     <button onclick="shareToX('{{ url('/detail/' . $article->slug) }}', '{{ $article->title }}')" class="x" title="Share to X">
                         <i class="fa-brands fa-x-twitter"></i>
                     </button>

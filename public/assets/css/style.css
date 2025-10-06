@@ -173,7 +173,8 @@ td > span {
 }
 
 a.facebook,
-a.twitter,
+a.whatsapp,
+a.x,
 a.instagram,
 button.copy-link {
   display: flex;
