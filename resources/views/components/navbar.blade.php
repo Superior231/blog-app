@@ -4,9 +4,9 @@
             <img src="{{ url('assets/images/logo.png') }}" alt="Blog App Logo">
             <span>Blog App</span>
         </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+        <button class="navbar-toggler bg-transparent border-0 d-flex justify-content-center align-items-center" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
+            <i class='bx bx-menu fs-2 text-center d-block d-lg-none'></i>
         </button>
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -132,5 +132,15 @@
                 }
             });
         }
+
+        document.querySelector('.navbar-toggler').addEventListener('click', function() {
+            if (this.classList.contains('collapsed')) {
+                this.querySelector('i').classList.remove('bx-x');
+                this.querySelector('i').classList.add('bx-menu');
+            } else {
+                this.querySelector('i').classList.remove('bx-menu');
+                this.querySelector('i').classList.add('bx-x');
+            }
+        });
     </script>
 @endpush
