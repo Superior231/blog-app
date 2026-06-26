@@ -1,7 +1,7 @@
 @php
     $title = $article->title ?? $title ?? 'Blog App';
     $author_name = $author_name ?? 'Blog App';
-    $description = $description ?? "The best platform to share stories, inspirations, and knowledge. Find a variety of interesting articles in various categories ranging from technology, entertainment, to lifestyle. Join us and start sharing your experiences!";
+    $description = $description ?? 'The best platform to share stories, inspirations, and knowledge. Find a variety of interesting articles in various categories ranging from technology, entertainment, to lifestyle. Join us and start sharing your experiences!';
     $keywords = $keywords ?? 'blog, article, story, inspiration, technology, entertainment, lifestyle, education, personal, experience, sharing, knowledge, community';
     $thumbnail = $thumbnail ?? null;
     $thumbnail = $thumbnail ? asset('storage/thumbnails/' . $thumbnail) : url('assets/images/logo.png');
@@ -35,27 +35,27 @@
 {
   "@context": "https://schema.org",
   "@type": "BlogPosting",
-  "headline": "{{ $title }}",
-  "description": "{{ $description }}",
-  "image": "{{ $avatar ?? $thumbnail }}",
+  "headline": {!! json_encode($title) !!},
+  "description": {!! json_encode($description) !!},
+  "image": {!! json_encode($avatar ?? $thumbnail) !!},
   "author": {
     "@type": "Person",
-    "name": "{{ $author_name }}"
+    "name": {!! json_encode($author_name) !!}
   },
   "publisher": {
     "@type": "Organization",
     "name": "Blog App",
     "logo": {
       "@type": "ImageObject",
-      "url": "{{ url('assets/images/logo.png') }}"
+      "url": {!! json_encode(url('assets/images/logo.png')) !!}
     }
   },
   "mainEntityOfPage": {
     "@type": "WebPage",
-    "@id": "{{ url()->current() }}"
+    "@id": {!! json_encode(url()->current()) !!}
   },
-  "datePublished": "{{ $datePublished }}",
-  "dateModified": "{{ $dateModified }}",
-  "keywords": "{{ $keywords }}"
+  "datePublished": {!! json_encode($datePublished) !!},
+  "dateModified": {!! json_encode($dateModified) !!},
+  "keywords": {!! json_encode($keywords) !!}
 }
 </script>
