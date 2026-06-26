@@ -8,7 +8,7 @@
 <!-- PWA  -->
 <meta name="theme-color" content="#f1f5fb"/>
 <link rel="apple-touch-icon" href="{{ asset('assets/images/logo.png') }}">
-<link rel="manifest" href="{{ asset('/manifest.json') }}">
+<link rel="manifest" href="{{ asset('/manifest.json') }}" crossorigin="use-credentials">
 
 @stack('styles')
 
