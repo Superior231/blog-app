@@ -32,6 +32,10 @@ class GoogleLoginController extends Controller
 
     public function handleGoogleCallback()
     {
+        if (request()->has('error') || !request()->has('code')) {
+            return $this->redirectToGoogle();
+        }
+        
         $googleUser = Socialite::driver('google')->stateless()->user();
         $user = User::where('email', $googleUser->email)->first();
 
