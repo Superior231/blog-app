@@ -10,6 +10,7 @@ class LegalController extends Controller
     {
         return view('pages.legal.privacy', [
             'title' => 'Privacy Policy - ' . config('app.name'),
+            'active' => 'legal',
         ]);
     }
 
@@ -17,6 +18,7 @@ class LegalController extends Controller
     {
         return view('pages.legal.terms', [
             'title' => 'Terms and Conditions - ' . config('app.name'),
+            'active' => 'legal',
         ]);
     }
 }
