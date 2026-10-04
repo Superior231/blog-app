@@ -31,6 +31,8 @@
 <link rel="canonical" href="{{ url()->current() }}">
 <link rel="alternate" href="{{ url()->current() }}" hreflang="x-default">
 
+<meta name="google-site-verification" content="Lz-JySwgD3lusgq2cnZLWHdigdq40jPPS2VTUuO87EE" />
+
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
