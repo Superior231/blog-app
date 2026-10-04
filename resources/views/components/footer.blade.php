@@ -40,7 +40,8 @@
                         <p class="fs-6 fw-semibold my-0 py-0 text-nowrap footer-nav-title">Blog App</p>
                         <div class="link d-flex flex-column gap-2">
                             <a href="" class="fs-7">About Us</a>
-                            <a href="" class="fs-7">Privacy Policy</a>
+                            <a href="{{ route('privacy') }}" class="fs-7">Privacy Policy</a>
+                            <a href="{{ route('terms') }}" class="fs-7">Terms & Conditions</a>
                         </div>
                     </div>
                 </div>

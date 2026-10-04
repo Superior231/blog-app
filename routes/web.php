@@ -1,12 +1,12 @@
 <?php
 
-use App\Http\Controllers\Author;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CommentReportController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FollowController;
 use App\Http\Controllers\GoogleLoginController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\LegalController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
@@ -17,6 +17,9 @@ Auth::routes();
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/detail/{slug}', [HomeController::class, 'detail'])->name('detail');
+
+Route::get('/privacy-policy', [LegalController::class, 'privacy'])->name('privacy');
+Route::get('/terms-and-conditions', [LegalController::class, 'terms'])->name('terms');
 
 // Author
 Route::get('/@{slug}', [ProfileController::class, 'author'])->name('author.show');
