@@ -59,7 +59,7 @@ class GoogleLoginController extends Controller
             return redirect()->route('login')->with('error', 'Your account has been banned!');
         }
 
-        Auth::login($user);
+        Auth::login($user, remember: true);
 
         return redirect('/');
     }

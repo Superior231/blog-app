@@ -63,6 +63,18 @@
                             @enderror
                         </div>
 
+                        <div class="mb-3 form-check d-flex justify-content-between align-items-center">
+                            <div>
+                                <input type="checkbox" class="form-check-input" id="remember" name="remember">
+                                <label class="form-check-label text-secondary" for="remember">Remember Me</label>
+                            </div>
+                            @if (Route::has('password.request'))
+                                <a href="{{ route('password.request') }}" class="text-decoration-none">
+                                    Forgot password?
+                                </a>
+                            @endif
+                        </div>
+
                         <div class="d-grid gap-1 mt-4">
                             <button class="btn btn-primary d-block w-100 fw-semibold" type="submit">Login</button>
                             <span class="text-secondary mx-auto d-block my-0 py-0">or</span>
