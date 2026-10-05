@@ -80,12 +80,12 @@
                             <span class="text-secondary mx-auto d-block my-0 py-0">or</span>
                             <a href="{{ route('google.redirect') }}" class="btn google-btn btn-light border-dark color-dark text-dark rounded-3 w-100 fw-semibold">
                                 <img src="{{ url('assets/images/google-icon.png') }}" style="width: 20px;" alt="Google Icon">
-                                Login with Google
+                                Continue with Google
                             </a>
                         </div>
                         <p class="mb-0 mt-2 text-secondary text-center">
                             Don't have an account yet?
-                            <a href="{{ route('register') }}" class="text-decoration-underline text-primary">Register</a>
+                            <a href="{{ route('register') }}" class="text-decoration-none">Register</a>
                         </p>
                     </form>
                 </div>

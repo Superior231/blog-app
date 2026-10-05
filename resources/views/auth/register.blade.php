@@ -105,14 +105,13 @@
                             <span class="text-secondary mx-auto d-block my-0 py-0">or</span>
                             <a href="{{ route('google.redirect') }}"
                                 class="btn btn-light border-dark color-dark text-dark rounded-3 w-100 fw-semibold">
-                                <img src="{{ url('assets/images/google-icon.png') }}" style="width: 20px;"
-                                    alt="Google Icon">
-                                Register with Google
+                                <img src="{{ url('assets/images/google-icon.png') }}" style="width: 20px;" alt="Google Icon">
+                                Continue with Google
                             </a>
                         </div>
                         <p class="mb-0 mt-2 text-secondary text-center">
                             Already have an account?
-                            <a href="{{ route('login') }}" class="text-decoration-underline text-primary">Login</a>
+                            <a href="{{ route('login') }}" class="text-decoration-none">Login</a>
                         </p>
                     </form>
                 </div>
