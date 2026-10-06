@@ -4,24 +4,31 @@
 
         {{-- Your Comment --}}
         @auth()
-            <form wire:submit.prevent="store" class="header d-flex align-items-start gap-2">
-                <div class="profile-image">
-                    @if (!empty(Auth::user()->avatar))
-                        <img class="img" src="{{ asset('storage/avatars/' . Auth::user()->avatar) }}">
-                    @elseif (!empty(Auth::user()->avatar_google))
-                        <img class="img" src="{{ Auth::user()->avatar_google }}">
-                    @else
-                        <img class="img" src="https://ui-avatars.com/api/?background=random&name={{ urlencode(Auth::user()->name) }}">
-                    @endif
-                </div>
+            @if (auth()->user()->hasVerifiedEmail())
+                <form wire:submit.prevent="store" class="header d-flex align-items-start gap-2">
+                    <div class="profile-image">
+                        @if (!empty(Auth::user()->avatar))
+                            <img class="img" src="{{ asset('storage/avatars/' . Auth::user()->avatar) }}">
+                        @elseif (!empty(Auth::user()->avatar_google))
+                            <img class="img" src="{{ Auth::user()->avatar_google }}">
+                        @else
+                            <img class="img" src="https://ui-avatars.com/api/?background=random&name={{ urlencode(Auth::user()->name) }}">
+                        @endif
+                    </div>
 
-                <div class="input-comment d-flex align-items-center gap-2 w-100">
-                    <textarea wire:model.defer="body" placeholder="Text your comment..." oninput="commentBox(this, 'commentBtn')"></textarea>
-                    <button type="submit" id="commentBtn" title="Submit comment">
-                        <i class='bx bxs-send'></i>
-                    </button>
+                    <div class="input-comment d-flex align-items-center gap-2 w-100">
+                        <textarea wire:model.defer="body" placeholder="Text your comment..." oninput="commentBox(this, 'commentBtn')"></textarea>
+                        <button type="submit" id="commentBtn" title="Submit comment">
+                            <i class='bx bxs-send'></i>
+                        </button>
+                    </div>
+                </form>
+            @else
+                <div class="header d-flex align-items-center justify-content-center gap-2">
+                    <span>Verify your email to comment</span>
+                    <a href="{{ route('verification.notice') }}" class="text-decoration-underline">verify now!</a>
                 </div>
-            </form>
+            @endif
         @else
             <div class="header d-flex align-items-center justify-content-center gap-2">
                 <span>Login first to comment</span>
@@ -100,10 +107,16 @@
                                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                                         <li>
                                             @auth()
-                                                <button onclick='reportComment({{ json_encode($item->id) }}, {{ json_encode($item->user->avatar) }}, {{ json_encode($item->user->avatar_google) }}, {{ json_encode($item->user->name) }}, {{ json_encode($item->user->slug) }}, {{ json_encode($item->created_at->diffForHumans()) }}, {{ json_encode($item->body) }})' data-bs-toggle="modal" data-bs-target="#reportComment"
-                                                    class="dropdown-item d-flex align-items-center gap-2">
-                                                    <i class='bx bxs-flag-alt fs-5'></i> Report
-                                                </button>
+                                                @if (auth()->user()->hasVerifiedEmail())
+                                                    <button onclick='reportComment({{ json_encode($item->id) }}, {{ json_encode($item->user->avatar) }}, {{ json_encode($item->user->avatar_google) }}, {{ json_encode($item->user->name) }}, {{ json_encode($item->user->slug) }}, {{ json_encode($item->created_at->diffForHumans()) }}, {{ json_encode($item->body) }})' data-bs-toggle="modal" data-bs-target="#reportComment"
+                                                        class="dropdown-item d-flex align-items-center gap-2">
+                                                        <i class='bx bxs-flag-alt fs-5'></i> Report
+                                                    </button>
+                                                @else
+                                                    <button class="dropdown-item d-flex align-items-center gap-2" onclick="showUnverifiedAlert()">
+                                                        <i class='bx bxs-flag-alt fs-5'></i> Report
+                                                    </button>
+                                                @endif
                                             @else
                                                 <button class="dropdown-item d-flex align-items-center gap-2" onclick="login()">
                                                     <i class='bx bxs-flag-alt fs-5'></i> Report
@@ -126,29 +139,41 @@
                             <div class="d-flex align-items-center gap-3">
                                 {{-- Like and Dislike --}}
                                 @auth
-                                    @if ($item->liked())
-                                        <button wire:click.prevent="like({{ $item->id }})" class="like-btn py-0 my-0 bg-transparent border-none border-0 d-flex align-items-center gap-1">
-                                            <i class='bx bxs-like text-primary my-0 py-0 fs-5'></i>
-                                            <p class="my-0 py-0 fs-7 fw-semibold text-primary">{{ $item->likeComments() }}</p>
-                                        </button>
-                                    @else
-                                        <button wire:click.prevent="like({{ $item->id }})" class="like-btn py-0 my-0 bg-transparent border-none border-0 d-flex align-items-center gap-1 text-color">
-                                            <i class='bx bxs-like my-0 py-0'></i>
-                                            <p class="my-0 py-0 fs-7">{{ $item->likeComments() }}</p>
-                                        </button>
-                                    @endif
+                                    @if (auth()->user()->hasVerifiedEmail())
+                                        @if ($item->liked())
+                                            <button wire:click.prevent="like({{ $item->id }})" class="like-btn py-0 my-0 bg-transparent border-none border-0 d-flex align-items-center gap-1">
+                                                <i class='bx bxs-like text-primary my-0 py-0 fs-5'></i>
+                                                <p class="my-0 py-0 fs-7 fw-semibold text-primary">{{ $item->likeComments() }}</p>
+                                            </button>
+                                        @else
+                                            <button wire:click.prevent="like({{ $item->id }})" class="like-btn py-0 my-0 bg-transparent border-none border-0 d-flex align-items-center gap-1 text-color">
+                                                <i class='bx bxs-like my-0 py-0'></i>
+                                                <p class="my-0 py-0 fs-7">{{ $item->likeComments() }}</p>
+                                            </button>
+                                        @endif
 
-                                    @if ($item->disliked())
-                                        <button wire:click.prevent="dislike({{ $item->id }})" class="dislike-btn py-0 my-0 bg-transparent border-none border-0 d-flex align-items-center gap-1">
-                                            <i class='bx bxs-dislike text-danger my-0 py-0 fs-5'></i>
-                                            <p class="my-0 py-0 fs-7 fw-semibold text-danger">{{ $item->dislikeComments() }}</p>
-                                        </button>
+                                        @if ($item->disliked())
+                                            <button wire:click.prevent="dislike({{ $item->id }})" class="dislike-btn py-0 my-0 bg-transparent border-none border-0 d-flex align-items-center gap-1">
+                                                <i class='bx bxs-dislike text-danger my-0 py-0 fs-5'></i>
+                                                <p class="my-0 py-0 fs-7 fw-semibold text-danger">{{ $item->dislikeComments() }}</p>
+                                            </button>
+                                        @else
+                                            <button wire:click.prevent="dislike({{ $item->id }})" class="dislike-btn py-0 my-0 bg-transparent border-none border-0 d-flex align-items-center gap-1 text-color">
+                                                <i class='bx bxs-dislike my-0 py-0'></i>
+                                                <p class="my-0 py-0 fs-7">{{ $item->dislikeComments() }}</p>
+                                            </button>
+                                        @endif
+
                                     @else
-                                        <button wire:click.prevent="dislike({{ $item->id }})" class="dislike-btn py-0 my-0 bg-transparent border-none border-0 d-flex align-items-center gap-1 text-color">
-                                            <i class='bx bxs-dislike my-0 py-0'></i>
-                                            <p class="my-0 py-0 fs-7">{{ $item->dislikeComments() }}</p>
+                                        <button onclick="showUnverifiedAlert()" class="text-color py-0 my-0 bg-transparent border-none border-0">
+                                            <i class='bx bxs-like py-0 my-0'></i> {{ $item->likeComments() }}
+                                        </button>
+
+                                        <button onclick="showUnverifiedAlert()" class="text-color py-0 my-0 bg-transparent border-none border-0">
+                                            <i class='bx bxs-dislike py-0 my-0'></i> {{ $item->dislikeComments() }}
                                         </button>
                                     @endif
+                                    
                                 @else
                                     <button onclick="login()" class="text-color py-0 my-0 bg-transparent border-none border-0">
                                         <i class='bx bxs-like py-0 my-0'></i> {{ $item->likeComments() }}
@@ -170,24 +195,26 @@
                     {{-- Reply --}}
                     <div class="reply-comment d-none mt-3" id="reply-comment-{{ $item->id }}">
                         @auth()
-                            <form wire:submit.prevent="replyStore({{ $item->id }})" class="header d-flex align-items-start gap-2">
-                                <div class="profile-image">
-                                    @if (!empty(Auth::user()->avatar))
-                                        <img class="img" src="{{ asset('storage/avatars/' . Auth::user()->avatar) }}">
-                                    @elseif (!empty(Auth::user()->avatar_google))
-                                        <img class="img" src="{{ Auth::user()->avatar_google }}">
-                                    @else
-                                        <img class="img" src="https://ui-avatars.com/api/?background=random&name={{ urlencode(Auth::user()->name) }}">
-                                    @endif
-                                </div>
+                            @if (auth()->user()->hasVerifiedEmail())
+                                <form wire:submit.prevent="replyStore({{ $item->id }})" class="header d-flex align-items-start gap-2">
+                                    <div class="profile-image">
+                                        @if (!empty(Auth::user()->avatar))
+                                            <img class="img" src="{{ asset('storage/avatars/' . Auth::user()->avatar) }}">
+                                        @elseif (!empty(Auth::user()->avatar_google))
+                                            <img class="img" src="{{ Auth::user()->avatar_google }}">
+                                        @else
+                                            <img class="img" src="https://ui-avatars.com/api/?background=random&name={{ urlencode(Auth::user()->name) }}">
+                                        @endif
+                                    </div>
 
-                                <div class="input-comment d-flex align-items-center gap-2 w-100">
-                                    <textarea wire:model.defer="replyBodies.{{ $item->id }}" placeholder="Reply to comment..." oninput="commentBox(this, '{{ $item->id }}')"></textarea>
-                                    <button type="submit" id="{{ $item->id }}" title="Submit comment">
-                                        <i class='bx bxs-send'></i>
-                                    </button>
-                                </div>
-                            </form>
+                                    <div class="input-comment d-flex align-items-center gap-2 w-100">
+                                        <textarea wire:model.defer="replyBodies.{{ $item->id }}" placeholder="Reply to comment..." oninput="commentBox(this, '{{ $item->id }}')"></textarea>
+                                        <button type="submit" id="{{ $item->id }}" title="Submit comment">
+                                            <i class='bx bxs-send'></i>
+                                        </button>
+                                    </div>
+                                </form>
+                            @endif
                         @endauth
 
 
@@ -240,9 +267,15 @@
                                                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink-reply">
                                                         <li>
                                                             @auth()
-                                                                <button onclick='reportReplay({{ json_encode($item2->id) }}, {{ json_encode($item2->user->avatar) }}, {{ json_encode($item2->user->avatar_google) }}, {{ json_encode($item2->user->name) }}, {{ json_encode($item2->user->slug) }}, {{ json_encode($item2->created_at->diffForHumans()) }}, {{ json_encode($item2->body) }})' data-bs-toggle="modal" data-bs-target="#reportComment" class="dropdown-item d-flex align-items-center gap-2">
-                                                                    <i class='bx bxs-flag-alt fs-5'></i> Report
-                                                                </button>
+                                                                @if (auth()->user()->hasVerifiedEmail())
+                                                                    <button onclick='reportReplay({{ json_encode($item2->id) }}, {{ json_encode($item2->user->avatar) }}, {{ json_encode($item2->user->avatar_google) }}, {{ json_encode($item2->user->name) }}, {{ json_encode($item2->user->slug) }}, {{ json_encode($item2->created_at->diffForHumans()) }}, {{ json_encode($item2->body) }})' data-bs-toggle="modal" data-bs-target="#reportComment" class="dropdown-item d-flex align-items-center gap-2">
+                                                                        <i class='bx bxs-flag-alt fs-5'></i> Report
+                                                                    </button>
+                                                                @else
+                                                                    <button class="dropdown-item d-flex align-items-center gap-2" onclick="showUnverifiedAlert()">
+                                                                        <i class='bx bxs-flag-alt fs-5'></i> Report
+                                                                    </button>
+                                                                @endif
                                                             @else
                                                                 <button class="dropdown-item d-flex align-items-center gap-2" onclick="login()">
                                                                     <i class='bx bxs-flag-alt fs-5'></i> Report
@@ -263,29 +296,41 @@
                                         <div class="actions d-flex align-items-center gap-3 my-2">
                                             {{-- Like and Dislike --}}
                                             @auth
-                                                @if ($item2->liked())
-                                                    <button wire:click.prevent="like({{ $item2->id }})" class="like-btn py-0 my-0 bg-transparent border-none border-0 d-flex align-items-center gap-1">
-                                                        <i class='bx bxs-like text-primary my-0 py-0 fs-5'></i>
-                                                        <p class="my-0 py-0 fs-7 fw-semibold text-primary">{{ $item2->likeComments() }}</p>
-                                                    </button>
+                                                @if (auth()->user()->hasVerifiedEmail())
+                                                    @if ($item2->liked())
+                                                        <button wire:click.prevent="like({{ $item2->id }})" class="like-btn py-0 my-0 bg-transparent border-none border-0 d-flex align-items-center gap-1">
+                                                            <i class='bx bxs-like text-primary my-0 py-0 fs-5'></i>
+                                                            <p class="my-0 py-0 fs-7 fw-semibold text-primary">{{ $item2->likeComments() }}</p>
+                                                        </button>
+                                                    @else
+                                                        <button wire:click.prevent="like({{ $item2->id }})" class="like-btn py-0 my-0 bg-transparent border-none border-0 d-flex align-items-center gap-1 text-color">
+                                                            <i class='bx bxs-like my-0 py-0'></i>
+                                                            <p class="my-0 py-0 fs-7">{{ $item2->likeComments() }}</p>
+                                                        </button>
+                                                    @endif
+                
+                                                    @if ($item2->disliked())
+                                                        <button wire:click.prevent="dislike({{ $item2->id }})" class="dislike-btn py-0 my-0 bg-transparent border-none border-0 d-flex align-items-center gap-1">
+                                                            <i class='bx bxs-dislike text-danger my-0 py-0 fs-5'></i>
+                                                            <p class="my-0 py-0 fs-7 fw-semibold text-danger">{{ $item2->dislikeComments() }}</p>
+                                                        </button>
+                                                    @else
+                                                        <button wire:click.prevent="dislike({{ $item2->id }})" class="dislike-btn py-0 my-0 bg-transparent border-none border-0 d-flex align-items-center gap-1 text-color">
+                                                            <i class='bx bxs-dislike my-0 py-0'></i>
+                                                            <p class="my-0 py-0 fs-7">{{ $item2->dislikeComments() }}</p>
+                                                        </button>
+                                                    @endif
+
                                                 @else
-                                                    <button wire:click.prevent="like({{ $item2->id }})" class="like-btn py-0 my-0 bg-transparent border-none border-0 d-flex align-items-center gap-1 text-color">
-                                                        <i class='bx bxs-like my-0 py-0'></i>
-                                                        <p class="my-0 py-0 fs-7">{{ $item2->likeComments() }}</p>
+                                                    <button onclick="showUnverifiedAlert()" class="text-color py-0 my-0 bg-transparent border-none border-0">
+                                                        <i class='bx bxs-like py-0 my-0'></i> {{ $item2->likeComments() }}
+                                                    </button>
+                
+                                                    <button onclick="showUnverifiedAlert()" class="text-color py-0 my-0 bg-transparent border-none border-0">
+                                                        <i class='bx bxs-dislike py-0 my-0'></i> {{ $item2->dislikeComments() }}
                                                     </button>
                                                 @endif
-            
-                                                @if ($item2->disliked())
-                                                    <button wire:click.prevent="dislike({{ $item2->id }})" class="dislike-btn py-0 my-0 bg-transparent border-none border-0 d-flex align-items-center gap-1">
-                                                        <i class='bx bxs-dislike text-danger my-0 py-0 fs-5'></i>
-                                                        <p class="my-0 py-0 fs-7 fw-semibold text-danger">{{ $item2->dislikeComments() }}</p>
-                                                    </button>
-                                                @else
-                                                    <button wire:click.prevent="dislike({{ $item2->id }})" class="dislike-btn py-0 my-0 bg-transparent border-none border-0 d-flex align-items-center gap-1 text-color">
-                                                        <i class='bx bxs-dislike my-0 py-0'></i>
-                                                        <p class="my-0 py-0 fs-7">{{ $item2->dislikeComments() }}</p>
-                                                    </button>
-                                                @endif
+
                                             @else
                                                 <button onclick="login()" class="text-color py-0 my-0 bg-transparent border-none border-0">
                                                     <i class='bx bxs-like py-0 my-0'></i> {{ $item2->likeComments() }}

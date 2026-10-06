@@ -9,6 +9,7 @@
 
 :root {
     --primary-color: #4564e5;
+    --primary-color-hover: #3a56c7;
     --primary-color-opacity: #3a56c7;
     --soft-blue: #f1f5fb;
     --secondary-color: #f1f5fb;
@@ -67,8 +68,13 @@ label {
 }
 
 .btn-primary {
-    background-color: var(--primary-color) !important;
-    border-color: var(--primary-color) !important;
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+.btn-primary:hover {
+    border-color: var(--primary-color-hover);
+    background-color: var(--primary-color-hover);
 }
 
 .bg-color {

@@ -68,18 +68,26 @@
                             <div class="actions d-flex align-items-center justify-content-between gap-2 mt-2 mt-md-3">
                                 <div class="article-interaction d-flex align-items-center">
                                     @auth
-                                        <a href="#" wire:click.prevent="like({{ $item->id }})" class="likes d-flex align-items-center gap-1">
-                                            @php
-                                                $liked = $item->like_articles->where('user_id', auth()->id())->where('like', true)->first();
-                                            @endphp
-                                            @if ($liked)
-                                                <i class='bx bxs-heart bx-tada text-danger fs-5'></i>
-                                                <p class="my-0 py-0 fs-7 fw-semibold text-danger">{{ $item->like_articles->where('like', true)->count() }}</p>
-                                            @else
+                                        @if (auth()->user()->hasVerifiedEmail())
+                                            <a href="#" wire:click.prevent="like({{ $item->id }})" class="likes d-flex align-items-center gap-1">
+                                                @php
+                                                    $liked = $item->like_articles->where('user_id', auth()->id())->where('like', true)->first();
+                                                @endphp
+                                                @if ($liked)
+                                                    <i class='bx bxs-heart bx-tada text-danger fs-5'></i>
+                                                    <p class="my-0 py-0 fs-7 fw-semibold text-danger">{{ $item->like_articles->where('like', true)->count() }}</p>
+                                                @else
+                                                    <i class='bx bx-heart text-danger'></i>
+                                                    <p class="my-0 py-0 fs-7">{{ $item->like_articles->where('like', true)->count() }}</p>
+                                                @endif
+                                            </a>
+                                        @else
+                                            <a href="#" onclick="showUnverifiedAlert()" class="likes d-flex align-items-center gap-1">
                                                 <i class='bx bx-heart text-danger'></i>
                                                 <p class="my-0 py-0 fs-7">{{ $item->like_articles->where('like', true)->count() }}</p>
-                                            @endif
-                                        </a>
+                                            </a>
+                                        @endif
+
                                         <a href="{{ route('detail', $item->slug) }}#comment" class="comments d-flex align-items-center gap-1">
                                             <i class='bx bxs-comment-detail text-primary'></i>
                                             <p class="my-0 py-0 fs-7">{{ $item->comments->where('article_id', $item->id)->count() }}</p>

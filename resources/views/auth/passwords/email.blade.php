@@ -80,12 +80,12 @@
 
 @push('scripts')
     <script>
-            document.getElementById('forgot-password-form').addEventListener('submit', function () {
-                const btn = document.getElementById('forgot-password-btn');
-                const btnText = document.getElementById('btn-text');
+        document.getElementById('forgot-password-form').addEventListener('submit', function () {
+            const btn = document.getElementById('forgot-password-btn');
+            const btnText = document.getElementById('btn-text');
 
-                btn.disabled = true;
-                btnText.innerText = '{{ __("Sending...") }}';
-            });
-        </script>
+            btn.disabled = true;
+            btnText.innerText = '{{ __("Sending...") }}';
+        });
+    </script>
 @endpush

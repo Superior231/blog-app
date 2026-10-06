@@ -45,13 +45,19 @@ class GoogleLoginController extends Controller
             $slug = $this->generateUniqueSlug();
 
             $user = User::create(
-                ['name' => $googleUser->name,
-                 'email' => $googleUser->email,
-                 'slug' => $slug,
-                 'password' => Hash::make(rand(100000,999999)),
-                 'avatar_google' => $googleUser->avatar,
-                ]
+                [
+                    'name' => $googleUser->name,
+                    'email' => $googleUser->email,
+                    'slug' => $slug,
+                    'password' => Hash::make(rand(100000,999999)),
+                    'avatar_google' => $googleUser->avatar,
+                    'email_verified_at' => now(),
+                ],
             );
+
+            $user->markEmailAsVerified();
+        } elseif (!$user->hasVerifiedEmail()) {
+            $user->markEmailAsVerified();
         }
 
         if ($user->status === 'Banned') {
