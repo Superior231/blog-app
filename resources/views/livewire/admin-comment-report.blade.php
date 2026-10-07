@@ -54,9 +54,6 @@
                                                             @csrf
                                                             @method('PUT')
                                                             <input type="hidden" name="status" value="Banned">
-                                                            <input type="hidden" name="roles" value="{{ $item->comment->user->roles }}">
-                                                            <input type="hidden" name="name" value="{{ $item->comment->user->name }}">
-                                                            <input type="hidden" name="email" value="{{ $item->comment->user->email }}">
                                                             <button type="button" class="bg-transparent border-0 text-secondary" onclick="confirmBannedUser({{ $item->id }}, {{ $item->comment->user->id }})">
                                                                 Banned user
                                                             </button>

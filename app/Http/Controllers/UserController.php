@@ -82,6 +82,13 @@ class UserController extends Controller
     {
         $user = User::find($id);
 
+        if ($request->filled('status') && !$request->has('email')) {
+            $user->status = $request->input('status');
+            $user->save();
+
+            return redirect()->back()->with('success', 'User updated successfully!');
+        }
+
         $request->validate([
             'email' => [
                 'required',
@@ -113,8 +120,7 @@ class UserController extends Controller
             'password.max' => 'Password cannot be more than 255 characters.',
         ]);
 
-
-        if ($request->input('slug') !== $user->slug) {
+        if ($request->filled('slug') && $request->input('slug') !== $user->slug) {
             if ($user->slug_changed == true) {
                 return redirect()->route('users.index')->with('error', 'You can only change your username once!');
             }

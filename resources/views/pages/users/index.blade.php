@@ -362,7 +362,8 @@
         });
 
         function editUsers(id, avatar, avatar_google, roles, slug, name, email, status, password) {
-            var avatarUrl = avatar ? '{{ asset('storage/avatars/') }}/' + avatar : 
+            var routeTemplate = "{{ route('users.avatar', ':id') }}";
+            var avatarUrl = avatar ? routeTemplate.replace(':id', id) : 
                     (avatar_google ? avatar_google : "https://ui-avatars.com/api/?background=random&name=" + encodeURIComponent(name));
 
             $('#edit-avatar').attr('src', avatarUrl);
