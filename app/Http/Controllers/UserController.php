@@ -15,6 +15,8 @@ use Intervention\Image\Facades\Image;
 
 class UserController extends Controller
 {
+    private string $storageDisk = 'google';
+
     public function index()
     {
         $users = User::all();
@@ -147,8 +149,8 @@ class UserController extends Controller
         }
 
         if ($request->hasFile('avatar')) {
-            if ($user->avatar && Storage::disk('public')->exists('avatars/' . $user->avatar)) {
-                Storage::disk('public')->delete('avatars/' . $user->avatar);
+            if ($user->avatar && Storage::disk($this->storageDisk)->exists('avatars/' . $user->avatar)) {
+                Storage::disk($this->storageDisk)->delete('avatars/' . $user->avatar);
             }
         
             $file = $request->file('avatar');
@@ -158,7 +160,7 @@ class UserController extends Controller
                 $constraint->upsize();
             })->encode('webp', 80);
             
-            Storage::disk('public')->put('avatars/' . $fileName, (string) $image);
+            Storage::disk($this->storageDisk)->put('avatars/' . $fileName, (string) $image);
             $user->avatar = $fileName;
         }
         
@@ -177,7 +179,7 @@ class UserController extends Controller
 
         // Hapus avatar
         if ($user->avatar) {
-            Storage::delete('public/avatars/' . $user->avatar);
+            Storage::disk($this->storageDisk)->delete('avatars/' . $user->avatar);
         }
 
         $user->delete();
