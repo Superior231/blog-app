@@ -8,7 +8,7 @@
                 <form wire:submit.prevent="store" class="header d-flex align-items-start gap-2">
                     <div class="profile-image">
                         @if (!empty(Auth::user()->avatar))
-                            <img class="img" src="{{ asset('storage/avatars/' . Auth::user()->avatar) }}">
+                            <img class="img" src="{{ route('users.avatar', Auth::user()->id) }}">
                         @elseif (!empty(Auth::user()->avatar_google))
                             <img class="img" src="{{ Auth::user()->avatar_google }}">
                         @else
@@ -64,7 +64,7 @@
                     <div class="header d-flex gap-1">
                         <a href="{{ route('author.show', ['slug' => $item->user->slug]) }}" class="profile-image">
                             @if (!empty($item->user->avatar))
-                                <img class="img" src="{{ asset('storage/avatars/' . $item->user->avatar) }}">
+                                <img class="img" src="{{ route('users.avatar', $item->user->id) }}">
                             @elseif (!empty($item->user->avatar_google))
                                 <img class="img" src="{{ $item->user->avatar_google }}">
                             @else
@@ -199,7 +199,7 @@
                                 <form wire:submit.prevent="replyStore({{ $item->id }})" class="header d-flex align-items-start gap-2">
                                     <div class="profile-image">
                                         @if (!empty(Auth::user()->avatar))
-                                            <img class="img" src="{{ asset('storage/avatars/' . Auth::user()->avatar) }}">
+                                            <img class="img" src="{{ route('users.avatar', Auth::user()->id) }}">
                                         @elseif (!empty(Auth::user()->avatar_google))
                                             <img class="img" src="{{ Auth::user()->avatar_google }}">
                                         @else
@@ -225,7 +225,7 @@
                                     <div class="header d-flex">
                                         <a href="{{ route('author.show', ['slug' => $item2->user->slug]) }}" class="profile-image">
                                             @if (!empty($item2->user->avatar))
-                                                <img class="img" src="{{ asset('storage/avatars/' . $item2->user->avatar) }}">
+                                                <img class="img" src="{{ route('users.avatar', $item2->user->id) }}">
                                             @elseif (!empty($item2->user->avatar_google))
                                                 <img class="img" src="{{ $item2->user->avatar_google }}">
                                             @else

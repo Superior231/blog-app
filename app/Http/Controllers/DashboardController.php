@@ -13,6 +13,8 @@ use Intervention\Image\Facades\Image;
 
 class DashboardController extends Controller
 {
+    private string $storageDisk = 'google';
+
     public function index()
     {
         if (Auth::user()->roles == 'admin') {
@@ -69,7 +71,7 @@ class DashboardController extends Controller
                 $constraint->upsize();
             })->encode('webp', 80);
 
-            Storage::disk('public')->put('thumbnails/' . $fileName, (string) $image);
+            Storage::disk($this->storageDisk)->put('thumbnails/' . $fileName, (string) $image);
             $data['thumbnail'] = $fileName;
         }
         
@@ -125,8 +127,8 @@ class DashboardController extends Controller
         $article['slug'] = Str::slug($request->title);
 
         if ($request->hasFile('thumbnail')) {
-            if ($article->thumbnail && Storage::disk('public')->exists('thumbnails/' . $article->thumbnail)) {
-                Storage::disk('public')->delete('thumbnails/' . $article->thumbnail);
+            if ($article->thumbnail && Storage::disk($this->storageDisk)->exists('thumbnails/' . $article->thumbnail)) {
+                Storage::disk($this->storageDisk)->delete('thumbnails/' . $article->thumbnail);
             }
         
             $file = $request->file('thumbnail');
@@ -136,7 +138,7 @@ class DashboardController extends Controller
                 $constraint->upsize();
             })->encode('webp', 80);
             
-            Storage::disk('public')->put('thumbnails/' . $fileName, (string) $image);
+            Storage::disk($this->storageDisk)->put('thumbnails/' . $fileName, (string) $image);
             $article->thumbnail = $fileName;
         }
         
@@ -159,7 +161,7 @@ class DashboardController extends Controller
         }
 
         if ($article->thumbnail) {
-            Storage::disk('public')->delete('thumbnails/' . $article->thumbnail);
+            Storage::disk($this->storageDisk)->delete('thumbnails/' . $article->thumbnail);
         }
 
         $article->delete();

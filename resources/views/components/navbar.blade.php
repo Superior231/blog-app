@@ -36,7 +36,7 @@
                             role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             <div class="profile-image">
                                 @if (!empty(Auth::user()->avatar))
-                                    <img class="img" src="{{ asset('storage/avatars/' . Auth::user()->avatar) }}">
+                                    <img class="img" src="{{ route('users.avatar', auth()->id()) }}">
                                 @elseif (!empty(Auth::user()->avatar_google))
                                     <img class="img" src="{{ Auth::user()->avatar_google }}">
                                 @else

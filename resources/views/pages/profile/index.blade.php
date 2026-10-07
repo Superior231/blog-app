@@ -12,15 +12,15 @@
                     <div class="banner">
                         @auth
                             @if ($user->id == Auth::user()->id && !empty(Auth::user()->banner))
-                                <img class="card-img-top" id="edit-banner" src="{{ asset('storage/banners/' . Auth::user()->banner) }}" alt="banner">
+                                <img class="card-img-top" id="edit-banner" src="{{ route('users.banner', auth()->id()) }}" alt="banner">
                             @elseif (!empty($user->banner))
-                                <img class="card-img-top" id="edit-banner" src="{{ asset('storage/banners/' . $user->banner) }}" alt="banner">
+                                <img class="card-img-top" id="edit-banner" src="{{ route('users.banner', $user->id) }}" alt="banner">
                             @else
                                 <img class="card-img-top" id="edit-banner" src="{{ url('assets/images/banner.png') }}" alt="banner">
                             @endif
                         @else
                             @if (!empty($user->banner))
-                                <img class="card-img-top" id="edit-banner" src="{{ asset('storage/banners/' . $user->banner) }}" alt="banner">
+                                <img class="card-img-top" id="edit-banner" src="{{ route('users.banner', $user->id) }}" alt="banner">
                             @else
                                 <img class="card-img-top" id="edit-banner" src="{{ url('assets/images/banner.png') }}" alt="banner">
                             @endif
@@ -32,11 +32,11 @@
                             <div class="avatar" style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#avatar-img-preview">
                                 @auth
                                     @if ($user->id == Auth::user()->id && !empty(Auth::user()->avatar))
-                                        <img class="img img-avatar" src="{{ asset('storage/avatars/' . Auth::user()->avatar) }}">
+                                        <img class="img img-avatar" src="{{ route('users.avatar', auth()->id()) }}">
                                     @elseif ($user->id == Auth::user()->id && !empty(Auth::user()->avatar_google))
                                         <img class="img img-avatar" src="{{ Auth::user()->avatar_google }}">
                                     @elseif (!empty($user->avatar))
-                                        <img class="img img-avatar" src="{{ asset('storage/avatars/' . $user->avatar) }}">
+                                        <img class="img img-avatar" src="{{ route('users.avatar', $user->id) }}">
                                     @elseif (!empty($user->avatar_google))
                                         <img class="img img-avatar" src="{{ $user->avatar_google }}">
                                     @else
@@ -44,7 +44,7 @@
                                     @endif
                                 @else
                                     @if (!empty($user->avatar))
-                                        <img class="img img-avatar" src="{{ asset('storage/avatars/' . $user->avatar) }}">
+                                        <img class="img img-avatar" src="{{ route('users.avatar', $user->id) }}">
                                     @elseif (!empty($user->avatar_google))
                                         <img class="img img-avatar" src="{{ $user->avatar_google }}">
                                     @else
@@ -208,8 +208,7 @@
                         @forelse ($articles as $item)
                             <a href="{{ route('detail', $item->slug) }}" class="gap-1 article d-flex align-items-center">
                                 <div class="thumbnail" style="width: 50px; height: 50px;">
-                                    <img class="img" src="{{ asset('storage/thumbnails/' . $item->thumbnail) }}"
-                                        alt="Thumbnail">
+                                    <img class="img" src="{{ route('articles.thumbnail', $item->id) }}" alt="Thumbnail">
                                 </div>
                                 <div class="article-info d-flex flex-column justify-content-center">
                                     <h6 class="py-0 my-0 ellipsis-1">{{ $item->title }}</h6>
@@ -258,7 +257,7 @@
                             <div class="modal-body d-flex flex-column align-items-center gap-3">
                                 <div class="profile-image" style="width: 120px; height: 120px;">
                                     @if (!empty($user->avatar))
-                                        <img class="img img-avatar" id="edit-avatar" src="{{ asset('storage/avatars/' . $user->avatar) }}">
+                                        <img class="img img-avatar" id="edit-avatar" src="{{ route('users.avatar', $user->id) }}">
                                     @elseif (!empty($user->avatar_google))
                                         <img class="img img-avatar" id="edit-avatar" src="{{ $user->avatar_google }}">
                                     @else
@@ -295,7 +294,7 @@
                 <div class="modal-body d-flex justify-content-center">
                     <div class="avatar" style="max-width: 400px;">
                         @if (!empty($user->avatar))
-                            <img class="img img-avatar" src="{{ asset('storage/avatars/' . $user->avatar) }}">
+                            <img class="img img-avatar" src="{{ route('users.avatar', $user->id) }}">
                         @elseif (!empty($user->avatar_google))
                             <img class="img img-avatar" src="{{ $user->avatar_google }}">
                         @else
@@ -363,7 +362,8 @@
         });
 
         function unfollow(userId, avatar, avatar_google, slug, name) {
-            var avatarUrl = avatar ? '{{ asset('storage/avatars/') }}/' + avatar : 
+            var routeTemplate = "{{ route('users.avatar', ':id') }}";
+            var avatarUrl = avatar ? routeTemplate.replace(':id', userId) : 
                     (avatar_google ? avatar_google : "https://ui-avatars.com/api/?background=random&name=" + encodeURIComponent(name));
                 
             $('#unfollow-form').attr('action', "{{ route('unfollow', '') }}" + '/' + userId);
@@ -388,7 +388,8 @@
         }
 
         function removeFollower(userId, avatar, avatar_google, slug, name) {
-            var avatarUrl = avatar ? '{{ asset('storage/avatars/') }}/' + avatar : 
+            var routeTemplate = "{{ route('users.avatar', ':id') }}";
+            var avatarUrl = avatar ? routeTemplate.replace(':id', userId) : 
                     (avatar_google ? avatar_google : "https://ui-avatars.com/api/?background=random&name=" + encodeURIComponent(name));
                 
             $('#removeFollower-form').attr('action', "{{ route('removeFollower', '') }}" + '/' + userId);

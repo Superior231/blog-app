@@ -23,7 +23,7 @@
     @include('components.toast')
 
     <section class="thumbnail py-0 my-0">
-        <img src="{{ url('storage/thumbnails/' . $article->thumbnail) }}" alt="thumbnail">
+        <img src="{{ route('articles.thumbnail', $article->id) }}" alt="thumbnail">
     </section>
 
     <section class="bg-soft-blue article-container">
@@ -36,7 +36,7 @@
             <div class="author d-flex gap-2">
                 <a href="{{ route('author.show', ['slug' => $author->slug]) }}" class="profile-image">
                     @if (!empty($article->user->avatar))
-                        <img class="img" src="{{ asset('storage/avatars/' . $article->user->avatar) }}">
+                        <img class="img" src="{{ route('users.avatar', $article->user->id) }}">
                     @elseif (!empty($article->user->avatar_google))
                         <img class="img" src="{{ $article->user->avatar_google }}">
                     @else
@@ -98,7 +98,7 @@
         <section class="col article-body py-4 py-lg-5">
             <div class="container px-3 px-md-5">
                 <div class="thumbnail">
-                    <img src="{{ url('storage/thumbnails/' . $article->thumbnail) }}" alt="thumbnail" class="rounded-2 mb-5">
+                    <img src="{{ route('articles.thumbnail', $article->id) }}" alt="thumbnail" class="rounded-2 mb-5">
                 </div>
                 <div class="px-0 mx-0 text-break">
                     {!! $article->body !!}

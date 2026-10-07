@@ -29,7 +29,7 @@
                     <hr class="bg-secondary">
                     <div class="user d-flex align-items-center justify-content-center">
                         <div class="rounded thumbnail-preview">
-                            <img src="{{ $article->thumbnail ? asset('storage/thumbnails/' . $article->thumbnail) : asset('assets/images/banner.png') }}" alt="thumbnail" id="image-preview" width="100%">
+                            <img src="{{ $article->thumbnail ? route('articles.thumbnail', $article->id) : asset('assets/images/banner.png') }}" alt="thumbnail" id="image-preview" width="100%">
                         </div>
                     </div>
                     <div class="my-3">

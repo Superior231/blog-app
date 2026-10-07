@@ -71,7 +71,7 @@
                                     <div class="username-info">
                                         <div class="profile-image">
                                             @if (!empty($item->user->avatar))
-                                                <img class="img" src="{{ asset('storage/avatars/' . $item->user->avatar) }}">
+                                                <img class="img" src="{{ route('users.avatar', $item->user->id) }}">
                                             @elseif (!empty($item->user->avatar_google))
                                                 <img class="img" src="{{ $item->user->avatar_google }}">
                                             @else
@@ -92,7 +92,7 @@
                                             <div class="username-info">
                                                 <div class="profile-image">
                                                     @if (!empty($item->comment->user->avatar))
-                                                        <img class="img" src="{{ asset('storage/avatars/' . $item->comment->user->avatar) }}">
+                                                        <img class="img" src="{{ route('users.avatar', $item->comment->user->id) }}">
                                                     @elseif (!empty($item->comment->user->avatar_google))
                                                         <img class="img" src="{{ $item->comment->user->avatar_google }}">
                                                     @else

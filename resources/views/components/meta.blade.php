@@ -1,10 +1,9 @@
 @php
-    $title = $article->title ?? $title ?? 'Blog App';
+    $title = $article->title ?? ($title ?? 'Blog App');
     $author_name = $author_name ?? 'Blog App';
     $description = $description ?? 'The best platform to share stories, inspirations, and knowledge. Find a variety of interesting articles in various categories ranging from technology, entertainment, to lifestyle. Join us and start sharing your experiences!';
     $keywords = $keywords ?? 'blog, article, story, inspiration, technology, entertainment, lifestyle, education, personal, experience, sharing, knowledge, community';
-    $thumbnail = $thumbnail ?? null;
-    $thumbnail = $thumbnail ? asset('storage/thumbnails/' . $thumbnail) : url('assets/images/logo.png');
+    $thumbnail = $thumbnail ?? asset('assets/images/logo.png');
     $datePublished = $article->created_at ?? '';
     $dateModified = $article->updated_at ?? '';
 @endphp

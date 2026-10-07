@@ -126,7 +126,7 @@
                                         <div class="username-info d-flex justify-content-center align-items-center gap-2">
                                             <div class="profile-image">
                                                 @if (!empty($item->avatar))
-                                                    <img class="img" src="{{ asset('storage/avatars/' . $item->avatar) }}">
+                                                    <img class="img" src="{{ route('users.avatar', $item->id) }}">
                                                 @elseif (!empty($item->avatar_google))
                                                     <img class="img" src="{{ $item->avatar_google }}">
                                                 @else

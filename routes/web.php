@@ -9,11 +9,86 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LegalController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
+use App\Models\Article;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Models\User;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Http\Request;
 
 
 Auth::routes(['verify' => true]);
+
+
+Route::get('/users/{user}/avatar', function (Request $request, User $user) {
+    if (empty($user->avatar)) {
+        abort(404);
+    }
+
+    $etag = '"' . md5($user->avatar) . '"';
+    if ($request->header('If-None-Match') === $etag) {
+        return response('', 304);
+    }
+
+    $filePath = 'avatars/' . $user->avatar;
+    if (!Storage::disk('google')->exists($filePath)) {
+        abort(404);
+    }
+    $file = Storage::disk('google')->get($filePath);
+
+    return response($file, 200, [
+        'Content-Type'  => 'image/webp',
+        'Cache-Control' => 'no-cache, private',
+        'ETag'          => $etag,
+    ]);
+})->name('users.avatar');
+
+Route::get('/users/{user}/banner', function (Request $request, User $user) {
+    if (empty($user->banner)) {
+        abort(404);
+    }
+
+    $etag = '"' . md5($user->banner) . '"';
+    if ($request->header('If-None-Match') === $etag) {
+        return response('', 304);
+    }
+
+    $filePath = 'banners/' . $user->banner;
+    if (!Storage::disk('google')->exists($filePath)) {
+        abort(404);
+    }
+    $file = Storage::disk('google')->get($filePath);
+
+    return response($file, 200, [
+        'Content-Type'  => 'image/webp',
+        'Cache-Control' => 'no-cache, private',
+        'ETag'          => $etag,
+    ]);
+})->name('users.banner');
+
+Route::get('/articles/{article}/thumbnail', function (Request $request, Article $article) {
+    if (empty($article->thumbnail)) {
+        abort(404);
+    }
+
+    $etag = '"' . md5($article->thumbnail) . '"';
+    if ($request->header('If-None-Match') === $etag) {
+        return response('', 304);
+    }
+
+    $filePath = 'thumbnails/' . $article->thumbnail;
+    if (!Storage::disk('google')->exists($filePath)) {
+        abort(404);
+    }
+    $file = Storage::disk('google')->get($filePath);
+
+    return response($file, 200, [
+        'Content-Type'  => 'image/webp',
+        'Cache-Control' => 'no-cache, private',
+        'ETag'          => $etag,
+    ]);
+})->name('articles.thumbnail');
+
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/detail/{slug}', [HomeController::class, 'detail'])->name('detail');
@@ -27,13 +102,12 @@ Route::get('/@{slug}/articles', [ProfileController::class, 'authorArticle'])->na
 
 // Users
 Route::prefix('/')->middleware('auth')->group(function() {
-    Route::get('/article', [ProfileController::class, 'profileArticle'])->name('profile.article');
+    Route::get('/articles', [ProfileController::class, 'profileArticle'])->name('profile.article');
     Route::resource('profile', ProfileController::class);
     Route::get('/profile/{slug}/edit', [ProfileController::class, 'edit'])->name('edit.profile');
     Route::delete('/profile/delete-avatar/{id}', [ProfileController::class, 'deleteAvatar'])->name('delete-avatar');
     Route::delete('/profile/delete-banner/{id}', [ProfileController::class, 'deleteBanner'])->name('delete-banner');
-
-    Route::get('/whitelist', [HomeController::class, 'whitelist'])->name('whitelist');
+    Route::get('/whitelists', [HomeController::class, 'whitelist'])->name('whitelist');
 });
 
 // Users Verified

@@ -49,7 +49,7 @@
         @forelse ($whitelisted as $item)
             <a href="{{ route('detail', $item->slug) }}" class="col text-dark mt-0">
                 <div class="thumbnail">
-                    <img src="{{ url('storage/thumbnails/' . $item->thumbnail) }}" alt="thumbnail" class="rounded-3 mb-3">
+                    <img src="{{ route('articles.thumbnail', $item->id) }}" alt="thumbnail" class="rounded-3 mb-3">
                 </div>
                 <div class="article-info d-flex justify-content-between gap-2 mt-0">
                     <div class="article-body d-flex flex-column">

@@ -7,6 +7,11 @@ use Illuminate\Auth\Notifications\ResetPassword;
 use Illuminate\Auth\Notifications\VerifyEmail;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Support\HtmlString;
+use Illuminate\Support\Facades\Storage;
+use Google\Client;
+use Google\Service\Drive;
+use League\Flysystem\Filesystem;
+use Masbug\Flysystem\GoogleDriveAdapter;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -48,5 +53,33 @@ class AppServiceProvider extends ServiceProvider
                 ->line('If you did not create an account, no further action is required.')
                 ->salutation(new HtmlString("Regards,<br>" . config('app.name')));
         });
+
+        try {
+            Storage::extend('google', function ($app, $config) {
+                $options = [];
+
+                if (!empty($config['folderId'])) {
+                    $options['sharedFolderId'] = $config['folderId'];
+                }
+
+                if (!empty($config['teamDriveId'])) {
+                    $options['teamDriveId'] = $config['teamDriveId'];
+                }
+
+                $client = new Client();
+                $client->setClientId($config['clientId']);
+                $client->setClientSecret($config['clientSecret']);
+                $client->refreshToken($config['refreshToken']);
+
+                $service = new Drive($client);
+
+                $adapter = new GoogleDriveAdapter($service, '/', $options);
+                $driver  = new Filesystem($adapter);
+
+                return new \Illuminate\Filesystem\FilesystemAdapter($driver, $adapter);
+            });
+        } catch (\Exception $e) {
+            //
+        }
     }
 }

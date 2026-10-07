@@ -52,7 +52,7 @@
                         <div class="card h-100">
                             <a href="{{ route('detail', $item->slug) }}" class="article h-100">
                                 <div class="thumbnail">
-                                    <img src="{{ url('storage/thumbnails/' . $item->thumbnail) }}" alt="thumbnail" class="rounded-3 mb-3">
+                                    <img src="{{ route('articles.thumbnail', $item->id) }}" alt="thumbnail" class="rounded-3 mb-3">
                                 </div>
                                 <div class="categories mb-2 ellipsis-1">
                                     @php
@@ -129,7 +129,7 @@
                                 <a href="{{ route('author.show', ['slug' => $item->user->slug]) }}" class="author d-flex align-items-center gap-1">
                                     <div class="profile-author">
                                         @if (!empty($item->user->avatar))
-                                            <img class="img" src="{{ asset('storage/avatars/' . $item->user->avatar) }}" alt="avatar">
+                                            <img class="img" src="{{ route('users.avatar', $item->user->id) }}" alt="avatar">
                                         @elseif (!empty($item->user->avatar_google))
                                             <img class="img" src="{{ $item->user->avatar_google }}" alt="avatar">
                                         @else

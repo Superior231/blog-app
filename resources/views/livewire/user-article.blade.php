@@ -69,7 +69,7 @@
                         <div class="row g-1 d-flex flex-column flex-md-row gap-2">
                             <div class="col-12 col-md-3">
                                 <div class="thumbnail">
-                                    <img src="{{ url('storage/thumbnails/' . $item->thumbnail) }}" alt="thumbnail" class="rounded-3">
+                                    <img src="{{ route('articles.thumbnail', $item->id) }}" alt="thumbnail" class="rounded-3">
                                 </div>
                             </div>
                             <div class="col-12 col-md-8">

@@ -173,7 +173,7 @@
                                             <a href="{{ route('author.show', $item->user->slug) }}" class="username-info d-flex justify-content-center align-items-center gap-2" style="width: max-content;">
                                                 <div class="profile-image" style="width: 30px; height: 30px;">
                                                     @if (!empty($item->user->avatar))
-                                                        <img class="img" src="{{ asset('storage/avatars/' . $item->user->avatar) }}">
+                                                        <img class="img" src="{{ route('users.avatar', $item->user->id) }}">
                                                     @elseif (!empty($item->user->avatar_google))
                                                         <img class="img" src="{{ $item->user->avatar_google }}">
                                                     @else

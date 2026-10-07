@@ -20,7 +20,7 @@
                         <div class="profile d-flex align-items-center gap-2 mb-3">
                             <a href="{{ route('author.show', ['slug' => $item->slug]) }}" class="profile-image position-absolute">
                                 @if (!empty($item->avatar))
-                                    <img class="img img-avatar" src="{{ asset('storage/avatars/' . $item->avatar) }}">
+                                    <img class="img img-avatar" src="{{ route('users.avatar', $item->id) }}">
                                 @elseif (!empty($item->avatar_google))
                                     <img class="img img-avatar" src="{{ $item->avatar_google }}">
                                 @else
@@ -104,7 +104,7 @@
                         <div class="profile d-flex align-items-center gap-2 mb-3">
                             <a href="{{ route('author.show', ['slug' => $item->slug]) }}" class="profile-image position-absolute">
                                 @if (!empty($item->avatar))
-                                    <img class="img img-avatar" src="{{ asset('storage/avatars/' . $item->avatar) }}">
+                                    <img class="img img-avatar" src="{{ route('users.avatar', $item->id) }}">
                                 @elseif (!empty($item->avatar_google))
                                     <img class="img img-avatar" src="{{ $item->avatar_google }}">
                                 @else

@@ -25,7 +25,9 @@ class HomeController extends Controller
         $author = $article->user;
         $author_name = $author->name;
         $description = Str::limit(strip_tags($article->body), 150);
-        $thumbnail = $article->thumbnail;
+        $thumbnail = !empty($article->thumbnail)
+                        ? route('articles.thumbnail', $article->id)
+                        : asset('assets/images/banner.png');
         $readTime = ReadTimeHelper::estimate($article->body);
 
         $likeCount = LikeArticle::where('article_id', $article->id)->where('like', true)->count();

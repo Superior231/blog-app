@@ -15,6 +15,21 @@ use Illuminate\Support\Str;
 
 class ProfileController extends Controller
 {
+    private string $storageDisk = 'google';
+
+    private function getAvatarUrl(User $user): string
+    {
+        if (!empty($user->avatar)) {
+            return route('users.avatar', $user->id);
+        }
+
+        if (!empty($user->avatar_google)) {
+            return $user->avatar_google;
+        }
+
+        return 'https://ui-avatars.com/api/?background=random&name=' . urlencode($user->name);
+    }
+
     public function index()
     {
         $user = Auth::user();
@@ -47,7 +62,8 @@ class ProfileController extends Controller
         
         $request->validate([
             'name' => 'required|max:30',
-            'avatar' => 'image|mimes:jpg,jpeg,png,webp|max:5048',
+            'avatar' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:5048',
+            'banner' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:10048',
             'slug' => [
                 'required',
                 'string',
@@ -60,6 +76,7 @@ class ProfileController extends Controller
         ], [
             'name.max' => 'Name cannot be more than 30 characters.',
             'avatar.max' => 'Avatar size cannot be more than 5MB.',
+            'banner.max' => 'Banner size cannot be more than 10MB.',
             'slug.min' => 'Username must be at least 5 characters.',
             'slug.max' => 'Username cannot be more than 30 characters.',
             'slug.regex' => 'Username can only contain lowercase letters, numbers, underscores, and dashes.',
@@ -102,8 +119,8 @@ class ProfileController extends Controller
         
         // Avatar
         if ($request->hasFile('avatar')) {
-            if ($user->avatar && Storage::disk('public')->exists('avatars/' . $user->avatar)) {
-                Storage::disk('public')->delete('avatars/' . $user->avatar);
+            if ($user->avatar && Storage::disk($this->storageDisk)->exists('avatars/' . $user->avatar)) {
+                Storage::disk($this->storageDisk)->delete('avatars/' . $user->avatar);
             }
         
             $file = $request->file('avatar');
@@ -113,14 +130,14 @@ class ProfileController extends Controller
                 $constraint->upsize();
             })->encode('webp', 80);
             
-            Storage::disk('public')->put('avatars/' . $fileName, (string) $image);
+            Storage::disk($this->storageDisk)->put('avatars/' . $fileName, (string) $image);
             $user->avatar = $fileName;
         }
 
         // Banner
         if ($request->hasFile('banner')) {
-            if ($user->banner && Storage::disk('public')->exists('banners/' . $user->banner)) {
-                Storage::disk('public')->delete('banners/' . $user->banner);
+            if ($user->banner && Storage::disk($this->storageDisk)->exists('banners/' . $user->banner)) {
+                Storage::disk($this->storageDisk)->delete('banners/' . $user->banner);
             }
         
             $file = $request->file('banner');
@@ -130,7 +147,7 @@ class ProfileController extends Controller
                 $constraint->upsize();
             })->encode('webp', 80);
             
-            Storage::disk('public')->put('banners/' . $fileName, (string) $image);
+            Storage::disk($this->storageDisk)->put('banners/' . $fileName, (string) $image);
             $user->banner = $fileName;
         }
         
@@ -157,8 +174,7 @@ class ProfileController extends Controller
 
         // Hapus file avatar jika ada
         if (!empty($user->avatar)) {
-            Storage::delete('public/avatars/' . $user->avatar);
-            $user->avatar_google = null;
+            Storage::disk($this->storageDisk)->delete('avatars/' . $user->avatar);
             $user->avatar = null;
         }
 
@@ -185,7 +201,7 @@ class ProfileController extends Controller
 
         // Hapus file banner jika ada
         if (!empty($user->banner)) {
-            Storage::delete('public/banners/' . $user->banner);
+            Storage::disk($this->storageDisk)->delete('banners/' . $user->banner);
             $user->banner = null;
         }
 
@@ -218,9 +234,7 @@ class ProfileController extends Controller
         $user = User::where('slug', $slug)->firstOrFail();
         $author_name = $user->name;
         $description = Str::limit(strip_tags($user->description ?? 'No description yet.'), 150);
-        $avatar = $user->avatar_google
-                        ?? asset('storage/avatars/' . $user->avatar)
-                        ?? "https://ui-avatars.com/api/?background=random&name=" . urlencode($user->name);
+        $avatar = $this->getAvatarUrl($user);
 
         $articles = Article::where('user_id', $user->id)
             ->orderBy('created_at', 'desc')
@@ -251,9 +265,7 @@ class ProfileController extends Controller
         $user = User::where('slug', $slug)->firstOrFail();
         $author_name = $user->name;
         $description = Str::limit(strip_tags($user->description ?? 'No description yet.'), 150);
-        $avatar = $user->avatar_google
-                        ?? asset('storage/avatars/' . $user->avatar)
-                        ?? "https://ui-avatars.com/api/?background=random&name=" . urlencode($user->name);
+        $avatar = $this->getAvatarUrl($user);
 
         return view('pages.profile.article', [
             'title' => $user->name . ' (@' . $user->slug . ') - Articles',
