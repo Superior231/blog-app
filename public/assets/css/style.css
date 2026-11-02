@@ -928,7 +928,6 @@ section.whitelist .whitelist-content .article-info .article-title {
   color: var(--text-dark);
   font-weight: 400;
   line-height: 28px;
-  font-size: clamp(15px, 3vw, 18px) !important;
 }
 @media (max-width: 768px) {
   .comment .comment-container .comment-body {
@@ -943,7 +942,7 @@ section.whitelist .whitelist-content .article-info .article-title {
 .card.card-report {
   background-color: var(--bg-light);
   padding: 10px 0px;
-  border-radius: 10px;
+  border-radius: var(--radius-20);
 }
 .card.card-report .card-header {
   background-color: var(--bg-light);
