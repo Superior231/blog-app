@@ -83,7 +83,7 @@
                                 @auth()
                                     @if (Auth::user()->roles == 'admin')
                                         <div class="hapus">
-                                            <a class="text-danger text-decoration-none" href="#" onclick="confirmDeleteComment({{ $item->id }})" title="Delete comment">
+                                            <a class="text-danger text-decoration-none" href="javascript:void(0)" onclick="confirmDeleteComment({{ $item->id }})" title="Delete comment">
                                                 <i class='bx bx-trash-alt fs-5'></i>
                                             </a>
                                         </div>
@@ -130,7 +130,7 @@
                     </div>
 
                     {{-- User Comment --}}
-                    <div class="user-comment d-flex flex-column gap-2 mt-0 py-0 ms-5">
+                    <div class="user-comment d-flex flex-column gap-2 mt-0 py-0 ms-5 me-3">
                         <span class="comment-body fs-6">
                             {{ $item->body }}
                         </span>
@@ -288,7 +288,7 @@
                                         </div>
                                     </div>
                                     {{-- user reply --}}
-                                    <div class="user-comment d-flex flex-column mt-0 py-0 ms-5">
+                                    <div class="user-comment d-flex flex-column mt-0 py-0 ms-5 me-3">
                                         <span class="comment-body fs-6">
                                             {{ $item2->body }}
                                         </span>
