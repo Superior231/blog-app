@@ -130,8 +130,8 @@
                     </div>
 
                     {{-- User Comment --}}
-                    <div class="user-comment d-flex flex-column gap-2 mt-0 py-0">
-                        <span class="comment-body">
+                    <div class="user-comment d-flex flex-column gap-2 mt-0 py-0 ms-5">
+                        <span class="comment-body fs-6">
                             {{ $item->body }}
                         </span>
 
@@ -196,7 +196,7 @@
                     <div class="reply-comment d-none mt-3" id="reply-comment-{{ $item->id }}">
                         @auth()
                             @if (auth()->user()->hasVerifiedEmail())
-                                <form wire:submit.prevent="replyStore({{ $item->id }})" class="header d-flex align-items-start gap-2">
+                                <form wire:submit.prevent="replyStore({{ $item->id }})" class="header d-flex align-items-start gap-2 ms-4">
                                     <div class="profile-image">
                                         @if (!empty(Auth::user()->avatar))
                                             <img class="img" src="{{ route('users.avatar', Auth::user()->id) }}">
@@ -288,8 +288,8 @@
                                         </div>
                                     </div>
                                     {{-- user reply --}}
-                                    <div class="user-comment d-flex flex-column mt-0 py-0">
-                                        <span class="comment-body">
+                                    <div class="user-comment d-flex flex-column mt-0 py-0 ms-5">
+                                        <span class="comment-body fs-6">
                                             {{ $item2->body }}
                                         </span>
 

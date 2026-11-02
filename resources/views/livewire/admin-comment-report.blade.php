@@ -110,7 +110,7 @@
                                         </div>
                                     </div>
                                     <div class="report-info d-none mt-3" id="reportBody{{ $item->id }}">
-                                        <span class="comment-body">
+                                        <span class="comment-body fs-6">
                                             {{ $item->comment->body }}
                                         </span>
                                     </div>
